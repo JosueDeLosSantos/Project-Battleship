@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    index: ["./src/logic.js", "./src/DOM.js"],
+    index: ["./src/logic.js", "./src/DOM.js", "./src/big3.js"],
   },
   plugins: [
     new HtmlWebpackPlugin({

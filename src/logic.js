@@ -1,3 +1,5 @@
+import * as ship3 from "./big3";
+
 // # Project-Battleship
 
 // 1- Begin your app by creating the Ship factory function.
@@ -60,6 +62,11 @@ function Coordinates(v, matrix) {
     result.push(big4(matrix));
     return result;
   }
+  if (v === 3) {
+    result.push(Ship(3));
+    result.push(ship3.big3(matrix));
+    return result;
+  }
 }
 
 function updateBoard(arr, mArr) {
@@ -85,21 +92,19 @@ export function Gameboard() {
   const ships = [];
   let board = [];
   for (let i = 0; i < 10; i += 1) {
-    const column = [];
+    board.push([]);
     for (let j = 0; j < 10; j += 1) {
-      column.push([i, j]);
+      board[i].push([i, j]);
     }
-    board.push(column);
   }
   // Add first ship (the biggest one)
   ships.push(Coordinates(4, board));
   // Update board
   board = updateBoard(ships[0][1], board);
-  return { ships, board };
+  // Add two smaller ships
+  ships.push(Coordinates(3, board));
+  // Update board
+  //board = updateBoard(ships[1][1], board);
 
-  /* const four = [];
-  const three = [];
-  const two = [];
-  const one = [];
-  const side = () => Math.floor(Math.random() * 2); */
+  return { ships, board };
 }

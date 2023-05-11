@@ -21,3 +21,7 @@ for (let i = 0; i < 3; i++) {
 test("calculates it based on their length and the number of hits", () => {
   expect(testMod.isSunk(mockValue)).toEqual(testMod.isSunk(mockValue));
 });
+
+test("Receives a number and an array and returns a different array which length is the same as the number parameter", () => {
+  expect().toEqual();
+});
