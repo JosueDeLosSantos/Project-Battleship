@@ -29,7 +29,7 @@ export function isSunk(v) {
 
 // 2- Create Gameboard factory
 
-function big4(matrix) {
+export function big4(matrix) {
   const result = [];
   const side = () => Math.floor(Math.random() * 2);
 
@@ -51,6 +51,17 @@ function big4(matrix) {
       record += 1;
       result.push(matrix[record][result[0][1]]);
     }
+  }
+  return result;
+}
+
+function big3(matrix) {
+  const side = Math.floor(Math.random() * 2);
+  let result = null;
+  if (side === 0) {
+    // result = matrixDown(3, matrix);
+  } else {
+    // result = matrixUp(3, matrix);
   }
   return result;
 }
@@ -102,7 +113,7 @@ export function Gameboard() {
   // Update board
   board = updateBoard(ships[0][1], board);
   // Add two smaller ships
-  ships.push(Coordinates(3, board));
+  //ships.push(Coordinates(3, board));
   // Update board
   //board = updateBoard(ships[1][1], board);
 
