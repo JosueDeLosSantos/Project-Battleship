@@ -55,17 +55,6 @@ export function big4(matrix) {
   return result;
 }
 
-function big3(matrix) {
-  const side = Math.floor(Math.random() * 2);
-  let result = null;
-  if (side === 0) {
-    // result = matrixDown(3, matrix);
-  } else {
-    // result = matrixUp(3, matrix);
-  }
-  return result;
-}
-
 function Coordinates(v, matrix) {
   const result = [];
   if (v === 4) {
@@ -80,9 +69,7 @@ function Coordinates(v, matrix) {
   }
 }
 
-function updateBoard(arr, mArr) {
-  const matrix = mArr;
-
+function updateBoard(arr, matrix) {
   arr.forEach((element) => {
     matrix.forEach((matrixEl) => {
       matrixEl.forEach((el) => {
@@ -99,7 +86,7 @@ function updateBoard(arr, mArr) {
 
 /* 1. Gameboards should be able to place ships at specific
  coordinates by calling the ship factory function. */
-export function Gameboard() {
+function Gameboard() {
   const ships = [];
   let board = [];
   for (let i = 0; i < 10; i += 1) {
@@ -112,10 +99,11 @@ export function Gameboard() {
   ships.push(Coordinates(4, board));
   // Update board
   board = updateBoard(ships[0][1], board);
-  // Add two smaller ships
-  //ships.push(Coordinates(3, board));
-  // Update board
-  //board = updateBoard(ships[1][1], board);
+  // Add two smaller ships and update board
+  for (let i = 1; i < 3; i += 1) {
+    ships.push(Coordinates(3, board));
+    board = updateBoard(ships[i][1], board);
+  }
 
   return { ships, board };
 }
