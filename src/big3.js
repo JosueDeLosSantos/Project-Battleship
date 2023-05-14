@@ -286,6 +286,161 @@ function matrixUp(matrix) {
         found = true;
       }
     }
+
+    if (I === 7 && J > 0 && J < 9) {
+      if (
+        isEmpty(matrix[I - 1][J]) &&
+        isEmpty(matrix[I][J]) &&
+        isEmpty(matrix[I + 1][J]) &&
+        isEmpty(matrix[I + 2][J]) &&
+        isEmpty(matrix[I - 1][J - 1]) &&
+        isEmpty(matrix[I][J - 1]) &&
+        isEmpty(matrix[I + 1][J - 1]) &&
+        isEmpty(matrix[I + 2][J - 1]) &&
+        isEmpty(matrix[I - 1][J + 1]) &&
+        isEmpty(matrix[I][J + 1]) &&
+        isEmpty(matrix[I + 1][J + 1]) &&
+        isEmpty(matrix[I + 2][J + 1])
+      ) {
+        result.push(matrix[I][J]);
+        let record = result[0][0];
+        for (let i = 0; i < 2; i += 1) {
+          record += 1;
+          result.push(matrix[record][result[0][1]]);
+        }
+        found = true;
+      }
+    }
+
+    if (J === 0 && I > 0 && I < 7) {
+      if (
+        isEmpty(matrix[I - 1][J]) &&
+        isEmpty(matrix[I][J]) &&
+        isEmpty(matrix[I + 1][J]) &&
+        isEmpty(matrix[I + 2][J]) &&
+        isEmpty(matrix[I + 3][J]) &&
+        isEmpty(matrix[I - 1][J + 1]) &&
+        isEmpty(matrix[I][J + 1]) &&
+        isEmpty(matrix[I + 1][J + 1]) &&
+        isEmpty(matrix[I + 2][J + 1]) &&
+        isEmpty(matrix[I + 3][J + 1])
+      ) {
+        result.push(matrix[I][J]);
+        let record = result[0][0];
+        for (let i = 0; i < 2; i += 1) {
+          record += 1;
+          result.push(matrix[record][result[0][1]]);
+        }
+        found = true;
+      }
+    }
+
+    if (J === 9 && I > 0 && I < 7) {
+      if (
+        isEmpty(matrix[I - 1][J]) &&
+        isEmpty(matrix[I][J]) &&
+        isEmpty(matrix[I + 1][J]) &&
+        isEmpty(matrix[I + 2][J]) &&
+        isEmpty(matrix[I + 3][J]) &&
+        isEmpty(matrix[I - 1][J - 1]) &&
+        isEmpty(matrix[I][J - 1]) &&
+        isEmpty(matrix[I + 1][J - 1]) &&
+        isEmpty(matrix[I + 2][J - 1]) &&
+        isEmpty(matrix[I + 3][J - 1])
+      ) {
+        result.push(matrix[I][J]);
+        let record = result[0][0];
+        for (let i = 0; i < 2; i += 1) {
+          record += 1;
+          result.push(matrix[record][result[0][1]]);
+        }
+        found = true;
+      }
+    }
+
+    if (I === 0 && J === 0) {
+      if (
+        isEmpty(matrix[I][J]) &&
+        isEmpty(matrix[I + 1][J]) &&
+        isEmpty(matrix[I + 2][J]) &&
+        isEmpty(matrix[I + 3][J]) &&
+        isEmpty(matrix[I][J + 1]) &&
+        isEmpty(matrix[I + 1][J + 1]) &&
+        isEmpty(matrix[I + 2][J + 1]) &&
+        isEmpty(matrix[I + 3][J + 1])
+      ) {
+        result.push(matrix[I][J]);
+        let record = result[0][0];
+        for (let i = 0; i < 2; i += 1) {
+          record += 1;
+          result.push(matrix[record][result[0][1]]);
+        }
+        found = true;
+      }
+    }
+
+    if (I === 0 && J === 9) {
+      if (
+        isEmpty(matrix[I][J]) &&
+        isEmpty(matrix[I + 1][J]) &&
+        isEmpty(matrix[I + 2][J]) &&
+        isEmpty(matrix[I + 3][J]) &&
+        isEmpty(matrix[I][J - 1]) &&
+        isEmpty(matrix[I + 1][J - 1]) &&
+        isEmpty(matrix[I + 2][J - 1]) &&
+        isEmpty(matrix[I + 3][J - 1])
+      ) {
+        result.push(matrix[I][J]);
+        let record = result[0][0];
+        for (let i = 0; i < 2; i += 1) {
+          record += 1;
+          result.push(matrix[record][result[0][1]]);
+        }
+        found = true;
+      }
+    }
+
+    if (I === 9 && J === 0) {
+      if (
+        isEmpty(matrix[I][J]) &&
+        isEmpty(matrix[I - 1][J]) &&
+        isEmpty(matrix[I - 2][J]) &&
+        isEmpty(matrix[I - 3][J]) &&
+        isEmpty(matrix[I][J + 1]) &&
+        isEmpty(matrix[I - 1][J + 1]) &&
+        isEmpty(matrix[I - 2][J + 1]) &&
+        isEmpty(matrix[I - 3][J + 1])
+      ) {
+        result.push(matrix[I][J]);
+        let record = result[0][0];
+        for (let i = 0; i < 2; i += 1) {
+          record += 1;
+          result.push(matrix[record][result[0][1]]);
+        }
+        found = true;
+      }
+    }
+
+    if (I === 9 && J === 9) {
+      if (
+        isEmpty(matrix[I][J]) &&
+        isEmpty(matrix[I - 1][J]) &&
+        isEmpty(matrix[I - 2][J]) &&
+        isEmpty(matrix[I - 3][J]) &&
+        isEmpty(matrix[I][J - 1]) &&
+        isEmpty(matrix[I - 1][J - 1]) &&
+        isEmpty(matrix[I - 2][J - 1]) &&
+        isEmpty(matrix[I - 3][J - 1])
+      ) {
+        result.push(matrix[I][J]);
+        let record = result[0][0];
+        for (let i = 0; i < 2; i += 1) {
+          record += 1;
+          result.push(matrix[record][result[0][1]]);
+        }
+        found = true;
+      }
+    }
   }
   return result;
 }
