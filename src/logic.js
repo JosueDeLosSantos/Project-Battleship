@@ -1,4 +1,7 @@
-import * as ship3 from "./big3";
+import big4 from "./big4";
+import big3 from "./big3";
+import big2 from "./big2";
+import big1 from "./big1";
 
 // # Project-Battleship
 
@@ -29,32 +32,6 @@ export function isSunk(v) {
 
 // 2- Create Gameboard factory
 
-export function big4(matrix) {
-  const result = [];
-  const side = () => Math.floor(Math.random() * 2);
-
-  if (side() === 0) {
-    const I = Math.floor(Math.random() * 10);
-    const J = Math.floor(Math.random() * 7);
-    result.push(matrix[I][J]);
-    let record = result[0][1];
-    for (let i = 0; i < 3; i += 1) {
-      record += 1;
-      result.push(matrix[result[0][0]][record]);
-    }
-  } else {
-    const I = Math.floor(Math.random() * 7);
-    const J = Math.floor(Math.random() * 10);
-    result.push(matrix[I][J]);
-    let record = result[0][0];
-    for (let i = 0; i < 3; i += 1) {
-      record += 1;
-      result.push(matrix[record][result[0][1]]);
-    }
-  }
-  return result;
-}
-
 function Coordinates(v, matrix) {
   const result = [];
   if (v === 4) {
@@ -64,7 +41,17 @@ function Coordinates(v, matrix) {
   }
   if (v === 3) {
     result.push(Ship(3));
-    result.push(ship3.big3(matrix));
+    result.push(big3(matrix));
+    return result;
+  }
+  if (v === 2) {
+    result.push(Ship(2));
+    result.push(big2(matrix));
+    return result;
+  }
+  if (v === 1) {
+    result.push(Ship(1));
+    result.push(big1(matrix));
     return result;
   }
 }
@@ -95,15 +82,23 @@ function Gameboard() {
       board[i].push([i, j]);
     }
   }
-  // Add first ship (the biggest one)
+  // Add first ship (the biggest one) and  update board
   ships.push(Coordinates(4, board));
-  // Update board
   board = updateBoard(ships[0][1], board);
   // Add two smaller ships and update board
   for (let i = 1; i < 3; i += 1) {
     ships.push(Coordinates(3, board));
     board = updateBoard(ships[i][1], board);
   }
-
+  // Add three even smaller ships and update board
+  for (let i = 3; i < 6; i += 1) {
+    ships.push(Coordinates(2, board));
+    board = updateBoard(ships[i][1], board);
+  }
+  // Add the four smallest ships and update board
+  for (let i = 6; i < 10; i += 1) {
+    ships.push(Coordinates(1, board));
+    board = updateBoard(ships[i][1], board);
+  }
   return { ships, board };
 }

@@ -4,7 +4,14 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    index: ["./src/logic.js", "./src/DOM.js", "./src/big3.js"],
+    index: [
+      "./src/logic.js",
+      "./src/DOM.js",
+      "./src/big4.js",
+      "./src/big3.js",
+      "./src/big2.js",
+      "./src/big1.js",
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -32,7 +39,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: ["node_modules"],
+        exclude: ["/node_modules"],
         use: ["babel-loader"],
       },
       {
