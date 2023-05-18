@@ -10,7 +10,7 @@ function isEmpty(arr) {
   return answer;
 }
 
-function matrixDown(v, matrix) {
+function matrixDown(matrix) {
   const result = [];
   let found = false;
 

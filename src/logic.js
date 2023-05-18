@@ -22,17 +22,17 @@ number of ‘hits’. */
 export function isSunk(v) {
   let result = null;
   if (v.length === v.hits) {
-    result = { length: v.length, hits: v.hits, sunk: true };
+    result = true;
   }
   if (v.length !== v.hits) {
-    result = { length: v.length, hits: v.hits, sunk: false };
+    result = false;
   }
   return result;
 }
 
 // 2- Create Gameboard factory
 
-function Coordinates(v, matrix) {
+export function Coordinates(v, matrix) {
   const result = [];
   if (v === 4) {
     result.push(Ship(4));
@@ -72,8 +72,8 @@ function updateBoard(arr, matrix) {
 }
 
 /* 1. Gameboards should be able to place ships at specific
- coordinates by calling the ship factory function. */
-function Gameboard() {
+ coordinates */
+export function Gameboard() {
   const ships = [];
   let board = [];
   for (let i = 0; i < 10; i += 1) {
@@ -102,3 +102,5 @@ function Gameboard() {
   }
   return { ships, board };
 }
+
+/* 3. Gameboards should have a receiveAttack function that takes a pair of coordinates, determines whether or not the attack hit a ship and then sends the ‘hit’ function to the correct ship, or records the coordinates of the missed shot. */
