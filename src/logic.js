@@ -103,4 +103,23 @@ export function Gameboard() {
   return { ships, board };
 }
 
-/* 3. Gameboards should have a receiveAttack function that takes a pair of coordinates, determines whether or not the attack hit a ship and then sends the ‘hit’ function to the correct ship, or records the coordinates of the missed shot. */
+/* 3. Gameboards should have a receiveAttack function that takes a pair of coordinates,
+ determines whether or not the attack hit a ship and then sends the ‘hit’ function to 
+ the correct ship, or records the coordinates of the missed shot. */
+
+export function receiveAttack(C1, GameboardStatus) {
+  const C2 = GameboardStatus;
+  //let found = false;
+  for (let i = 0; i < C2.ships.length; i += 1) {
+    for (let j = 0; j < C2.ships[i][1].length; j += 1) {
+      if (JSON.stringify(C1) === JSON.stringify(C2.ships[i][1][j])) {
+        // found = true;
+        C2.ships[i][0] = hit(C2.ships[i][0]);
+        if (isSunk(C2.ships[i][0])) {
+          C2.ships[i][0].sunk = true;
+        }
+      }
+    }
+  }
+  return C2;
+}

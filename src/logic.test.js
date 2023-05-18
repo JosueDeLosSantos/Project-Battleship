@@ -79,9 +79,30 @@ test("Gameboards should be able to place ships at specific coordinates", () => {
 
 test("receiveAttack function takes a pair of coordinates, determines whether or not the attack hit a ship and then sends the hit function to the correct ship, or records the coordinates of the missed shot", () => {
   const mockRa = testMod.receiveAttack([0, 0], Gameboards);
-  if (mockRa === true) {
+  const mockRa1 = testMod.receiveAttack([0, 1], Gameboards);
+  const mockRa2 = testMod.receiveAttack([0, 2], Gameboards);
+  const mockRa3 = testMod.receiveAttack([0, 3], Gameboards);
+  const mockRa4 = testMod.receiveAttack([0, 4], Gameboards);
+  const mockRa5 = testMod.receiveAttack([0, 5], Gameboards);
+  const mockRa6 = testMod.receiveAttack([0, 6], Gameboards);
+  const mockRa7 = testMod.receiveAttack([0, 7], Gameboards);
+  const mockRa8 = testMod.receiveAttack([0, 8], Gameboards);
+  const mockRa9 = testMod.receiveAttack([0, 9], Gameboards);
+
+  expect(mockRa).toEqual(false);
+  expect(mockRa1).toEqual(false);
+  expect(mockRa2).toEqual(false);
+  expect(mockRa3).toEqual(false);
+  expect(mockRa4).toEqual(false);
+  expect(mockRa5).toEqual(false);
+  expect(mockRa6).toEqual(false);
+  expect(mockRa7).toEqual(false);
+  expect(mockRa8).toEqual(false);
+  expect(mockRa9).toEqual(false);
+
+  /* if (mockRa === true) {
     expect(mockRa).toEqual(true);
   } else {
     expect(mockRa).toEqual(false);
-  }
+  } */
 });
