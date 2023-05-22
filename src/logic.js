@@ -76,6 +76,8 @@ function updateBoard(arr, matrix) {
 export function Gameboard() {
   const ships = [];
   let board = [];
+  const missedShot = [];
+  const allShipsSunk = false;
   for (let i = 0; i < 10; i += 1) {
     board.push([]);
     for (let j = 0; j < 10; j += 1) {
@@ -100,7 +102,7 @@ export function Gameboard() {
     ships.push(Coordinates(1, board));
     board = updateBoard(ships[i][1], board);
   }
-  return { ships, board };
+  return { ships, missedShot, board, allShipsSunk };
 }
 
 /* 3. Gameboards should have a receiveAttack function that takes a pair of coordinates,
@@ -109,17 +111,36 @@ export function Gameboard() {
 
 export function receiveAttack(C1, GameboardStatus) {
   const C2 = GameboardStatus;
-  //let found = false;
+
   for (let i = 0; i < C2.ships.length; i += 1) {
     for (let j = 0; j < C2.ships[i][1].length; j += 1) {
+      // determines whether or not the attack hit a ship
       if (JSON.stringify(C1) === JSON.stringify(C2.ships[i][1][j])) {
-        // found = true;
         C2.ships[i][0] = hit(C2.ships[i][0]);
+        // determines whether or not the ship is sunk
         if (isSunk(C2.ships[i][0])) {
           C2.ships[i][0].sunk = true;
         }
       }
     }
+  }
+  // keep track of missed attacks
+  for (let i = 0; i < C2.board.length; i += 1) {
+    for (let j = 0; j < C2.board[i].length; j += 1) {
+      if (JSON.stringify(C1) === JSON.stringify(C2.board[i][j])) {
+        C2.missedShot.push(C1);
+      }
+    }
+  }
+  // determines whether or not all ships are sunk
+  let count = 0;
+  for (let i = 0; i < C2.ships.length; i += 1) {
+    if (C2.ships[i][0].sunk === true) {
+      count += 1;
+    }
+  }
+  if (count === 10) {
+    C2.allShipsSunk = true;
   }
   return C2;
 }

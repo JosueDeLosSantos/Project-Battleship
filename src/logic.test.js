@@ -77,32 +77,144 @@ test("Gameboards should be able to place ships at specific coordinates", () => {
   expect(Gameboards.ships[9][1][0]).toHaveLength(2);
 });
 
+const mockBoard = {
+  allShipsSunk: false,
+  board: [
+    [[0, 0], [], [], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9]],
+    [
+      [1, 0],
+      [1, 1],
+      [1, 2],
+      [1, 3],
+      [1, 4],
+      [1, 5],
+      [1, 6],
+      [1, 7],
+      [1, 8],
+      [1, 9],
+    ],
+    [[], [], [], [], [2, 4], [2, 5], [2, 6], [], [2, 8], [2, 9]],
+    [[3, 0], [3, 1], [3, 2], [3, 3], [3, 4], [], [3, 6], [], [3, 8], [3, 9]],
+    [[4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [4, 5], [4, 6], [], [4, 8], []],
+    [[5, 0], [5, 1], [], [], [5, 4], [5, 5], [5, 6], [5, 7], [5, 8], []],
+    [
+      [6, 0],
+      [6, 1],
+      [6, 2],
+      [6, 3],
+      [6, 4],
+      [6, 5],
+      [6, 6],
+      [6, 7],
+      [6, 8],
+      [],
+    ],
+    [
+      [7, 0],
+      [7, 1],
+      [7, 2],
+      [],
+      [7, 4],
+      [7, 5],
+      [7, 6],
+      [7, 7],
+      [7, 8],
+      [7, 9],
+    ],
+    [[8, 0], [], [8, 2], [8, 3], [8, 4], [8, 5], [8, 6], [], [8, 8], [8, 9]],
+    [[9, 0], [9, 1], [9, 2], [], [9, 4], [9, 5], [9, 6], [], [9, 8], [9, 9]],
+  ],
+  missedShot: [],
+  ships: [
+    [
+      { hits: 0, length: 4, sunk: false },
+      [
+        [2, 0],
+        [2, 1],
+        [2, 2],
+        [2, 3],
+      ],
+    ],
+    [
+      { hits: 0, length: 3, sunk: false },
+      [
+        [2, 7],
+        [3, 7],
+        [4, 7],
+      ],
+    ],
+    [
+      { hits: 0, length: 3, sunk: false },
+      [
+        [4, 9],
+        [5, 9],
+        [6, 9],
+      ],
+    ],
+    [
+      { hits: 0, length: 2, sunk: false },
+      [
+        [0, 1],
+        [0, 2],
+      ],
+    ],
+    [
+      { hits: 0, length: 2, sunk: false },
+      [
+        [8, 7],
+        [9, 7],
+      ],
+    ],
+    [
+      { hits: 0, length: 2, sunk: false },
+      [
+        [5, 2],
+        [5, 3],
+      ],
+    ],
+    [{ hits: 0, length: 1, sunk: false }, [[8, 1]]],
+    [{ hits: 0, length: 1, sunk: false }, [[7, 3]]],
+    [{ hits: 0, length: 1, sunk: false }, [[3, 5]]],
+    [{ hits: 0, length: 1, sunk: false }, [[9, 3]]],
+  ],
+};
+
 test("receiveAttack function takes a pair of coordinates, determines whether or not the attack hit a ship and then sends the hit function to the correct ship, or records the coordinates of the missed shot", () => {
-  const mockRa = testMod.receiveAttack([0, 0], Gameboards);
-  const mockRa1 = testMod.receiveAttack([0, 1], Gameboards);
-  const mockRa2 = testMod.receiveAttack([0, 2], Gameboards);
-  const mockRa3 = testMod.receiveAttack([0, 3], Gameboards);
-  const mockRa4 = testMod.receiveAttack([0, 4], Gameboards);
-  const mockRa5 = testMod.receiveAttack([0, 5], Gameboards);
-  const mockRa6 = testMod.receiveAttack([0, 6], Gameboards);
-  const mockRa7 = testMod.receiveAttack([0, 7], Gameboards);
-  const mockRa8 = testMod.receiveAttack([0, 8], Gameboards);
-  const mockRa9 = testMod.receiveAttack([0, 9], Gameboards);
+  /* receiveAttack should be able to report whether or not all of their ships have been sunk. */
 
-  expect(mockRa).toEqual(false);
-  expect(mockRa1).toEqual(false);
-  expect(mockRa2).toEqual(false);
-  expect(mockRa3).toEqual(false);
-  expect(mockRa4).toEqual(false);
-  expect(mockRa5).toEqual(false);
-  expect(mockRa6).toEqual(false);
-  expect(mockRa7).toEqual(false);
-  expect(mockRa8).toEqual(false);
-  expect(mockRa9).toEqual(false);
+  let mockRa = testMod.receiveAttack([2, 0], mockBoard);
+  expect(mockRa.allShipsSunk).toBeFalsy();
+  mockRa = testMod.receiveAttack([2, 1], mockRa);
+  mockRa = testMod.receiveAttack([2, 2], mockRa);
+  mockRa = testMod.receiveAttack([2, 3], mockRa);
 
-  /* if (mockRa === true) {
-    expect(mockRa).toEqual(true);
-  } else {
-    expect(mockRa).toEqual(false);
-  } */
+  mockRa = testMod.receiveAttack([2, 7], mockRa);
+  mockRa = testMod.receiveAttack([3, 7], mockRa);
+  mockRa = testMod.receiveAttack([4, 7], mockRa);
+
+  mockRa = testMod.receiveAttack([4, 9], mockRa);
+  mockRa = testMod.receiveAttack([5, 9], mockRa);
+  mockRa = testMod.receiveAttack([6, 9], mockRa);
+
+  mockRa = testMod.receiveAttack([0, 1], mockRa);
+  mockRa = testMod.receiveAttack([0, 2], mockRa);
+
+  mockRa = testMod.receiveAttack([8, 7], mockRa);
+  mockRa = testMod.receiveAttack([9, 7], mockRa);
+
+  mockRa = testMod.receiveAttack([5, 2], mockRa);
+  mockRa = testMod.receiveAttack([5, 3], mockRa);
+
+  mockRa = testMod.receiveAttack([8, 1], mockRa);
+  mockRa = testMod.receiveAttack([7, 3], mockRa);
+  mockRa = testMod.receiveAttack([3, 5], mockRa);
+  mockRa = testMod.receiveAttack([9, 3], mockRa);
+  expect(mockRa.allShipsSunk).toBeTruthy();
+
+  // Register ships attacked
+  expect(mockRa.ships[9][0].hits).toBe(1);
+  // receiveAttack should keep track of missed attacks so they can display them properly
+  const missedShot = [0, 0];
+  mockRa = testMod.receiveAttack(missedShot, mockRa);
+  expect(mockRa.missedShot[0]).toEqual(missedShot);
 });
