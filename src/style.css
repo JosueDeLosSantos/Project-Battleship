@@ -1,3 +1,43 @@
-.hello {
-  color: red;
+* {
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+}
+
+header > div:nth-child(1) {
+  flex: 1;
+}
+
+header > div:nth-child(2) {
+  flex: 3;
+}
+
+main > div:nth-child(1) {
+  display: flex;
+}
+
+.playerGrid {
+  background-color: hsl(240deg 100% 90%);
+  height: 300px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+[data-row] {
+  /*   background-color: rgb(252, 252, 252); */
+  height: 9%;
+  width: 99.5%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+[data-field] {
+  background-color: rgb(252, 252, 252);
+  height: 99%;
+  width: 9%;
 }
