@@ -97,6 +97,7 @@ for (let i = 1; i < 11; i += 1) {
 const opponentContainer2 = document.createElement("div");
 opponentContainer2.classList.add("opponentContainer2");
 const opponentIndex2 = document.createElement("table");
+opponentIndex2.classList.add("opponentIndex2");
 for (let i = 1; i < 11; i += 1) {
   const trColumn = document.createElement("tr");
   const tdColumn = document.createElement("td");
@@ -122,3 +123,20 @@ for (let i = 0; i < 10; i += 1) {
     gridRowSelector.appendChild(gridField);
   }
 }
+
+// Add play button on the opponent's grid
+opponentGrid.classList.add("weak");
+opponentGrid.classList.remove("opponentGrid");
+const playButton = document.createElement("div");
+const playButtonContainer = document.createElement("div");
+const playButtonTitle = document.createElement("div");
+playButtonTitle.classList.add("playButtonTitle");
+playButtonTitle.innerText = "Opponent";
+playButtonContainer.classList.add("playButtonContainer");
+playButton.classList.add("playButton");
+playButton.innerText = "Play";
+opponentGridContainer.appendChild(playButtonContainer);
+playButtonContainer.appendChild(playButtonTitle);
+playButtonContainer.appendChild(playButton);
+//const gridField = document.querySelectorAll("[data-row2]");
+// gridField.setProperty("border-color", "rgba(204, 204, 255, 0.404)");

@@ -37,10 +37,17 @@ main > div:nth-child(1) {
 
 .playerGrid,
 .opponentGrid,
-tr,
-td {
+[data-field],
+[data-field2] {
   border: 1px solid;
   border-color: hsl(240deg 100% 90%);
+  border-collapse: collapse;
+}
+
+.weak,
+.weak > [data-row2] > [data-field2] {
+  border: 1px solid;
+  border-color: rgba(204, 204, 255, 0.486);
   border-collapse: collapse;
 }
 
@@ -53,7 +60,7 @@ td {
   text-align: center;
 }
 
-[data-row-index],
+/* [data-row-index],
 [data-column-index],
 .playerIndex1,
 .opponentIndex1 {
@@ -63,4 +70,31 @@ td {
 .playerIndex1,
 .opponentIndex1 {
   width: 90%;
+} */
+
+.opponentIndex1 > tr > td,
+.opponentIndex2 > tr > td {
+  color: rgba(0, 0, 0, 0.301);
+}
+
+.playButton {
+  background-color: orange;
+  font-size: large;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  padding: 5px 20px;
+  border-radius: 50%;
+}
+
+.playButtonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  position: absolute;
+  top: 100px;
+  right: 350px;
+}
+
+.playButtonTitle {
+  font-size: 1.5rem;
 }
