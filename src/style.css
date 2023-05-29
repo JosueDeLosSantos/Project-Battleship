@@ -4,6 +4,7 @@
 
 header {
   display: flex;
+  margin-bottom: 70px;
 }
 
 header > div:nth-child(1) {
@@ -12,6 +13,22 @@ header > div:nth-child(1) {
 
 header > div:nth-child(2) {
   flex: 3;
+}
+
+.bar {
+  background-color: #f8f8f8;
+  width: 50%;
+  padding: 8px 5px;
+}
+
+.gameTitle {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.bar,
+.gameTitle {
+  margin-left: 40px;
 }
 
 main > div:nth-child(1) {
@@ -80,7 +97,6 @@ main > div:nth-child(1) {
 .playButton {
   background-color: orange;
   font-size: large;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   padding: 5px 20px;
   border-radius: 50%;
 }
@@ -91,10 +107,15 @@ main > div:nth-child(1) {
   gap: 10px;
   align-items: center;
   position: absolute;
-  top: 100px;
-  right: 350px;
+  bottom: 55%;
+  right: 25%;
 }
 
 .playButtonTitle {
   font-size: 1.5rem;
+}
+
+.gridsTitles {
+  display: flex;
+  justify-content: space-evenly;
 }

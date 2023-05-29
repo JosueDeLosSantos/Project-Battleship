@@ -9,6 +9,16 @@ const playerGridContainer = document.createElement("div");
 playerGridContainer.classList.add("playerGridContainer");
 const opponentGridContainer = document.createElement("div");
 opponentGridContainer.classList.add("opponentGridContainer");
+const gridsTitle = document.createElement("div");
+gridsTitle.classList.add("gridsTitles");
+const title1 = document.createElement("div");
+title1.classList.add("title1");
+title1.innerText = "your grid";
+const title2 = document.createElement("div");
+title2.classList.add("title2");
+title2.innerText = "Opponent's grid";
+gridsTitle.appendChild(title1);
+gridsTitle.appendChild(title2);
 const footer = document.createElement("footer");
 
 body.appendChild(header);
@@ -135,8 +145,9 @@ playButtonTitle.innerText = "Opponent";
 playButtonContainer.classList.add("playButtonContainer");
 playButton.classList.add("playButton");
 playButton.innerText = "Play";
-opponentGridContainer.appendChild(playButtonContainer);
+grids.appendChild(playButtonContainer);
 playButtonContainer.appendChild(playButtonTitle);
 playButtonContainer.appendChild(playButton);
-//const gridField = document.querySelectorAll("[data-row2]");
-// gridField.setProperty("border-color", "rgba(204, 204, 255, 0.404)");
+
+// Add titles to each grid
+main.appendChild(gridsTitle);
