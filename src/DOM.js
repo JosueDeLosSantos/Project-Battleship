@@ -1,4 +1,5 @@
 import "./style.css";
+import randomIcon from "./icons/change_circle.svg";
 
 const body = document.querySelector("body");
 const header = document.createElement("header");
@@ -19,6 +20,15 @@ title2.classList.add("title2");
 title2.innerText = "Opponent's grid";
 gridsTitle.appendChild(title1);
 gridsTitle.appendChild(title2);
+const gridOptions = document.createElement("div");
+gridOptions.classList.add("gridOptions");
+const gridOption1 = document.createElement("div");
+const gridOption1Icon = new Image();
+gridOption1Icon.classList.add("gridOption1Icon");
+gridOption1Icon.setAttribute("title", "Randomise");
+gridOption1Icon.src = randomIcon;
+gridOption1.appendChild(gridOption1Icon);
+gridOptions.appendChild(gridOption1);
 const footer = document.createElement("footer");
 
 body.appendChild(header);
@@ -151,3 +161,5 @@ playButtonContainer.appendChild(playButton);
 
 // Add titles to each grid
 main.appendChild(gridsTitle);
+// Add options to the player's grid
+main.appendChild(gridOptions);
