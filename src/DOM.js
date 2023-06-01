@@ -98,9 +98,12 @@ for (let i = 0; i < 10; i += 1) {
     gridField.classList.add("gridFieldPlayer");
     gridField.dataset.field = `${playerBoard.board[i][j]}`;
     if (!gridField.dataset.field) {
-      gridField.dataset.field = `${false}`;
+      gridField.dataset.field = `${i}${j}`;
     }
-    if (gridField.dataset.field === "false") gridField.classList.add("notSunk");
+    if (gridField.dataset.field === `${i}${j}`) {
+      gridField.classList.add("notSunk");
+    }
+
     const gridRowSelector = document.querySelector(`[data-row = "${i}"]`);
     gridRowSelector.appendChild(gridField);
   }
@@ -175,35 +178,33 @@ playButtonContainer.appendChild(playButton);
 main.appendChild(gridsTitle);
 // Add options to the player's grid
 main.appendChild(gridOptions);
-/* 
+
+// Add option to place the player's ships randomly
 function randomise() {
   const randomBoard = logic.Gameboard();
   for (let i = 0; i < 10; i += 1) {
     for (let j = 0; j < 10; j += 1) {
       const gridField = document.querySelector(`[data-field="${i},${j}"]`);
-
+      const falseGridField = document.querySelector(`[data-field="${i}${j}"]`);
       if (gridField !== null) {
-        gridField.dataset.field = `${randomBoard.board[i][j]}`;
+        if (randomBoard.board[i][j].length > 0) {
+          gridField.dataset.field = `${randomBoard.board[i][j]}`;
+        } else {
+          gridField.dataset.field = `${i}${j}`;
+          gridField.classList.add("notSunk");
+        }
       }
-
-      let falsegridField = null;
-
       if (gridField === null) {
-        if (j === 0 && i !== 0) {
-          falsegridField = document.querySelector(
-            `[data-field="${i - 1},${(j = 9)}"]`
-          );
+        if (randomBoard.board[i][j].length > 0) {
+          falseGridField.dataset.field = `${randomBoard.board[i][j]}`;
+          falseGridField.classList.remove("notSunk");
         }
-        if (j !== 0) {
-          falsegridField = document.querySelector(
-            `[data-field="${i},${j - 1}"]`
-          );
-        }
-        console.log(falsegridField);
-      }
 
+        if (randomBoard.board[i][j].length === 0) {
+          falseGridField.dataset.field = `${i}${j}`;
+        }
+      }
     }
   }
 }
-gridOption1Icon.addEventListener("click", randomise); 
-*/
+gridOption1Icon.addEventListener("click", randomise);
