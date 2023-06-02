@@ -62,7 +62,7 @@ main > div:nth-child(1) {
 }
 
 .weak,
-.weak > [data-row2] > [data-field2] {
+.weak > tr > td {
   border: 1px solid;
   border-color: rgba(204, 204, 255, 0.486);
   border-collapse: collapse;
@@ -90,7 +90,9 @@ main > div:nth-child(1) {
 } */
 
 .opponentIndex1 > tr > td,
-.opponentIndex2 > tr > td {
+.opponentIndex2 > tr > td,
+.playerIndex1 > tr > td,
+.playerIndex2 > tr > td {
   color: rgba(0, 0, 0, 0.301);
 }
 
@@ -152,10 +154,16 @@ main > div:nth-child(1) {
   background-color: hsl(189, 91%, 87%);
   box-shadow: inset 0 0 10px hsl(189, 84%, 71%);
 }
+.notSunkWeak {
+  background-color: hsla(189, 91%, 87%, 0.486);
+  box-shadow: inset 0 0 10px hsla(189, 84%, 71%, 0.479);
+}
 
 .sunk {
-  /* background-color: hsl(0, 100%, 93%);
-  box-shadow: inset 0 0 10px hsl(0, 100%, 93%); */
   background-color: hsl(0, 100%, 93%);
   box-shadow: inset 0 0 10px hsl(0, 89%, 82%);
+}
+
+.missed {
+  background-color: rgb(228, 228, 228);
 }

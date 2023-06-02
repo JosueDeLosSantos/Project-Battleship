@@ -11,6 +11,7 @@ module.exports = {
       "./src/big3.js",
       "./src/big2.js",
       "./src/big1.js",
+      "./src/controlFlow.js",
     ],
   },
   plugins: [
