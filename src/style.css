@@ -167,3 +167,6 @@ main > div:nth-child(1) {
 .missed {
   background-color: rgb(228, 228, 228);
 }
+.missedWeak {
+  background-color: rgba(228, 228, 228, 0.493);
+}
