@@ -22,6 +22,7 @@ function opponentGridFlow(e) {
       opponentIndex2.classList.add("opponentIndex2");
       const opponentIndex1 = opponentGrid.parentNode.parentNode.children[0];
       opponentIndex1.classList.add("opponentIndex1");
+      e.target.dataset.field2 = ".";
       // Open the player's grid
       playerGrid.classList.remove("weak");
       playerGrid.classList.add("playerGrid");
