@@ -128,7 +128,10 @@ export function receiveAttack(C1, GameboardStatus) {
   for (let i = 0; i < C2.board.length; i += 1) {
     for (let j = 0; j < C2.board[i].length; j += 1) {
       if (JSON.stringify(C1) === JSON.stringify(C2.board[i][j])) {
+        // Move the coordinate attacked to the missedShot property
         C2.missedShot.push(C1);
+        // Then remove that coordinate from the C2.board array.
+        C2.board[C1[0]][C1[1]] = [];
       }
     }
   }

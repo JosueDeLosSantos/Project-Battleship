@@ -88,7 +88,7 @@ playerIndex1.appendChild(rowIndex1);
 playerGridContainer.appendChild(playerContainer2);
 playerContainer2.appendChild(playerIndex2);
 playerContainer2.appendChild(playerGrid);
-export let playerBoard = logic.Gameboard();
+export const playerBoard = logic.Gameboard();
 
 for (let i = 0; i < 10; i += 1) {
   const gridRow = document.createElement("tr");
@@ -145,6 +145,7 @@ opponentGridContainer.appendChild(opponentContainer2);
 opponentContainer2.appendChild(opponentIndex2);
 opponentContainer2.appendChild(opponentGrid);
 export const opponentBoard = logic.Gameboard();
+// console.log(opponentBoard)
 
 for (let i = 0; i < 10; i += 1) {
   const gridRow = document.createElement("tr");
