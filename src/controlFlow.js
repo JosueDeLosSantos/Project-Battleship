@@ -11,7 +11,7 @@ const playerGrid =
 
 function randomePlay(board) {
   const newBoard = [];
-  // Saves all coordinates which length is beyond 0 on the newBoard array.
+  // Saves all coordinates which lengths are beyond 0 on the newBoard array.
   for (let i = 0; i < board.length; i += 1) {
     for (let j = 0; j < board[i].length; j += 1) {
       if (board[i][j].length > 0) {

@@ -9,12 +9,12 @@ import big1 from "./big1";
 /* 1. Your ‘ships’ will be objects that include their length,
 the number of times they’ve been hit and whether or not they’ve been sunk. */
 export function Ship(v) {
-  return { length: v, hits: 0, sunk: false };
+  return { length: v, hits: 0, sunk: false, hitsrecord: [] };
 }
 
 // 3. Ships should have a hit() function that increases the number of ‘hits’ in your ship.
 export function hit(v) {
-  return { length: v.length, hits: v.hits + 1, sunk: v.sunk };
+  return { length: v.length, hits: v.hits + 1, sunk: v.sunk, hitsrecord: v.hitsrecord };
 }
 
 /* 4. isSunk() should be a function that calculates it based on their length and the
@@ -116,7 +116,12 @@ export function receiveAttack(C1, GameboardStatus) {
     for (let j = 0; j < C2.ships[i][1].length; j += 1) {
       // determines whether or not the attack hit a ship
       if (JSON.stringify(C1) === JSON.stringify(C2.ships[i][1][j])) {
+        // if so the hit property will increase by 1 through the function hit()
         C2.ships[i][0] = hit(C2.ships[i][0]);
+        // Records hit's coordinate on C2.ships[i][0].hitsrecord
+        C2.ships[i][0].hitsrecord.push(C2.ships[i][1][j]);
+        // removes coordinate that was hit from C2.ships[i][1]
+        C2.ships[i][1].splice(C2.ships[i][1].indexOf(C2.ships[i][1][j]), 1);
         // determines whether or not the ship is sunk
         if (isSunk(C2.ships[i][0])) {
           C2.ships[i][0].sunk = true;
