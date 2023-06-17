@@ -1,9 +1,11 @@
 {
     "env": {
         "browser": true,
+        "commonjs": true,
         "es2021": true
     },
-    "extends": "airbnb-base",
+    "extends": ["airbnb-base",
+    "prettier"],
     "overrides": [
     ],
     "parserOptions": {
@@ -11,6 +13,9 @@
         "sourceType": "module"
     },
     "rules": {
-        "quotes": "off"
+        "prettier/prettier": "error",
+        "import/prefer-default-export": "off",
+        "import/no-cycle": [2, { "maxDepth": 1 }],
+        "no-plusplus": 0
     }
 }

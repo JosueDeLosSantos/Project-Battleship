@@ -1,3 +1,4 @@
+// eslint-disable-next-line prettier/prettier
 import * as players from "./DOM";
 import * as logic from "./logic";
 
@@ -23,14 +24,29 @@ function randomePlay(anyBoard) {
       newBoard.push(anyBoard.ships[i][1][j2]);
     }
   }
-
   // Then selects a random coordinate from the new array
   return newBoard[Math.floor(Math.random() * newBoard.length)];
 }
 
-function playerGridFlow() {
-  playerBoard = logic.receiveAttack(randomePlay(playerBoard.board), playerBoard);
-  return playerBoard;
+function playerGridFlow(pBoard){
+  // Spot all missed attacks
+  const playerTable = document.querySelector(".playerGrid");
+  for (let i = 0; i < pBoard.missedShot.length; i += 1) {
+    const ms1 = pBoard.missedShot[i][0];
+    const ms2 = pBoard.missedShot[i][1];
+    const selection = playerTable.childNodes[ms1].childNodes[ms2];
+    selection.classList.add("missed");
+  }
+  // Spot all achieved attacks
+  for (let i = 0; i < pBoard.ships.length; i += 1) {
+    for (let j = 0; j < pBoard.ships[i][0].hitsrecord.length; j += 1) {
+      const ms1 = pBoard.ships[i][0].hitsrecord[j][0];
+      const ms2 = pBoard.ships[i][0].hitsrecord[j][1];
+      const selection = playerTable.childNodes[ms1].childNodes[ms2];
+      selection.classList.add("sunk");
+    }
+  }
+  
 }
 
 function opponentGridFlow(e) {
@@ -68,19 +84,15 @@ function opponentGridFlow(e) {
         el.classList.remove("sunk");
         el.classList.add("sunkWeak");
       });
-
-      for(let i = 0; i < 100; i += 1) {
-        playerBoard = logic.receiveAttack(randomePlay(playerBoard), playerBoard);
-      }
-      console.log(playerBoard);
-      
-      // setTimeout(() => {playerGridFlow()},1000); pc turn to play ...
+      // Update playerBoard on each turn
+      playerBoard = logic.receiveAttack(randomePlay(playerBoard), playerBoard);
+      // PC turn will be reflected on the DOM
+      setTimeout(() => {playerGridFlow(playerBoard)},1000);
     }
     if (field.length === 2) {
       const attack = [+field[0], +field[1]];
       opponentBoard = logic.receiveAttack(attack, opponentBoard);
       e.target.classList.add("sunk");
-      // console.log(opponentBoard);
     }
   }
 }
