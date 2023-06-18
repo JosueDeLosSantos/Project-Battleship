@@ -164,8 +164,17 @@ main > div:nth-child(1) {
   box-shadow: inset 0 0 10px hsl(0, 89%, 82%);
 }
 
+.sunk2 {
+  background-color: hsl(0, 100%, 93%);
+  box-shadow: inset 0 0 10px hsl(0, 89%, 82%);
+}
+
 
 .sunkWeak {
+  background-color: hsla(0, 100%, 93%, 0.479);
+  box-shadow: inset 0 0 10px hsla(0, 89%, 82%, 0.486);
+}
+.sunkWeak2 {
   background-color: hsla(0, 100%, 93%, 0.479);
   box-shadow: inset 0 0 10px hsla(0, 89%, 82%, 0.486);
 }

@@ -43,7 +43,7 @@ function playerGridFlow(pBoard, oBoard){
       const ms1 = pBoard.ships[i][0].hitsrecord[j][0];
       const ms2 = pBoard.ships[i][0].hitsrecord[j][1];
       const selection = playerTable.childNodes[ms1].childNodes[ms2];
-      selection.classList.add("sunk");
+      selection.classList.add("sunk2");
     }
   }
 
@@ -83,14 +83,12 @@ function opponentGridFlow(e) {
         // Most efficient way to convert an HTMLCollection to an Array
         const arrNotsunkWeak = [].slice.call(notSunkWeak);
         arrNotsunkWeak.forEach((el) => {
-          el.classList.remove("notSunkWeak");
-          el.classList.add("notSunk");
+          el.classList.replace("notSunkWeak","notSunk");
         });
 
         const arrSunkWeak = [].slice.call(sunkWeak);
         arrSunkWeak.forEach((el) => {
-          el.classList.remove("sunk");
-          el.classList.add("sunkWeak");
+          el.classList.replace("sunk","sunkWeak");
         });
 
         const missed = document.getElementsByClassName("missed");
@@ -103,6 +101,12 @@ function opponentGridFlow(e) {
         const arrMissedWeak2 = [].slice.call(missedWeak2);
         arrMissedWeak2.forEach((el) => {
         el.classList.replace("missedWeak2","missed2");
+       });
+
+       const sunkWeak2 = document.getElementsByClassName("sunkWeak2");
+       const arrSunkWeak2 = [].slice.call(sunkWeak2);
+       arrSunkWeak2.forEach((el) => {
+        el.classList.replace("sunkWeak2","sunk2");
        });
 
       }, 100);
@@ -148,8 +152,13 @@ function playerGridWeak(){
   const sunkWeak = document.getElementsByClassName("sunkWeak");
   const arrSunkWeak = [].slice.call(sunkWeak);
   arrSunkWeak.forEach((el) => {
-    el.classList.remove("sunkWeak");
-    el.classList.add("sunk");
+    el.classList.replace("sunkWeak","sunk");
+  });
+
+  const sunk2 = document.getElementsByClassName("sunk2");
+  const arrSunk2 = [].slice.call(sunk2);
+  arrSunk2.forEach((el) => {
+  el.classList.replace("sunk2","sunkWeak2");
   });
 
   const missedWeak = document.getElementsByClassName("missedWeak");
