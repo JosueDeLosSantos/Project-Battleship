@@ -79,6 +79,7 @@ function playerGridFlow(pBoard, oBoard){
       const ms1 = pBoard.ships[i][0].hitsrecord[j][0];
       const ms2 = pBoard.ships[i][0].hitsrecord[j][1];
       const selection = playerTable.childNodes[ms1].childNodes[ms2];
+      selection.classList.remove("notSunk");
       selection.classList.add("sunk2");
     }
   }
@@ -112,8 +113,25 @@ function opponentGridFlowRefresh(oBoard) {
   console.log("yes");
 }
 
+function pcTurn(p, oBoard) {
+  let pBoard = p;
+  const currentLength = pBoard.missedShot.length;
+  let newLength = null;
+  // Update playerBoard on each turn
+  pBoard = logic.receiveAttack(randomePlay(pBoard), pBoard);
+  // PC turn will be reflected on the DOM
+  setTimeout(() => {playerGridFlow(pBoard, oBoard)}, 2000);
+  newLength = pBoard.missedShot.length;
+  if (currentLength === newLength) {
+    setTimeout(() => {pcTurn(pBoard, oBoard)}, 2000);
+  }
+  return pBoard;
+}
+
 function opponentGridFlow(e) {
-  if (!opponentGrid.classList.contains("weak")) {
+  if (!opponentGrid.classList.contains("weak") &&
+  !e.target.classList.contains("missed") &&
+  !e.target.classList.contains("sunk")) {
     const field = e.target.dataset.field2.split("");
     if (field.length === 3) {
       const attack = [+field[0], +field[2]];
@@ -122,13 +140,11 @@ function opponentGridFlow(e) {
       opponentGridFlowRefresh(opponentBoard);
       setTimeout(() => {
         // Close the opponent's grid
-        e.target.classList.add("missedWeak");
         opponentGrid.classList.add("weak");
         const opponentIndex2 = opponentGrid.parentNode.children[0];
         opponentIndex2.classList.add("opponentIndex2");
         const opponentIndex1 = opponentGrid.parentNode.parentNode.children[0];
         opponentIndex1.classList.add("opponentIndex1");
-        e.target.dataset.field2 = ".";
         // Open the player's grid
         playerGrid.classList.remove("weak");
         playerGrid.classList.add("playerGrid");
@@ -168,16 +184,15 @@ function opponentGridFlow(e) {
        });
 
       }, 100);
+
       if ((opponentBoard.allShipsSunk === true) || (playerBoard.allShipsSunk === true)) {
         console.log(opponentBoard);
         console.log(playerBoard);
         return;
       }
-      // Update playerBoard on each turn
-      playerBoard = logic.receiveAttack(randomePlay(playerBoard), playerBoard);
+
+      playerBoard = pcTurn(playerBoard, opponentBoard);
       
-      // PC turn will be reflected on the DOM
-      setTimeout(() => {playerGridFlow(playerBoard, opponentBoard)},2000);
     }
     if (field.length === 2) {
       const attack = [+field[0], +field[1]];
@@ -200,8 +215,7 @@ function playerGridWeak(){
   const notSunk = document.getElementsByClassName("notSunk");
   const arrNotsunk = [].slice.call(notSunk);
   arrNotsunk.forEach((el) => {
-    el.classList.remove("notSunk");
-    el.classList.add("notSunkWeak");
+    el.classList.replace("notSunk", "notSunkWeak");
   });
   // Open opponent's grid
   opponentGrid.classList.remove("weak");

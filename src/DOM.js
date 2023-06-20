@@ -88,27 +88,40 @@ playerIndex1.appendChild(rowIndex1);
 playerGridContainer.appendChild(playerContainer2);
 playerContainer2.appendChild(playerIndex2);
 playerContainer2.appendChild(playerGrid);
-export const playerBoard = logic.Gameboard();
+export let playerBoard = null;
 
-for (let i = 0; i < 10; i += 1) {
-  const gridRow = document.createElement("tr");
-  gridRow.dataset.row = `${i}`;
-  playerGrid.appendChild(gridRow);
-  for (let j = 0; j < 10; j += 1) {
-    const gridField = document.createElement("td");
-    gridField.classList.add("gridFieldPlayer");
-    gridField.dataset.field = `${playerBoard.board[i][j]}`;
-    if (!gridField.dataset.field) {
-      gridField.dataset.field = `${i}${j}`;
-    }
-    if (gridField.dataset.field === `${i}${j}`) {
-      gridField.classList.add("notSunk");
-    }
+function playerBoardFunction(){
+  const playerBoard1 = logic.Gameboard();
+  playerBoard = playerBoard1;
 
-    const gridRowSelector = document.querySelector(`[data-row = "${i}"]`);
-    gridRowSelector.appendChild(gridField);
+  if (playerGrid.children.length > 0) {
+    const playerGridTR = document.querySelectorAll(`[data-row]`)
+    playerGridTR.forEach(el => {
+      playerGrid.removeChild(el);
+    });
+  }
+
+  for (let i = 0; i < 10; i += 1) {
+    const gridRow = document.createElement("tr");
+    gridRow.dataset.row = `${i}`;
+    playerGrid.appendChild(gridRow);
+    for (let j = 0; j < 10; j += 1) {
+      const gridField = document.createElement("td");
+      gridField.classList.add("gridFieldPlayer");
+      gridField.dataset.field = `${playerBoard1.board[i][j]}`;
+      if (!gridField.dataset.field) {
+        gridField.dataset.field = `${i}${j}`;
+      }
+      if (gridField.dataset.field === `${i}${j}`) {
+        gridField.classList.add("notSunk");
+      }
+
+      const gridRowSelector = document.querySelector(`[data-row = "${i}"]`);
+      gridRowSelector.appendChild(gridField);
+    }
   }
 }
+playerBoardFunction();
 
 // Create the opponent grid
 
@@ -186,7 +199,8 @@ main.appendChild(gridOptions);
 // Add option to place the player's ships randomly
 
 function randomise() {
-  playerBoard = logic.Gameboard();
+  playerBoardFunction();
+/*   playerBoard = logic.Gameboard();
   for (let i = 0; i < 10; i += 1) {
     for (let j = 0; j < 10; j += 1) {
       const gridField = document.querySelector(`[data-field="${i},${j}"]`);
@@ -210,7 +224,7 @@ function randomise() {
         }
       }
     }
-  }
+  } */
 }
 gridOption1Icon.addEventListener("click", randomise);
 
