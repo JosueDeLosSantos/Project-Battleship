@@ -16,6 +16,8 @@
         "prettier/prettier": "error",
         "import/prefer-default-export": "off",
         "import/no-cycle": [2, { "maxDepth": 1 }],
-        "no-plusplus": 0
+        "no-plusplus": 0,
+        "no-use-before-define": 0,
+        "eslint no-param-reassign": 0
     }
 }
