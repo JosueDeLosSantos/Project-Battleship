@@ -110,7 +110,7 @@ export function Gameboard() {
  the correct ship, or records the coordinates of the missed shot. */
 
 export function receiveAttack(C1, GameboardStatus) {
-  const C2 = GameboardStatus;
+  let C2 = GameboardStatus;
 
   for (let i = 0; i < C2.ships.length; i += 1) {
     for (let j = 0; j < C2.ships[i][1].length; j += 1) {
@@ -125,6 +125,8 @@ export function receiveAttack(C1, GameboardStatus) {
         // determines whether or not the ship is sunk
         if (isSunk(C2.ships[i][0])) {
           C2.ships[i][0].sunk = true;
+          // clear all surroundings
+          C2 = clearSurroundings(C2.ships[i][0], C2);
         }
       }
     }
@@ -152,3 +154,51 @@ export function receiveAttack(C1, GameboardStatus) {
   }
   return C2;
 }
+
+function clearSurroundings(shipObject, C2){
+  let answer = C2
+  if (shipObject.hitsrecord.length < 2){
+    answer = clear1(shipObject.hitsrecord, answer);
+  }
+  return answer;
+};
+
+function clear1(arr, matrix) {
+  const newMatrix = matrix;
+  const newArr = [];
+  const noEmptyArr = [];
+  if ((arr[0][0] > 0) &&
+  (arr[0][0] < 9) &&
+  (arr[0][1] > 0) &&
+  (arr[0][1] < 9)){
+      newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
+      newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
+      newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
+
+      newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
+      newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
+
+      newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
+      newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
+      newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
+  }
+
+  newArr.forEach((el) => {
+    if (el.length > 0) {
+      noEmptyArr.push(el);
+    }
+  })
+
+  for (let i = 0; i < newMatrix.board.length; i++) {
+    for (let j = 0; j < newMatrix.board[i].length; j++) {
+      noEmptyArr.forEach(el => {
+        if (JSON.stringify(el) === JSON.stringify(newMatrix.board[i][j])){
+          newMatrix.missedShot.push(el);
+          newMatrix.board[i][j] = [];
+        }
+      });
+    }
+  }
+  return newMatrix;
+}
+

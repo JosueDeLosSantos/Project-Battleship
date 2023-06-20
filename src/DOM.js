@@ -234,3 +234,7 @@ function play() {
   main.removeChild(gridOptions);
 }
 playButton.addEventListener("click", play);
+
+
+const josue = [[]];
+console.log(JSON.stringify(josue[0]));

@@ -9,9 +9,24 @@ const opponentGrid =
   document.body.children[1].children[0].children[1].children[1].children[1];
 const playerGrid =
   document.body.children[1].children[0].children[0].children[1].children[1];
+let achievedAttack = null;
+
+function achieved(response, anyBoard) {
+  let answer = false;
+  for (let i = 0; i < anyBoard.ships.length; i += 1){
+    for (let j = 0; j < anyBoard.ships[i][1].length; j += 1) {
+      if(response === anyBoard.ships[i][1][j]){
+        answer = true;
+      }
+    }
+  }
+  return answer;
+}
 
 function randomePlay(anyBoard) {
   const newBoard = [];
+  let response = null;
+  let storage = [];
   // Saves all coordinates which lengths are beyond 0 on the newBoard array.
   for (let i = 0; i < anyBoard.board.length; i += 1) {
     for (let j = 0; j < anyBoard.board[i].length; j += 1) {
@@ -20,12 +35,33 @@ function randomePlay(anyBoard) {
       }
     }
     // Saves all coordinates of the ships on the newBoard array if such coordinates have not been hit
-    for (let j2 = 0; j2 < anyBoard.ships[i][1].length; j2 += 1) {
-      newBoard.push(anyBoard.ships[i][1][j2]);
+    for (let j = 0; j < anyBoard.ships[i][1].length; j += 1) {
+      newBoard.push(anyBoard.ships[i][1][j]);
     }
   }
-  // Then selects a random coordinate from the new array
-  return newBoard[Math.floor(Math.random() * newBoard.length)];
+  if (achievedAttack === true) {
+    // AI filter
+    // AIobject returns an object like: {attack: [5, 4], achievement: true}
+    /* const AIobject = AIfilter(storage, anyBoard);
+    if (AIobject.achievement === true) {
+      response = AIobject.attack;
+    } else {
+      response = newBoard[Math.floor(Math.random() * newBoard.length)];
+      achievedAttack = achieved(response, anyBoard);
+      storage = [];
+    } */
+    response = newBoard[Math.floor(Math.random() * newBoard.length)];
+  } else {
+    // selects a random coordinate from the new array
+    response = newBoard[Math.floor(Math.random() * newBoard.length)];
+    achievedAttack = achieved(response, anyBoard);
+  }
+
+  if (achievedAttack === true) {
+    storage.push(response);
+  }
+
+  return response;
 }
 
 function playerGridFlow(pBoard, oBoard){
@@ -55,15 +91,37 @@ function playerGridFlow(pBoard, oBoard){
   }
 }
 
+function opponentGridFlowRefresh(oBoard) {
+    // Spot all missed attacks
+    const opponentTable = document.querySelector(".opponentGrid");
+    for (let i = 0; i < oBoard.missedShot.length; i += 1) {
+      const ms1 = oBoard.missedShot[i][0];
+      const ms2 = oBoard.missedShot[i][1];
+      const selection = opponentTable.childNodes[ms1].childNodes[ms2];
+      selection.classList.add("missed");
+    }
+    // Spot all achieved attacks
+    for (let i = 0; i < oBoard.ships.length; i += 1) {
+      for (let j = 0; j < oBoard.ships[i][0].hitsrecord.length; j += 1) {
+        const ms1 = oBoard.ships[i][0].hitsrecord[j][0];
+        const ms2 = oBoard.ships[i][0].hitsrecord[j][1];
+        const selection = opponentTable.childNodes[ms1].childNodes[ms2];
+        selection.classList.add("sunk");
+      }
+    }
+  console.log("yes");
+}
+
 function opponentGridFlow(e) {
   if (!opponentGrid.classList.contains("weak")) {
     const field = e.target.dataset.field2.split("");
     if (field.length === 3) {
+      const attack = [+field[0], +field[2]];
+      opponentBoard = logic.receiveAttack(attack, opponentBoard);
       e.target.classList.add("missed");
+      opponentGridFlowRefresh(opponentBoard);
       setTimeout(() => {
         // Close the opponent's grid
-        const attack = [+field[0], +field[2]];
-        opponentBoard = logic.receiveAttack(attack, opponentBoard);
         e.target.classList.add("missedWeak");
         opponentGrid.classList.add("weak");
         const opponentIndex2 = opponentGrid.parentNode.children[0];
@@ -117,6 +175,7 @@ function opponentGridFlow(e) {
       }
       // Update playerBoard on each turn
       playerBoard = logic.receiveAttack(randomePlay(playerBoard), playerBoard);
+      
       // PC turn will be reflected on the DOM
       setTimeout(() => {playerGridFlow(playerBoard, opponentBoard)},2000);
     }
@@ -124,6 +183,7 @@ function opponentGridFlow(e) {
       const attack = [+field[0], +field[1]];
       opponentBoard = logic.receiveAttack(attack, opponentBoard);
       e.target.classList.add("sunk");
+      opponentGridFlowRefresh(opponentBoard);
     }
   }
 }
@@ -173,3 +233,7 @@ function playerGridWeak(){
   el.classList.replace("missed2","missedWeak2");
   });
 }
+
+/* function AIfilter(storage, anyBoard) {
+
+} */
