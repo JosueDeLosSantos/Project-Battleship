@@ -2,6 +2,8 @@ import big4 from "./big4";
 import big3 from "./big3";
 import big2 from "./big2";
 import big1 from "./big1";
+import clear1 from "./clear1";
+import clear2 from "./clear2";
 
 // # Project-Battleship
 
@@ -157,112 +159,14 @@ export function receiveAttack(C1, GameboardStatus) {
 
 function clearSurroundings(shipObject, C2){
   let answer = C2
-  if (shipObject.hitsrecord.length < 2){
+  if (shipObject.hitsrecord.length === 1){
     answer = clear1(shipObject.hitsrecord, answer);
   }
+
+  if (shipObject.hitsrecord.length === 2){
+    answer = clear2(shipObject.hitsrecord, answer);
+  }
+
   return answer;
 };
-
-function clear1(arr, matrix) {
-  const newMatrix = matrix;
-  const newArr = [];
-  const noEmptyArr = [];
-  if ((arr[0][0] > 0) &&
-  (arr[0][0] < 9) &&
-  (arr[0][1] > 0) &&
-  (arr[0][1] < 9)){
-      newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
-      newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
-      newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
-
-      newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
-      newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
-
-      newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
-      newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
-      newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
-  }
-
-  if ((arr[0][0] === 0) && (arr[0][1] === 0)){
-    newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
-  }
-
-  if ((arr[0][0] === 0) && (arr[0][1] === 9)){
-    newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
-  }
-
-  if ((arr[0][0] === 9) && (arr[0][1] === 0)){
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
-    newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
-  }
-
-  if ((arr[0][0] === 9) && (arr[0][1] === 9)){
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
-    newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
-  }
-
-  if ((arr[0][0] === 0) && 
-  (arr[0][1] > 0) &&
-  (arr[0][1] < 9)){
-    newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
-    newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
-  }
-
-  if ((arr[0][0] === 9) && 
-  (arr[0][1] > 0) &&
-  (arr[0][1] < 9)){
-    newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
-    newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
-  }
-
-  if ((arr[0][1] === 0) && 
-  (arr[0][0] > 0) &&
-  (arr[0][0] < 9)){
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
-    newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
-  }
-
-  if ((arr[0][1] === 9) && 
-  (arr[0][0] > 0) &&
-  (arr[0][0] < 9)){
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
-    newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
-    newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
-    newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
-  }
-
-  newArr.forEach((el) => {
-    if (el.length > 0) {
-      noEmptyArr.push(el);
-    }
-  })
-
-  for (let i = 0; i < newMatrix.board.length; i++) {
-    for (let j = 0; j < newMatrix.board[i].length; j++) {
-      noEmptyArr.forEach(el => {
-        if (JSON.stringify(el) === JSON.stringify(newMatrix.board[i][j])){
-          newMatrix.missedShot.push(el);
-          newMatrix.board[i][j] = [];
-        }
-      });
-    }
-  }
-  return newMatrix;
-}
 

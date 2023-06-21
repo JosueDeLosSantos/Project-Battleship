@@ -1,7 +1,7 @@
 import * as testMod from "./logic.js";
 
 test("Receive a value and return an object containing: length, hits, and whether or not they've been sunk", () => {
-  expect(testMod.Ship(4)).toEqual({ length: 4, hits: 0, sunk: false });
+  expect(testMod.Ship(4)).toEqual({ length: 4, hits: 0, sunk: false, hitsrecord: [] });
 });
 
 test("increases the number of hits in your ship", () => {
@@ -9,6 +9,7 @@ test("increases the number of hits in your ship", () => {
     length: 4,
     hits: 1,
     sunk: false,
+    hitsrecord: []
   });
 });
 
@@ -127,7 +128,7 @@ const mockBoard = {
   missedShot: [],
   ships: [
     [
-      { hits: 0, length: 4, sunk: false },
+      { hits: 0, length: 4, sunk: false, hitsrecord: [] },
       [
         [2, 0],
         [2, 1],
@@ -136,7 +137,7 @@ const mockBoard = {
       ],
     ],
     [
-      { hits: 0, length: 3, sunk: false },
+      { hits: 0, length: 3, sunk: false, hitsrecord: [] },
       [
         [2, 7],
         [3, 7],
@@ -144,7 +145,7 @@ const mockBoard = {
       ],
     ],
     [
-      { hits: 0, length: 3, sunk: false },
+      { hits: 0, length: 3, sunk: false, hitsrecord: [] },
       [
         [4, 9],
         [5, 9],
@@ -152,59 +153,58 @@ const mockBoard = {
       ],
     ],
     [
-      { hits: 0, length: 2, sunk: false },
+      { hits: 0, length: 2, sunk: false, hitsrecord: [] },
       [
         [0, 1],
         [0, 2],
       ],
     ],
     [
-      { hits: 0, length: 2, sunk: false },
+      { hits: 0, length: 2, sunk: false, hitsrecord: [] },
       [
         [8, 7],
         [9, 7],
       ],
     ],
     [
-      { hits: 0, length: 2, sunk: false },
+      { hits: 0, length: 2, sunk: false, hitsrecord: [] },
       [
         [5, 2],
         [5, 3],
       ],
     ],
-    [{ hits: 0, length: 1, sunk: false }, [[8, 1]]],
-    [{ hits: 0, length: 1, sunk: false }, [[7, 3]]],
-    [{ hits: 0, length: 1, sunk: false }, [[3, 5]]],
-    [{ hits: 0, length: 1, sunk: false }, [[9, 3]]],
+    [{ hits: 0, length: 1, sunk: false, hitsrecord: [] }, [[8, 1]]],
+    [{ hits: 0, length: 1, sunk: false, hitsrecord: [] }, [[7, 3]]],
+    [{ hits: 0, length: 1, sunk: false, hitsrecord: [] }, [[3, 5]]],
+    [{ hits: 0, length: 1, sunk: false, hitsrecord: [] }, [[9, 3]]],
   ],
 };
 
 test("receiveAttack function takes a pair of coordinates, determines whether or not the attack hit a ship and then sends the hit function to the correct ship, or records the coordinates of the missed shot", () => {
-  /* receiveAttack should be able to report whether or not all of their ships have been sunk. */
 
   let mockRa = testMod.receiveAttack([2, 0], mockBoard);
   expect(mockRa.allShipsSunk).toBeFalsy();
   mockRa = testMod.receiveAttack([2, 1], mockRa);
   mockRa = testMod.receiveAttack([2, 2], mockRa);
   mockRa = testMod.receiveAttack([2, 3], mockRa);
-
+  
   mockRa = testMod.receiveAttack([2, 7], mockRa);
   mockRa = testMod.receiveAttack([3, 7], mockRa);
   mockRa = testMod.receiveAttack([4, 7], mockRa);
-
+  
   mockRa = testMod.receiveAttack([4, 9], mockRa);
   mockRa = testMod.receiveAttack([5, 9], mockRa);
   mockRa = testMod.receiveAttack([6, 9], mockRa);
-
+  
   mockRa = testMod.receiveAttack([0, 1], mockRa);
   mockRa = testMod.receiveAttack([0, 2], mockRa);
-
+  
   mockRa = testMod.receiveAttack([8, 7], mockRa);
   mockRa = testMod.receiveAttack([9, 7], mockRa);
-
+  
   mockRa = testMod.receiveAttack([5, 2], mockRa);
   mockRa = testMod.receiveAttack([5, 3], mockRa);
-
+  
   mockRa = testMod.receiveAttack([8, 1], mockRa);
   mockRa = testMod.receiveAttack([7, 3], mockRa);
   mockRa = testMod.receiveAttack([3, 5], mockRa);
@@ -212,9 +212,9 @@ test("receiveAttack function takes a pair of coordinates, determines whether or 
   expect(mockRa.allShipsSunk).toBeTruthy();
 
   // Register ships attacked
-  expect(mockRa.ships[9][0].hits).toBe(1);
+  expect(mockRa.ships[2][0].hits).toBe(3);
   // receiveAttack should keep track of missed attacks so they can display them properly
-  const missedShot = [0, 0];
+  const missedShot = [0, 9];
   mockRa = testMod.receiveAttack(missedShot, mockRa);
-  expect(mockRa.missedShot[0]).toEqual(missedShot);
+  expect(mockRa.missedShot[mockRa.missedShot.length - 1]).toEqual(missedShot);
 });

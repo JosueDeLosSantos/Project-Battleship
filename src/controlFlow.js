@@ -110,7 +110,7 @@ function opponentGridFlowRefresh(oBoard) {
         selection.classList.add("sunk");
       }
     }
-  console.log("yes");
+  // console.log("yes");
 }
 
 function pcTurn(p, oBoard) {

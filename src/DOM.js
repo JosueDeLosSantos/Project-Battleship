@@ -158,7 +158,8 @@ opponentGridContainer.appendChild(opponentContainer2);
 opponentContainer2.appendChild(opponentIndex2);
 opponentContainer2.appendChild(opponentGrid);
 export const opponentBoard = logic.Gameboard();
-console.log(opponentBoard)
+
+console.log(opponentBoard);
 
 for (let i = 0; i < 10; i += 1) {
   const gridRow = document.createElement("tr");
@@ -248,7 +249,3 @@ function play() {
   main.removeChild(gridOptions);
 }
 playButton.addEventListener("click", play);
-
-
-const josue = [[]];
-console.log(JSON.stringify(josue[0]));
