@@ -14,6 +14,7 @@ module.exports = {
       "./src/controlFlow.js",
       "./src/clear1.js",
       "./src/clear2.js",
+      "./src/clear3.js",
     ],
   },
   plugins: [

@@ -3,7 +3,7 @@ function vertical (arr, matrix){
     const newArr = [];
     const noEmptyArr = [];
     if ((arr[0][0] > 0) &&
-    (arr[0][0] < 8) &&
+    (arr[0][0] < 7) &&
     (arr[0][1] > 0) &&
     (arr[0][1] < 9)){
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
@@ -14,14 +14,16 @@ function vertical (arr, matrix){
         newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
-
         newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] - 1]);
-        newArr.push(matrix.board[arr[0][0] + 2][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] + 1]);
+
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1] - 1]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1]]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1] + 1]);
     }
 
     if ((arr[0][0] > 0) &&
-    (arr[0][0] < 8) &&
+    (arr[0][0] < 7) &&
     (arr[0][1] === 0)){
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
 
@@ -29,12 +31,13 @@ function vertical (arr, matrix){
         newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1] + 1]);
 
-        newArr.push(matrix.board[arr[0][0] + 2][arr[0][1]]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1]]);
     }
 
     if ((arr[0][0] > 0) &&
-    (arr[0][0] < 8) &&
+    (arr[0][0] < 7) &&
     (arr[0][1] === 9)){
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
 
@@ -42,8 +45,9 @@ function vertical (arr, matrix){
         newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] - 1]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1] - 1]);
 
-        newArr.push(matrix.board[arr[0][0] + 2][arr[0][1]]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1]]);
     }
 
     if ((arr[0][0] === 0) &&
@@ -54,11 +58,13 @@ function vertical (arr, matrix){
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] - 1]);
-        newArr.push(matrix.board[arr[0][0] + 2][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1]]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1] - 1]);
     }
 
-    if ((arr[0][0] === 8) &&
+    if ((arr[0][0] === 7) &&
     (arr[0][1] > 0) &&
     (arr[0][1] < 9)){
         newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
@@ -68,34 +74,40 @@ function vertical (arr, matrix){
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] - 1]);
+        newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] + 1]);
     }
 
     if ((arr[0][0] === 0) && (arr[0][1] === 0)){
         newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
-        newArr.push(matrix.board[arr[0][0] + 2][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1]]);
     }
 
     if ((arr[0][0] === 0) && (arr[0][1] === 9)){
         newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
-        newArr.push(matrix.board[arr[0][0] + 2][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] - 1]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1] - 1]);
+        newArr.push(matrix.board[arr[0][0] + 3][arr[0][1]]);
     }
 
-    if ((arr[0][0] === 8) && (arr[0][1] === 9)){
-        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
+    if ((arr[0][0] === 7) && (arr[0][1] === 9)){
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
+        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
+        newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] - 1]);
     }
-
-    if ((arr[0][0] === 8) && (arr[0][1] === 0)){
-        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
+    
+    if ((arr[0][0] === 7) && (arr[0][1] === 0)){
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0]][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] + 2][arr[0][1] + 1]);
     }
 
     newArr.forEach((el) => {
@@ -124,19 +136,21 @@ function horizontal(arr, matrix){
     if ((arr[0][0] > 0) &&
     (arr[0][0] < 9) &&
     (arr[0][1] > 0) &&
-    (arr[0][1] < 8)){
+    (arr[0][1] < 7)){
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 2]);
+        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 3]);
 
         newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
-        newArr.push(matrix.board[arr[0][0]][arr[0][1] + 2]);
+        newArr.push(matrix.board[arr[0][0]][arr[0][1] + 3]);
 
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 2]);
+        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 3]);
     }
 
     if ((arr[0][0] > 0) &&
@@ -145,72 +159,82 @@ function horizontal(arr, matrix){
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 2]);
-        newArr.push(matrix.board[arr[0][0]][arr[0][1] + 2]);
+        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 3]);
+        newArr.push(matrix.board[arr[0][0]][arr[0][1] + 3]);
+        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
+        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 2]);
+        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 3]);
+    }
+
+    if ((arr[0][0] > 0) &&
+    (arr[0][0] < 9) &&
+    (arr[0][1] === 7)) {
+        newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
+        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
+        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
+        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 2]);
+        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 2]);
     }
 
-    if ((arr[0][0] > 0) &&
-    (arr[0][0] < 9) &&
-    (arr[0][1] === 8)) {
-        newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
-        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
-        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
-        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
-        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
-        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
-        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
-    }
-
     if ((arr[0][0] === 0) && 
     (arr[0][1] > 0) &&
-    (arr[0][1] < 8)){
+    (arr[0][1] < 7)){
       newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
       newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
       newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
       newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
       newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 2]);
-      newArr.push(matrix.board[arr[0][0]][arr[0][1] + 2]);
+      newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 3]);
+      newArr.push(matrix.board[arr[0][0]][arr[0][1] + 3]);
     }
 
     if ((arr[0][0] === 9) && 
     (arr[0][1] > 0) &&
-    (arr[0][1] < 8)){
+    (arr[0][1] < 7)){
       newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
       newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
       newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
       newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
       newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 2]);
-      newArr.push(matrix.board[arr[0][0]][arr[0][1] + 2]);
+      newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 3]);
+      newArr.push(matrix.board[arr[0][0]][arr[0][1] + 3]);
     }
 
     if ((arr[0][0] === 0) && (arr[0][1] === 0)){
-        newArr.push(matrix.board[arr[0][0]][arr[0][1] + 2]);
+        newArr.push(matrix.board[arr[0][0]][arr[0][1] + 3]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 2]);
+        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 3]);
     }
 
-    if ((arr[0][0] === 0) && (arr[0][1] === 8)){
+    if ((arr[0][0] === 0) && (arr[0][1] === 7)){
         newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] + 1][arr[0][1] + 2]);
     }
 
     if ((arr[0][0] === 9) && (arr[0][1] === 0)){
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 2]);
-        newArr.push(matrix.board[arr[0][0]][arr[0][1] + 2]);
+        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 3]);
+        newArr.push(matrix.board[arr[0][0]][arr[0][1] + 3]);
     }
 
-    if ((arr[0][0] === 9) && (arr[0][1] === 8)){
+    if ((arr[0][0] === 9) && (arr[0][1] === 7)){
         newArr.push(matrix.board[arr[0][0]][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] - 1]);
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1]]);
         newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 1]);
+        newArr.push(matrix.board[arr[0][0] - 1][arr[0][1] + 2]);
     }
 
     newArr.forEach((el) => {
@@ -233,13 +257,13 @@ function horizontal(arr, matrix){
       return newMatrix;
 }
 
-export default function clear2(arr, matrix) {
+export default function clear3(arr, matrix) {
     let answer = null;
-    if ((arr[0][0] === arr[1][0])) {
+    if ((arr[0][0] && arr[1][0]) === arr[2][0]) {
         answer = horizontal(arr, matrix);
     }
 
-    if ((arr[0][1] === arr[1][1])) {
+    if ((arr[0][1] && arr[1][1]) === arr[2][1]) {
         answer = vertical(arr, matrix);
     }
 
