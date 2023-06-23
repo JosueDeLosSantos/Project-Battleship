@@ -15,6 +15,7 @@ module.exports = {
       "./src/clear1.js",
       "./src/clear2.js",
       "./src/clear3.js",
+      "./src/clear4.js",
     ],
   },
   plugins: [
