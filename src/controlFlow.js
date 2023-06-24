@@ -32,12 +32,12 @@ function randomePlay(b) {
   // selects a random coordinate from the new array
   response = newBoard[Math.floor(Math.random() * newBoard.length)];
 
-  /* for (let i = 0; i < anyBoard.ships.length; i++) {
+  for (let i = 0; i < anyBoard.ships.length; i++) {
     if ((anyBoard.ships[i][0].hitsrecord.length === 1) &&
     (anyBoard.ships[i][1].length > 0)) {
       response = adjacentMove(anyBoard.ships[i][0].hitsrecord, anyBoard);
     }
-  } */
+  }
 
   return response;
 }
@@ -236,23 +236,39 @@ function adjacentMove1center(arr, anyBoard) {
   
   for (let i = 0; i < anyBoard.ships.length; i++) {
     for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second) ||
-      JSON.stringify(third) ||  JSON.stringify(four)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(third) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(four) === JSON.stringify(anyBoard.ships[i][1][j]))
       allMoves.push(anyBoard.ships[i][1][j]);
     }
   }
 
   for (let i = 0; i < anyBoard.board.length; i++) {
     for (let j = 0; j < anyBoard.board[i].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second) ||
-      JSON.stringify(third) ||  JSON.stringify(four)) === JSON.stringify(anyBoard.board[i][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(third) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(four) === JSON.stringify(anyBoard.board[i][j]))
       allMoves.push(anyBoard.board[i][j]);
     }
   }
 
-  // move = allMoves[Math.floor(Math.random() * allMoves.length)];
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
 
-  return allMoves;
+  return move;
 }
 
 function adjacentMove1up(arr, anyBoard) {
@@ -265,16 +281,26 @@ function adjacentMove1up(arr, anyBoard) {
 
   for (let i = 0; i < anyBoard.ships.length; i++) {
     for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second) ||
-      JSON.stringify(third)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(third) === JSON.stringify(anyBoard.ships[i][1][j]))
       allMoves.push(anyBoard.ships[i][1][j]);
     }
   }
 
   for (let i = 0; i < anyBoard.board.length; i++) {
     for (let j = 0; j < anyBoard.board[i].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second) ||
-      JSON.stringify(third)) === JSON.stringify(anyBoard.board[i][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(third) === JSON.stringify(anyBoard.board[i][j]))
       allMoves.push(anyBoard.board[i][j]);
     }
   }
@@ -294,16 +320,26 @@ function adjacentMove1right(arr, anyBoard) {
 
   for (let i = 0; i < anyBoard.ships.length; i++) {
     for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second) ||
-      JSON.stringify(third)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(third) === JSON.stringify(anyBoard.ships[i][1][j]))
       allMoves.push(anyBoard.ships[i][1][j]);
     }
   }
 
   for (let i = 0; i < anyBoard.board.length; i++) {
     for (let j = 0; j < anyBoard.board[i].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second) ||
-      JSON.stringify(third)) === JSON.stringify(anyBoard.board[i][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(third) === JSON.stringify(anyBoard.board[i][j]))
       allMoves.push(anyBoard.board[i][j]);
     }
   }
@@ -323,16 +359,26 @@ function adjacentMove1bottom(arr, anyBoard) {
 
   for (let i = 0; i < anyBoard.ships.length; i++) {
     for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second) ||
-      JSON.stringify(third)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(third) === JSON.stringify(anyBoard.ships[i][1][j]))
       allMoves.push(anyBoard.ships[i][1][j]);
     }
   }
 
   for (let i = 0; i < anyBoard.board.length; i++) {
     for (let j = 0; j < anyBoard.board[i].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second) ||
-      JSON.stringify(third)) === JSON.stringify(anyBoard.board[i][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(third) === JSON.stringify(anyBoard.board[i][j]))
       allMoves.push(anyBoard.board[i][j]);
     }
   }
@@ -352,16 +398,26 @@ function adjacentMove1left(arr, anyBoard) {
 
   for (let i = 0; i < anyBoard.ships.length; i++) {
     for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second) ||
-      JSON.stringify(third)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(third) === JSON.stringify(anyBoard.ships[i][1][j]))
       allMoves.push(anyBoard.ships[i][1][j]);
     }
   }
 
   for (let i = 0; i < anyBoard.board.length; i++) {
     for (let j = 0; j < anyBoard.board[i].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second) ||
-      JSON.stringify(third)) === JSON.stringify(anyBoard.board[i][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(third) === JSON.stringify(anyBoard.board[i][j]))
       allMoves.push(anyBoard.board[i][j]);
     }
   }
@@ -380,21 +436,27 @@ function adjacentMoveCorner1(arr, anyBoard) {
 
   for (let i = 0; i < anyBoard.ships.length; i++) {
     for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.ships[i][1][j]))
       allMoves.push(anyBoard.ships[i][1][j]);
     }
   }
 
   for (let i = 0; i < anyBoard.board.length; i++) {
     for (let j = 0; j < anyBoard.board[i].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.board[i][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.board[i][j]))
       allMoves.push(anyBoard.board[i][j]);
     }
   }
 
-  // move = allMoves[Math.floor(Math.random() * allMoves.length)];
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
 
-  return allMoves;
+  return move;
 }
 
 function adjacentMoveCorner2(arr, anyBoard) {
@@ -406,14 +468,20 @@ function adjacentMoveCorner2(arr, anyBoard) {
 
   for (let i = 0; i < anyBoard.ships.length; i++) {
     for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.ships[i][1][j]))
       allMoves.push(anyBoard.ships[i][1][j]);
     }
   }
 
   for (let i = 0; i < anyBoard.board.length; i++) {
     for (let j = 0; j < anyBoard.board[i].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.board[i][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.board[i][j]))
       allMoves.push(anyBoard.board[i][j]);
     }
   }
@@ -432,14 +500,20 @@ function adjacentMoveCorner3(arr, anyBoard) {
 
   for (let i = 0; i < anyBoard.ships.length; i++) {
     for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.ships[i][1][j]))
       allMoves.push(anyBoard.ships[i][1][j]);
     }
   }
 
   for (let i = 0; i < anyBoard.board.length; i++) {
     for (let j = 0; j < anyBoard.board[i].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.board[i][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.board[i][j]))
       allMoves.push(anyBoard.board[i][j]);
     }
   }
@@ -458,14 +532,20 @@ function adjacentMoveCorner4(arr, anyBoard) {
 
   for (let i = 0; i < anyBoard.ships.length; i++) {
     for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.ships[i][1][j]))
       allMoves.push(anyBoard.ships[i][1][j]);
     }
   }
 
   for (let i = 0; i < anyBoard.board.length; i++) {
     for (let j = 0; j < anyBoard.board[i].length; j++) {
-      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.board[i][j]))
+      if (JSON.stringify(first) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+
+      if (JSON.stringify(second) === JSON.stringify(anyBoard.board[i][j]))
       allMoves.push(anyBoard.board[i][j]);
     }
   }
@@ -512,4 +592,6 @@ function adjacentMove(array ,anyBoard) {
   return answer;
 }
 
-console.log(adjacentMove([[5, 7]] ,playerBoard));
+/* console.log(adjacentMove([[5, 7]] ,playerBoard));
+
+console.log(adjacentMove1center([5, 7] ,playerBoard)); */
