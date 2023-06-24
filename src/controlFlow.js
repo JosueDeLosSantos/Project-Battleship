@@ -9,26 +9,15 @@ const opponentGrid =
   document.body.children[1].children[0].children[1].children[1].children[1];
 const playerGrid =
   document.body.children[1].children[0].children[0].children[1].children[1];
-let achievedAttack = null;
 
-function achieved(response, anyBoard) {
-  let answer = false;
-  for (let i = 0; i < anyBoard.ships.length; i += 1){
-    for (let j = 0; j < anyBoard.ships[i][1].length; j += 1) {
-      if(response === anyBoard.ships[i][1][j]){
-        answer = true;
-      }
-    }
-  }
-  return answer;
-}
 
-function randomePlay(anyBoard) {
+function randomePlay(b) {
+  const anyBoard = b;
   const newBoard = [];
   let response = null;
-  let storage = [];
   // Saves all coordinates which lengths are beyond 0 on the newBoard array.
   for (let i = 0; i < anyBoard.board.length; i += 1) {
+
     for (let j = 0; j < anyBoard.board[i].length; j += 1) {
       if (anyBoard.board[i][j].length > 0) {
         newBoard.push(anyBoard.board[i][j]);
@@ -39,27 +28,16 @@ function randomePlay(anyBoard) {
       newBoard.push(anyBoard.ships[i][1][j]);
     }
   }
-  if (achievedAttack === true) {
-    // AI filter
-    // AIobject returns an object like: {attack: [5, 4], achievement: true}
-    /* const AIobject = AIfilter(storage, anyBoard);
-    if (AIobject.achievement === true) {
-      response = AIobject.attack;
-    } else {
-      response = newBoard[Math.floor(Math.random() * newBoard.length)];
-      achievedAttack = achieved(response, anyBoard);
-      storage = [];
-    } */
-    response = newBoard[Math.floor(Math.random() * newBoard.length)];
-  } else {
-    // selects a random coordinate from the new array
-    response = newBoard[Math.floor(Math.random() * newBoard.length)];
-    achievedAttack = achieved(response, anyBoard);
-  }
 
-  if (achievedAttack === true) {
-    storage.push(response);
-  }
+  // selects a random coordinate from the new array
+  response = newBoard[Math.floor(Math.random() * newBoard.length)];
+
+  /* for (let i = 0; i < anyBoard.ships.length; i++) {
+    if ((anyBoard.ships[i][0].hitsrecord.length === 1) &&
+    (anyBoard.ships[i][1].length > 0)) {
+      response = adjacentMove(anyBoard.ships[i][0].hitsrecord, anyBoard);
+    }
+  } */
 
   return response;
 }
@@ -110,7 +88,6 @@ function opponentGridFlowRefresh(oBoard) {
         selection.classList.add("sunk");
       }
     }
-  // console.log("yes");
 }
 
 function pcTurn(p, oBoard) {
@@ -123,7 +100,7 @@ function pcTurn(p, oBoard) {
   setTimeout(() => {playerGridFlow(pBoard, oBoard)}, 2000);
   newLength = pBoard.missedShot.length;
   if (currentLength === newLength) {
-    setTimeout(() => {pcTurn(pBoard, oBoard)}, 2000);
+    setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
   }
   return pBoard;
 }
@@ -248,6 +225,291 @@ function playerGridWeak(){
   });
 }
 
-/* function AIfilter(storage, anyBoard) {
+function adjacentMove1center(arr, anyBoard) {
+  const allMoves = [];
+  let move = null;
 
-} */
+  const first = [arr[0] + 1, arr[1]];
+  const second = [arr[0] - 1, arr[1]];
+  const third = [arr[0], arr[1] + 1];
+  const four = [arr[0], arr[1] - 1];
+  
+  for (let i = 0; i < anyBoard.ships.length; i++) {
+    for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second) ||
+      JSON.stringify(third) ||  JSON.stringify(four)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+    }
+  }
+
+  for (let i = 0; i < anyBoard.board.length; i++) {
+    for (let j = 0; j < anyBoard.board[i].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second) ||
+      JSON.stringify(third) ||  JSON.stringify(four)) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+    }
+  }
+
+  // move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return allMoves;
+}
+
+function adjacentMove1up(arr, anyBoard) {
+  const allMoves = [];
+  let move = null;
+
+  const first = [arr[0], arr[1] + 1];
+  const second = [arr[0] + 1, arr[1]];
+  const third = [arr[0], arr[1] - 1];
+
+  for (let i = 0; i < anyBoard.ships.length; i++) {
+    for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second) ||
+      JSON.stringify(third)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+    }
+  }
+
+  for (let i = 0; i < anyBoard.board.length; i++) {
+    for (let j = 0; j < anyBoard.board[i].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second) ||
+      JSON.stringify(third)) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+    }
+  }
+
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return move;
+}
+
+function adjacentMove1right(arr, anyBoard) {
+  const allMoves = [];
+  let move = null;
+
+  const first = [arr[0] + 1, arr[1]];
+  const second = [arr[0] - 1, arr[1]];
+  const third = [arr[0], arr[1] - 1];
+
+  for (let i = 0; i < anyBoard.ships.length; i++) {
+    for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second) ||
+      JSON.stringify(third)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+    }
+  }
+
+  for (let i = 0; i < anyBoard.board.length; i++) {
+    for (let j = 0; j < anyBoard.board[i].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second) ||
+      JSON.stringify(third)) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+    }
+  }
+
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return move;
+}
+
+function adjacentMove1bottom(arr, anyBoard) {
+  const allMoves = [];
+  let move = null;
+
+  const first = [arr[0] - 1, arr[1]];
+  const second = [arr[0], arr[1] + 1];
+  const third = [arr[0], arr[1] - 1];
+
+  for (let i = 0; i < anyBoard.ships.length; i++) {
+    for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second) ||
+      JSON.stringify(third)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+    }
+  }
+
+  for (let i = 0; i < anyBoard.board.length; i++) {
+    for (let j = 0; j < anyBoard.board[i].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second) ||
+      JSON.stringify(third)) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+    }
+  }
+
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return move;
+}
+
+function adjacentMove1left(arr, anyBoard) {
+  const allMoves = [];
+  let move = null;
+
+  const first = [arr[0] + 1, arr[1]];
+  const second = [arr[0] - 1, arr[1]];
+  const third = [arr[0], arr[1] + 1];
+
+  for (let i = 0; i < anyBoard.ships.length; i++) {
+    for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second) ||
+      JSON.stringify(third)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+    }
+  }
+
+  for (let i = 0; i < anyBoard.board.length; i++) {
+    for (let j = 0; j < anyBoard.board[i].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second) ||
+      JSON.stringify(third)) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+    }
+  }
+
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return move;
+}
+
+function adjacentMoveCorner1(arr, anyBoard) {
+  const allMoves = [];
+  let move = null;
+
+  const first = [arr[0], arr[1] + 1];
+  const second = [arr[0] - 1, arr[1]];
+
+  for (let i = 0; i < anyBoard.ships.length; i++) {
+    for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+    }
+  }
+
+  for (let i = 0; i < anyBoard.board.length; i++) {
+    for (let j = 0; j < anyBoard.board[i].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+    }
+  }
+
+  // move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return allMoves;
+}
+
+function adjacentMoveCorner2(arr, anyBoard) {
+  const allMoves = [];
+  let move = null;
+
+  const first = [arr[0], arr[1] - 1];
+  const second = [arr[0] - 1, arr[1]];
+
+  for (let i = 0; i < anyBoard.ships.length; i++) {
+    for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+    }
+  }
+
+  for (let i = 0; i < anyBoard.board.length; i++) {
+    for (let j = 0; j < anyBoard.board[i].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+    }
+  }
+
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return move;
+}
+
+function adjacentMoveCorner3(arr, anyBoard) {
+  const allMoves = [];
+  let move = null;
+
+  const first = [arr[0] - 1, arr[1]];
+  const second = [arr[0], arr[1] - 1];
+
+  for (let i = 0; i < anyBoard.ships.length; i++) {
+    for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+    }
+  }
+
+  for (let i = 0; i < anyBoard.board.length; i++) {
+    for (let j = 0; j < anyBoard.board[i].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+    }
+  }
+
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return move;
+}
+
+function adjacentMoveCorner4(arr, anyBoard) {
+  const allMoves = [];
+  let move = null;
+
+  const first = [arr[0] - 1, arr[1]];
+  const second = [arr[0], arr[1] + 1];
+
+  for (let i = 0; i < anyBoard.ships.length; i++) {
+    for (let j = 0; j < anyBoard.ships[i][1].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.ships[i][1][j]))
+      allMoves.push(anyBoard.ships[i][1][j]);
+    }
+  }
+
+  for (let i = 0; i < anyBoard.board.length; i++) {
+    for (let j = 0; j < anyBoard.board[i].length; j++) {
+      if ((JSON.stringify(first) || JSON.stringify(second)) === JSON.stringify(anyBoard.board[i][j]))
+      allMoves.push(anyBoard.board[i][j]);
+    }
+  }
+
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return move;
+}
+
+function adjacentMove(array ,anyBoard) {
+  let answer = null;
+  if (array.length === 1) {
+    if ((array[0][0] > 0) && (array[0][0] < 9) &&
+    (array[0][1] > 0) && (array[0][1] < 9)) {
+      answer = adjacentMove1center(array[0], anyBoard);
+    }
+    if ((array[0][0] === 0) && (array[0][1] > 0) && (array[0][1] < 9)) {
+      answer = adjacentMove1up(array[0], anyBoard);
+    }
+    if ((array[0][0] > 0) && (array[0][0] < 9) && (array[0][1] === 9)) {
+      answer = adjacentMove1right(array[0], anyBoard);
+    }
+    if ((array[0][0] === 9) && (array[0][1] > 0) && (array[0][1] < 9)) {
+      answer = adjacentMove1bottom(array[0], anyBoard);
+    }
+    if ((array[0][0] > 0) && (array[0][0] < 9) && (array[0][1] === 0)) {
+      answer = adjacentMove1left(array[0], anyBoard);
+    }
+
+    if ((array[0][0] === 0) && (array[0][1] === 0)) {
+      answer = adjacentMoveCorner1(array[0], anyBoard);
+    }
+    if ((array[0][0] === 0) && (array[0][1] === 9)) {
+      answer = adjacentMoveCorner2(array[0], anyBoard);
+    }
+    if ((array[0][0] === 9) && (array[0][1] === 9)) {
+      answer = adjacentMoveCorner3(array[0], anyBoard);
+    }
+    if ((array[0][0] === 9) && (array[0][1] === 0)) {
+      answer = adjacentMoveCorner4(array[0], anyBoard);
+    }
+  }
+
+  return answer;
+}
+
+console.log(adjacentMove([[5, 7]] ,playerBoard));
