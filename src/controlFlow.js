@@ -122,6 +122,7 @@ function opponentGridFlow(e) {
         opponentIndex2.classList.add("opponentIndex2");
         const opponentIndex1 = opponentGrid.parentNode.parentNode.children[0];
         opponentIndex1.classList.add("opponentIndex1");
+        e.target.dataset.field2 = ".";
         // Open the player's grid
         playerGrid.classList.remove("weak");
         playerGrid.classList.add("playerGrid");
@@ -589,9 +590,30 @@ function adjacentMove(array ,anyBoard) {
     }
   }
 
+  if (array.length > 1) {
+    if (array[0][0] === array[1][0]) {
+      answer = horizonatalMove(array, anyBoard);
+    }
+    if (array[0][1] === array[1][1]) {
+      answer = verticalMove(array, anyBoard);
+    }
+  }
   return answer;
 }
 
-/* console.log(adjacentMove([[5, 7]] ,playerBoard));
+function horizonatalMove(array, anyBoard) {
+  const allMoves = [];
+  let move = null;
+  if ((array[0][0] > 0) && (array[array.length - 1][1] < 9)){
+    allMoves.push([array[0][0], array[0][1] - 1]);
+    allMoves.push([array[0][0], array[array.length - 1][1] + 1]);
 
-console.log(adjacentMove1center([5, 7] ,playerBoard)); */
+  }
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return move;
+}
+
+/* console.log(horizonatalMove([[5, 1],[5, 2],[5,3],[5, 4]] ,playerBoard));
+
+console.log(horizonatalMove([[5, 1],[5, 2],[5,3],[5, 4]] ,playerBoard)); */
