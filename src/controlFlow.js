@@ -556,6 +556,32 @@ function adjacentMoveCorner4(arr, anyBoard) {
   return move;
 }
 
+function horizonatalMove(array, anyBoard) {
+  const allMoves = [];
+  let move = null;
+  if ((array[0][1] > 0) && (array[array.length - 1][1] < 9)){
+    allMoves.push([array[0][0], array[0][1] - 1]);
+    allMoves.push([array[0][0], array[array.length - 1][1] + 1]);
+
+  }
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return move;
+}
+
+function verticalMove(array, anyBoard) {
+  const allMoves = [];
+  let move = null;
+  if ((array[0][0] > 0) && (array[array.length - 1][0] < 9)){
+    allMoves.push([array[0][0] - 1, array[0][1]]);
+    allMoves.push([array[array.length - 1][0] + 1, array[array.length - 1][1]]);
+
+  }
+  move = allMoves[Math.floor(Math.random() * allMoves.length)];
+
+  return move;
+}
+
 function adjacentMove(array ,anyBoard) {
   let answer = null;
   if (array.length === 1) {
@@ -601,19 +627,6 @@ function adjacentMove(array ,anyBoard) {
   return answer;
 }
 
-function horizonatalMove(array, anyBoard) {
-  const allMoves = [];
-  let move = null;
-  if ((array[0][0] > 0) && (array[array.length - 1][1] < 9)){
-    allMoves.push([array[0][0], array[0][1] - 1]);
-    allMoves.push([array[0][0], array[array.length - 1][1] + 1]);
+console.log(verticalMove([[5, 1],[6, 1],[7, 1],[8, 1]] ,playerBoard));
 
-  }
-  move = allMoves[Math.floor(Math.random() * allMoves.length)];
-
-  return move;
-}
-
-/* console.log(horizonatalMove([[5, 1],[5, 2],[5,3],[5, 4]] ,playerBoard));
-
-console.log(horizonatalMove([[5, 1],[5, 2],[5,3],[5, 4]] ,playerBoard)); */
+console.log(verticalMove([[5, 1],[6, 1],[7, 1],[8, 1]] ,playerBoard));
