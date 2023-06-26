@@ -33,7 +33,7 @@ function randomePlay(b) {
   response = newBoard[Math.floor(Math.random() * newBoard.length)];
 
   for (let i = 0; i < anyBoard.ships.length; i++) {
-    if ((anyBoard.ships[i][0].hitsrecord.length === 1) &&
+    if ((anyBoard.ships[i][0].hitsrecord.length > 0) &&
     (anyBoard.ships[i][1].length > 0)) {
       response = adjacentMove(anyBoard.ships[i][0].hitsrecord, anyBoard);
     }
@@ -556,37 +556,94 @@ function adjacentMoveCorner4(arr, anyBoard) {
   return move;
 }
 
-function horizonatalMove(array, anyBoard) {
+function reOrderArr(arr) {
+  const newArray = [];
+  let tempArr = []
+  let first = null;
+  let second = null;
+  let third = null;
+
+  if (arr.length === 2){
+    first = arr[0].reduce((a,b) => a + b);
+    second = arr[1].reduce((a,b) => a + b);
+    if (first < second) {
+      newArray.push(arr[0]);
+      newArray.push(arr[1]);
+    } else {
+      newArray.push(arr[1]);
+      newArray.push(arr[0]);
+    }
+  }
+
+  if (arr.length === 3){
+    first = arr[0].reduce((a,b) => a + b);
+    second = arr[1].reduce((a,b) => a + b);
+    third = arr[2].reduce((a,b) => a + b);
+    tempArr.push(first);
+    tempArr.push(second);
+    tempArr.push(third);
+    tempArr = tempArr.sort((a,b) => a - b);
+    tempArr.forEach((el) => {
+      arr.forEach(element => {
+        if (el === element.reduce((a,b) => a + b)) {
+          newArray.push(element);
+        }
+      });
+    });
+  }
+
+  return newArray;
+}
+
+function horizontalMove(arr, anyBoard) {
+  const array = reOrderArr(arr);
   const allMoves = [];
   let move = null;
   if ((array[0][1] === 0)){
     return [array[0][0], array[array.length - 1][1] + 1];
   }
-  if ((array[array.length - 1][1] === 9)){
+  /* if ((array[array.length - 1][1] === 9)){
     return [array[0][0], array[0][1] - 1];
-  }
-  // modify to reject coordinates that are in the missedShots array
+  } */
+
   if ((array[0][1] > 0) && (array[array.length - 1][1] < 9)){
-    allMoves.push([array[0][0], array[0][1] - 1]);
-    allMoves.push([array[0][0], array[array.length - 1][1] + 1]);
+    const firstMove = [array[0][0], array[0][1] - 1];
+    const secondMove = [array[0][0], array[array.length - 1][1] + 1];
+    const found = anyBoard.missedShot.find(element => JSON.stringify(element) === JSON.stringify(firstMove));
+    const found2 = anyBoard.missedShot.find(element => JSON.stringify(element) === JSON.stringify(secondMove));
+    if (found === undefined) {
+      allMoves.push(firstMove)
+    }
+    if (found2 === undefined) {
+      allMoves.push(secondMove)
+    }
   }
   move = allMoves[Math.floor(Math.random() * allMoves.length)];
   return move;
 }
 
-function verticalMove(array, anyBoard) {
+function verticalMove(arr, anyBoard) {
+  const array = reOrderArr(arr);
   const allMoves = [];
   let move = null;
   if ((array[0][0] === 0)){
     return [array[array.length - 1][0] + 1, array[array.length - 1][1]];
   }
-  if ((array[array.length - 1][0] === 9)){
+  /* if ((array[array.length - 1][0] === 9)){
     return [array[0][0] - 1, array[0][1]];
-  }
-  // modify to reject coordinates that are in the missedShots array
+  } */
+
   if ((array[0][0] > 0) && (array[array.length - 1][0] < 9)){
-    allMoves.push([array[0][0] - 1, array[0][1]]);
-    allMoves.push([array[array.length - 1][0] + 1, array[array.length - 1][1]]);
+    const firstMove = [array[0][0] - 1, array[0][1]];
+    const secondMove = [array[array.length - 1][0] + 1, array[array.length - 1][1]];
+    const found = anyBoard.missedShot.find(element => JSON.stringify(element) === JSON.stringify(firstMove));
+    const found2 = anyBoard.missedShot.find(element => JSON.stringify(element) === JSON.stringify(secondMove));
+    if (found === undefined) {
+      allMoves.push(firstMove)
+    }
+    if (found2 === undefined) {
+      allMoves.push(secondMove)
+    }
   }
   move = allMoves[Math.floor(Math.random() * allMoves.length)];
   return move;
@@ -628,7 +685,7 @@ function adjacentMove(array ,anyBoard) {
 
   if (array.length > 1) {
     if (array[0][0] === array[1][0]) {
-      answer = horizonatalMove(array, anyBoard);
+      answer = horizontalMove(array, anyBoard);
     }
     if (array[0][1] === array[1][1]) {
       answer = verticalMove(array, anyBoard);
@@ -637,6 +694,26 @@ function adjacentMove(array ,anyBoard) {
   return answer;
 }
 
-/* console.log(horizonatalMove([[7, 7],[7, 8]] ,playerBoard));
+// BUG
 
-console.log(horizonatalMove([[7, 7],[7, 8]] ,playerBoard)); */
+// playerBoard.missedShot.push([0, 7]);
+
+/* console.log(verticalMove([[1, 7],[2, 7]] ,playerBoard));
+
+console.log(verticalMove([[1, 7],[2, 7]] ,playerBoard)); */
+
+/* const array1 = [5, 12, 8, 130, 44];
+
+const found = array1.find(element => element === 13);
+
+if (found === undefined) {
+  console.log(false);
+} else {
+  console.log(true);
+}
+ */
+
+
+const josue = [[1,4],[3, 4],[2, 4]];
+console.log(josue);
+console.log(reOrderArr(josue));
