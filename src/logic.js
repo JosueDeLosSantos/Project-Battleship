@@ -6,6 +6,7 @@ import clear1 from "./clear1";
 import clear2 from "./clear2";
 import clear3 from "./clear3";
 import clear4 from "./clear4";
+import reOrderArr from "./controlFlow";
 
 // # Project-Battleship
 
@@ -166,15 +167,15 @@ function clearSurroundings(shipObject, C2){
   }
 
   if (shipObject.hitsrecord.length === 2){
-    answer = clear2(shipObject.hitsrecord, answer);
+    answer = clear2(reOrderArr(shipObject.hitsrecord), answer);
   }
 
   if (shipObject.hitsrecord.length === 3){
-    answer = clear3(shipObject.hitsrecord, answer);
+    answer = clear3(reOrderArr(shipObject.hitsrecord), answer);
   }
 
   if (shipObject.hitsrecord.length === 4){
-    answer = clear4(shipObject.hitsrecord, answer);
+    answer = clear4(reOrderArr(shipObject.hitsrecord), answer);
   }
 
   return answer;

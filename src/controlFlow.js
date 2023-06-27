@@ -90,7 +90,7 @@ function opponentGridFlowRefresh(oBoard) {
     }
 }
 
-function pcTurn(p, oBoard) {
+function pcTurn(p = playerBoard, oBoard = opponentBoard) {
   let pBoard = p;
   const currentLength = pBoard.missedShot.length;
   let newLength = null;
@@ -99,10 +99,12 @@ function pcTurn(p, oBoard) {
   // PC turn will be reflected on the DOM
   setTimeout(() => {playerGridFlow(pBoard, oBoard)}, 2000);
   newLength = pBoard.missedShot.length;
-  if (currentLength === newLength) {
+  if (newLength === currentLength + 8) {
     setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
   }
-  return pBoard;
+  if (newLength === currentLength){
+    setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
+  }
 }
 
 function opponentGridFlow(e) {
@@ -113,7 +115,6 @@ function opponentGridFlow(e) {
     if (field.length === 3) {
       const attack = [+field[0], +field[2]];
       opponentBoard = logic.receiveAttack(attack, opponentBoard);
-      e.target.classList.add("missed");
       opponentGridFlowRefresh(opponentBoard);
       setTimeout(() => {
         // Close the opponent's grid
@@ -122,7 +123,7 @@ function opponentGridFlow(e) {
         opponentIndex2.classList.add("opponentIndex2");
         const opponentIndex1 = opponentGrid.parentNode.parentNode.children[0];
         opponentIndex1.classList.add("opponentIndex1");
-        e.target.dataset.field2 = ".";
+        e.target.dataset.field2 = "1234";
         // Open the player's grid
         playerGrid.classList.remove("weak");
         playerGrid.classList.add("playerGrid");
@@ -168,14 +169,11 @@ function opponentGridFlow(e) {
         console.log(playerBoard);
         return;
       }
-
-      playerBoard = pcTurn(playerBoard, opponentBoard);
-      
+      pcTurn(); 
     }
     if (field.length === 2) {
       const attack = [+field[0], +field[1]];
       opponentBoard = logic.receiveAttack(attack, opponentBoard);
-      e.target.classList.add("sunk");
       opponentGridFlowRefresh(opponentBoard);
     }
   }
@@ -224,6 +222,8 @@ function playerGridWeak(){
   arrMissed2.forEach((el) => {
   el.classList.replace("missed2","missedWeak2");
   });
+
+  console.log(playerBoard)
 }
 
 function adjacentMove1center(arr, anyBoard) {
@@ -556,12 +556,13 @@ function adjacentMoveCorner4(arr, anyBoard) {
   return move;
 }
 
-function reOrderArr(arr) {
+export default function reOrderArr(arr) {
   const newArray = [];
   let tempArr = []
   let first = null;
   let second = null;
   let third = null;
+  let four = null;
 
   if (arr.length === 2){
     first = arr[0].reduce((a,b) => a + b);
@@ -592,6 +593,25 @@ function reOrderArr(arr) {
     });
   }
 
+  if (arr.length === 4){
+    first = arr[0].reduce((a,b) => a + b);
+    second = arr[1].reduce((a,b) => a + b);
+    third = arr[2].reduce((a,b) => a + b);
+    four = arr[3].reduce((a,b) => a + b);
+    tempArr.push(first);
+    tempArr.push(second);
+    tempArr.push(third);
+    tempArr.push(four);
+    tempArr = tempArr.sort((a,b) => a - b);
+    tempArr.forEach((el) => {
+      arr.forEach(element => {
+        if (el === element.reduce((a,b) => a + b)) {
+          newArray.push(element);
+        }
+      });
+    });
+  }
+
   return newArray;
 }
 
@@ -606,7 +626,7 @@ function horizontalMove(arr, anyBoard) {
     return [array[0][0], array[0][1] - 1];
   } */
 
-  if ((array[0][1] > 0) && (array[array.length - 1][1] < 9)){
+  if (array[0][1] > 0){
     const firstMove = [array[0][0], array[0][1] - 1];
     const secondMove = [array[0][0], array[array.length - 1][1] + 1];
     const found = anyBoard.missedShot.find(element => JSON.stringify(element) === JSON.stringify(firstMove));
@@ -714,6 +734,6 @@ if (found === undefined) {
  */
 
 
-const josue = [[1,4],[3, 4],[2, 4]];
+const josue = [[0,4],[0, 3],[0, 2],[0,1]];
 console.log(josue);
 console.log(reOrderArr(josue));
