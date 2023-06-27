@@ -90,7 +90,7 @@ function opponentGridFlowRefresh(oBoard) {
     }
 }
 
-function pcTurn(p = playerBoard, oBoard = opponentBoard) {
+/* function pcTurn(p = playerBoard, oBoard = opponentBoard) {
   let pBoard = p;
   const currentLength = pBoard.missedShot.length;
   let newLength = null;
@@ -99,10 +99,25 @@ function pcTurn(p = playerBoard, oBoard = opponentBoard) {
   // PC turn will be reflected on the DOM
   setTimeout(() => {playerGridFlow(pBoard, oBoard)}, 2000);
   newLength = pBoard.missedShot.length;
-  if (newLength === currentLength + 8) {
+  if (newLength === currentLength){
     setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
   }
-  if (newLength === currentLength){
+  if (newLength === (currentLength + 1)) {
+    setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
+  }
+} */
+
+function pcTurn(p = playerBoard, oBoard = opponentBoard) {
+  let pBoard = p;
+  const currentLength = pBoard.missedShot.length;
+  let newLength = null;
+  // Update playerBoard on each turn
+  pBoard = logic.receiveAttack(randomePlay(pBoard), pBoard);
+  newLength = pBoard.missedShot.length;
+  if (newLength === (currentLength + 1)) {
+    // PC turn will be reflected on the DOM
+  setTimeout(() => {playerGridFlow(pBoard, oBoard)}, 2000);
+  } else {
     setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
   }
 }
@@ -112,6 +127,8 @@ function opponentGridFlow(e) {
   !e.target.classList.contains("missed") &&
   !e.target.classList.contains("sunk")) {
     const field = e.target.dataset.field2.split("");
+    console.log(field);
+    if (field === undefined) return;
     if (field.length === 3) {
       const attack = [+field[0], +field[2]];
       opponentBoard = logic.receiveAttack(attack, opponentBoard);
@@ -222,8 +239,6 @@ function playerGridWeak(){
   arrMissed2.forEach((el) => {
   el.classList.replace("missed2","missedWeak2");
   });
-
-  console.log(playerBoard)
 }
 
 function adjacentMove1center(arr, anyBoard) {
@@ -734,6 +749,6 @@ if (found === undefined) {
  */
 
 
-const josue = [[0,4],[0, 3],[0, 2],[0,1]];
+/* const josue = [[0,4],[0, 3],[0, 2],[0,1]];
 console.log(josue);
-console.log(reOrderArr(josue));
+console.log(reOrderArr(josue)); */
