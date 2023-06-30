@@ -116,7 +116,7 @@ function pcTurn(p = playerBoard, oBoard = opponentBoard) {
   newLength = pBoard.missedShot.length;
   if (newLength === (currentLength + 1)) {
     // PC turn will be reflected on the DOM
-  setTimeout(() => {playerGridFlow(pBoard, oBoard)}, 2000);
+  setTimeout(() => {playerGridFlow(pBoard, oBoard)}, 1000);
   } else {
     setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
   }
@@ -127,7 +127,6 @@ function opponentGridFlow(e) {
   !e.target.classList.contains("missed") &&
   !e.target.classList.contains("sunk")) {
     const field = e.target.dataset.field2.split("");
-    console.log(field);
     if (field === undefined) return;
     if (field.length === 3) {
       const attack = [+field[0], +field[2]];
@@ -192,6 +191,11 @@ function opponentGridFlow(e) {
       const attack = [+field[0], +field[1]];
       opponentBoard = logic.receiveAttack(attack, opponentBoard);
       opponentGridFlowRefresh(opponentBoard);
+      if ((opponentBoard.allShipsSunk === true) || (playerBoard.allShipsSunk === true)) {
+        console.log(opponentBoard);
+        console.log(playerBoard);
+        return;
+      }
     }
   }
 }

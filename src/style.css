@@ -139,6 +139,8 @@ main > div:nth-child(1) {
 .gridOptions {
   padding-left: 19%;
   padding-top: 5%;
+  display: flex;
+  gap: 30px;
 }
 
 .gridOption1Icon:hover {
@@ -146,6 +148,14 @@ main > div:nth-child(1) {
   border-radius: 50%;
 }
 .gridOption1Icon:active {
+  background-color: yellow;
+  border-radius: 50%;
+}
+.gridOption2Icon:hover {
+  background-color: rgba(255, 255, 0, 0.253);
+  border-radius: 50%;
+}
+.gridOption2Icon:active {
   background-color: yellow;
   border-radius: 50%;
 }

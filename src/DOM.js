@@ -1,6 +1,7 @@
 import "./style.css";
 import * as logic from "./logic";
 import randomIcon from "./icons/change_circle.svg";
+import customiseIcon from "./icons/swipe.svg";
 
 const body = document.querySelector("body");
 const header = document.createElement("header");
@@ -24,12 +25,19 @@ gridsTitle.appendChild(title2);
 const gridOptions = document.createElement("div");
 gridOptions.classList.add("gridOptions");
 const gridOption1 = document.createElement("div");
+const gridOption2 = document.createElement("div");
 const gridOption1Icon = new Image();
+const gridOption2Icon = new Image();
 gridOption1Icon.classList.add("gridOption1Icon");
+gridOption2Icon.classList.add("gridOption2Icon");
 gridOption1Icon.setAttribute("title", "Randomise");
+gridOption2Icon.setAttribute("title", "customize positions");
 gridOption1Icon.src = randomIcon;
+gridOption2Icon.src = customiseIcon;
 gridOption1.appendChild(gridOption1Icon);
+gridOption2.appendChild(gridOption2Icon);
 gridOptions.appendChild(gridOption1);
+gridOptions.appendChild(gridOption2);
 const footer = document.createElement("footer");
 
 body.appendChild(header);
@@ -201,31 +209,6 @@ main.appendChild(gridOptions);
 
 function randomise() {
   playerBoardFunction();
-/*   playerBoard = logic.Gameboard();
-  for (let i = 0; i < 10; i += 1) {
-    for (let j = 0; j < 10; j += 1) {
-      const gridField = document.querySelector(`[data-field="${i},${j}"]`);
-      const falseGridField = document.querySelector(`[data-field="${i}${j}"]`);
-      if (gridField !== null) {
-        if (playerBoard.board[i][j].length > 0) {
-          gridField.dataset.field = `${playerBoard.board[i][j]}`;
-        } else {
-          gridField.dataset.field = `${i}${j}`;
-          gridField.classList.add("notSunk");
-        }
-      }
-      if (gridField === null) {
-        if (playerBoard.board[i][j].length > 0) {
-          falseGridField.dataset.field = `${playerBoard.board[i][j]}`;
-          falseGridField.classList.remove("notSunk");
-        }
-
-        if (playerBoard.board[i][j].length === 0) {
-          falseGridField.dataset.field = `${i}${j}`;
-        }
-      }
-    }
-  } */
 }
 gridOption1Icon.addEventListener("click", randomise);
 
@@ -249,3 +232,7 @@ function play() {
   main.removeChild(gridOptions);
 }
 playButton.addEventListener("click", play);
+
+function dragShow() {};
+
+gridOption2Icon.addEventListener("click", dragShow);
