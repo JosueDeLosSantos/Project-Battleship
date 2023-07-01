@@ -11,7 +11,6 @@ module.exports = {
       "./src/big3.js",
       "./src/big2.js",
       "./src/big1.js",
-      "./src/controlFlow.js",
       "./src/clear1.js",
       "./src/clear2.js",
       "./src/clear3.js",

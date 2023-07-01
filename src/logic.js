@@ -6,7 +6,6 @@ import clear1 from "./clear1";
 import clear2 from "./clear2";
 import clear3 from "./clear3";
 import clear4 from "./clear4";
-import reOrderArr from "./controlFlow";
 
 // # Project-Battleship
 
@@ -158,6 +157,65 @@ export function receiveAttack(C1, GameboardStatus) {
     C2.allShipsSunk = true;
   }
   return C2;
+}
+
+export function reOrderArr(arr) {
+  const newArray = [];
+  let tempArr = []
+  let first = null;
+  let second = null;
+  let third = null;
+  let four = null;
+
+  if (arr.length === 2){
+    first = arr[0].reduce((a,b) => a + b);
+    second = arr[1].reduce((a,b) => a + b);
+    if (first < second) {
+      newArray.push(arr[0]);
+      newArray.push(arr[1]);
+    } else {
+      newArray.push(arr[1]);
+      newArray.push(arr[0]);
+    }
+  }
+
+  if (arr.length === 3){
+    first = arr[0].reduce((a,b) => a + b);
+    second = arr[1].reduce((a,b) => a + b);
+    third = arr[2].reduce((a,b) => a + b);
+    tempArr.push(first);
+    tempArr.push(second);
+    tempArr.push(third);
+    tempArr = tempArr.sort((a,b) => a - b);
+    tempArr.forEach((el) => {
+      arr.forEach(element => {
+        if (el === element.reduce((a,b) => a + b)) {
+          newArray.push(element);
+        }
+      });
+    });
+  }
+
+  if (arr.length === 4){
+    first = arr[0].reduce((a,b) => a + b);
+    second = arr[1].reduce((a,b) => a + b);
+    third = arr[2].reduce((a,b) => a + b);
+    four = arr[3].reduce((a,b) => a + b);
+    tempArr.push(first);
+    tempArr.push(second);
+    tempArr.push(third);
+    tempArr.push(four);
+    tempArr = tempArr.sort((a,b) => a - b);
+    tempArr.forEach((el) => {
+      arr.forEach(element => {
+        if (el === element.reduce((a,b) => a + b)) {
+          newArray.push(element);
+        }
+      });
+    });
+  }
+
+  return newArray;
 }
 
 function clearSurroundings(shipObject, C2){
