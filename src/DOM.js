@@ -91,7 +91,7 @@ playerContainer2.appendChild(playerIndex2);
 playerContainer2.appendChild(playerGrid);
 let playerBoard = null;
 
- function playerBoardFunction(){
+function playerBoardFunction(){
   const playerBoard1 = logic.Gameboard();
   playerBoard = playerBoard1;
   if (playerGrid.children.length > 0) {
@@ -220,12 +220,14 @@ function randomePlay(b) {
   let response = null;
   // Saves all coordinates which lengths are beyond 0 on the newBoard array.
   for (let i = 0; i < anyBoard.board.length; i += 1) {
-
     for (let j = 0; j < anyBoard.board[i].length; j += 1) {
       if (anyBoard.board[i][j].length > 0) {
         newBoard.push(anyBoard.board[i][j]);
       }
     }
+  }
+
+  for (let i = 0; i < anyBoard.ships.length; i += 1) {
     // Saves all coordinates of the ships on the newBoard array if such coordinates have not been hit
     for (let j = 0; j < anyBoard.ships[i][1].length; j += 1) {
       newBoard.push(anyBoard.ships[i][1][j]);
