@@ -218,6 +218,14 @@ function randomePlay(b) {
   const anyBoard = b;
   const newBoard = [];
   let response = null;
+
+  for (let i = 0; i < anyBoard.ships.length; i++) {
+    if ((anyBoard.ships[i][0].hitsrecord.length > 0) &&
+    (anyBoard.ships[i][1].length > 0)) {
+      return adjacentMove(anyBoard.ships[i][0].hitsrecord, anyBoard);
+    }
+  }
+
   // Saves all coordinates which lengths are beyond 0 on the newBoard array.
   for (let i = 0; i < anyBoard.board.length; i += 1) {
     for (let j = 0; j < anyBoard.board[i].length; j += 1) {
@@ -228,7 +236,7 @@ function randomePlay(b) {
   }
 
   for (let i = 0; i < anyBoard.ships.length; i += 1) {
-    // Saves all coordinates of the ships on the newBoard array if such coordinates have not been hit
+    // Saves all of the ship's coordinates that have not been hit, into the newBoard array.
     for (let j = 0; j < anyBoard.ships[i][1].length; j += 1) {
       newBoard.push(anyBoard.ships[i][1][j]);
     }
@@ -236,13 +244,6 @@ function randomePlay(b) {
 
   // selects a random coordinate from the new array
   response = newBoard[Math.floor(Math.random() * newBoard.length)];
-
-  for (let i = 0; i < anyBoard.ships.length; i++) {
-    if ((anyBoard.ships[i][0].hitsrecord.length > 0) &&
-    (anyBoard.ships[i][1].length > 0)) {
-      response = adjacentMove(anyBoard.ships[i][0].hitsrecord, anyBoard);
-    }
-  }
 
   return response;
 }
@@ -295,6 +296,7 @@ function opponentGridFlowRefresh(oBoard) {
     }
 }
 
+// PENDING pcTurn never makes the last play to win the game .........
 function pcTurn(p = playerBoard, oBoard = opponentBoard) {
   let pBoard = p;
   const currentLength = pBoard.missedShot.length;
@@ -307,6 +309,14 @@ function pcTurn(p = playerBoard, oBoard = opponentBoard) {
   setTimeout(() => {playerGridFlow(pBoard, oBoard)}, 1000);
   } else {
     setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
+    console.log(pBoard);
+  }
+  // If all empty coordinates have been hit ...
+  if (newLength === 80){
+    if (pBoard.allShipsSunk === false) {
+      setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
+      setTimeout(() => {playerGridFlow(pBoard, oBoard)}, 1000);
+    }
   }
 }
 
