@@ -314,14 +314,14 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
     }
     tempSelection = null;
    }, 300);
-    // Check if game is over
-    if ((oBoard.allShipsSunk === true) || (pBoard.allShipsSunk === true)) {
-      playerGridFlow(pBoard);
-      console.log(oBoard);
-      console.log(pBoard);
-      // Hide the players grid and oppen the opponet's grid
-      setTimeout(() => {playerGridWeak();}, counter * 500);
-    }
+  }
+
+  // Check if game is over
+  if ((oBoard.allShipsSunk === true) || (pBoard.allShipsSunk === true)) {
+    playerGridFlow(pBoard);
+    console.log(oBoard);
+    console.log(pBoard);
+    return;
   }
 
   // Update playerBoard on each turn
@@ -338,7 +338,7 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
       playerGrid.children[ms1].children[ms2].classList.add("missed2");
     }, 500);
     // Hide the players grid and oppen the opponet's grid
-    setTimeout(() => {playerGridWeak();}, counter * 500);
+    setTimeout(() => {playerGridWeak();}, counter * 300);
     counter = 1;
 
   } else {
@@ -417,11 +417,6 @@ function opponentGridFlow(e) {
 
       }, 100);
 
-      if ((opponentBoard.allShipsSunk === true) || (playerBoard.allShipsSunk === true)) {
-        console.log(opponentBoard);
-        console.log(playerBoard);
-        return;
-      }
       pcTurn(); 
     }
     if (field.length === 2) {
@@ -431,7 +426,6 @@ function opponentGridFlow(e) {
       if ((opponentBoard.allShipsSunk === true) || (playerBoard.allShipsSunk === true)) {
         console.log(opponentBoard);
         console.log(playerBoard);
-        return;
       }
     }
   }
