@@ -270,11 +270,11 @@ function opponentGridFlowRefresh(oBoard) {
 }
 
 let counter = 2;
-// PENDING pcTurn leaves some ship attacks without red marks .........
+
 function pcTurn(p = playerBoard, oBoard = opponentBoard) {
   let pBoard = p;
   const currentLength = pBoard.missedShot.length;
-  let newLength = null;
+  let newLength = currentLength;
 
   // Update playerBoard on each turn
   pBoard = logic.receiveAttack(randomePlay(pBoard), pBoard);
