@@ -271,8 +271,7 @@ function opponentGridFlowRefresh(oBoard) {
 
 let counter = 2;
 
-function pcTurn(p = playerBoard, oBoard = opponentBoard) {
-  let pBoard = p;
+function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
   const currentLength = pBoard.missedShot.length;
   let newLength = currentLength;
 
@@ -310,17 +309,16 @@ function pcTurn(p = playerBoard, oBoard = opponentBoard) {
         if (selection.classList.contains("notSunkWeak")) {
           selection.classList.remove("notSunkWeak");
           selection.classList.add("sunkWeak2");
-          setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
         }
 
         if (selection.classList.contains("notSunk")) {
           selection.classList.remove("notSunk");
           selection.classList.add("sunk2");
-          setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
         }
       }
     }
 
+    setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
   }
 
   if ((oBoard.allShipsSunk === true) || (pBoard.allShipsSunk === true)) {
