@@ -269,36 +269,79 @@ function opponentGridFlowRefresh(oBoard) {
     }
 }
 
-let counter = 2;
+
+function playerGridFlow(pBoard){
+  // Spot all missed attacks eccept the last one
+  const playerTable = document.querySelector(".playerGrid");
+  for (let i = 0; i < pBoard.missedShot.length - 1; i += 1) {
+    const ms1 = pBoard.missedShot[i][0];
+    const ms2 = pBoard.missedShot[i][1];
+    const selection = playerTable.childNodes[ms1].childNodes[ms2];
+    if (!selection.classList.contains("missed2")) {
+      selection.classList.add("missed2");
+    }
+  }
+  // Spot all achieved attacks
+  for (let i = 0; i < pBoard.ships.length; i += 1) {
+    for (let j = 0; j < pBoard.ships[i][0].hitsrecord.length; j += 1) {
+      const ms1 = pBoard.ships[i][0].hitsrecord[j][0];
+      const ms2 = pBoard.ships[i][0].hitsrecord[j][1];
+      const selection = playerTable.childNodes[ms1].childNodes[ms2];
+      if (selection.classList.contains("notSunk")) {
+        selection.classList.remove("notSunk");
+        selection.classList.add("sunk2");
+      }
+    }
+  }
+}
+
+
+let tempSelection = null;
+let counter = 1;
 
 function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
+  counter += 1;
   const currentLength = pBoard.missedShot.length;
   let newLength = currentLength;
+
+  // Achieved attacks will be reflected on the DOM
+  if (tempSelection !== null) {
+   setTimeout(() => {
+
+    if (tempSelection.classList.contains("notSunk")) {
+      tempSelection.classList.remove("notSunk");
+      tempSelection.classList.add("sunk2");
+    }
+    tempSelection = null;
+   }, 300);
+    // Check if game is over
+    if ((oBoard.allShipsSunk === true) || (pBoard.allShipsSunk === true)) {
+      playerGridFlow(pBoard);
+      console.log(oBoard);
+      console.log(pBoard);
+      // Hide the players grid and oppen the opponet's grid
+      setTimeout(() => {playerGridWeak();}, counter * 500);
+    }
+  }
 
   // Update playerBoard on each turn
   pBoard = logic.receiveAttack(randomePlay(pBoard), pBoard);
   newLength = pBoard.missedShot.length;
 
   if (newLength === (currentLength + 1)) {
-  // PC turn will be reflected on the DOM
-  for (let i = 0; i < pBoard.missedShot.length - 1; i += 1) {
-    const ms1 = pBoard.missedShot[i][0];
-    const ms2 = pBoard.missedShot[i][1];
-    const selection = playerGrid.childNodes[ms1].childNodes[ms2];
-    if (!selection.classList.contains("missed2")) {
-      selection.classList.add("missed2");
-    }
-  }
-
-  const ms1 = pBoard.missedShot[pBoard.missedShot.length - 1][0];
-  const ms2 = pBoard.missedShot[pBoard.missedShot.length - 1][1];
-  counter += 1;
-  setTimeout(() => {
-    playerGrid.children[ms1].children[ms2].classList.add("missed2");
-  }, 500);
+  // Missed attacks will be reflected on the DOM
+    playerGridFlow(pBoard);
+    // The last missed attack will be shown later, to make the game look more realistic
+    const ms1 = pBoard.missedShot[pBoard.missedShot.length - 1][0];
+    const ms2 = pBoard.missedShot[pBoard.missedShot.length - 1][1];
+    setTimeout(() => {
+      playerGrid.children[ms1].children[ms2].classList.add("missed2");
+    }, 500);
+    // Hide the players grid and oppen the opponet's grid
+    setTimeout(() => {playerGridWeak();}, counter * 500);
+    counter = 1;
 
   } else {
-    counter += 1;
 
     for (let i = 0; i < pBoard.ships.length; i += 1) {
       for (let j = 0; j < pBoard.ships[i][0].hitsrecord.length; j += 1) {
@@ -307,26 +350,16 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
         const selection = playerGrid.childNodes[ms1].childNodes[ms2];
         
         if (selection.classList.contains("notSunkWeak")) {
-          selection.classList.remove("notSunkWeak");
-          selection.classList.add("sunkWeak2");
+          tempSelection = selection;
         }
 
         if (selection.classList.contains("notSunk")) {
-          selection.classList.remove("notSunk");
-          selection.classList.add("sunk2");
+          tempSelection = selection;
         }
       }
     }
 
     setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
-  }
-
-  if ((oBoard.allShipsSunk === true) || (pBoard.allShipsSunk === true)) {
-    console.log(oBoard);
-    console.log(pBoard);
-  } else {
-    setTimeout(() => {playerGridWeak(counter * 500);}, counter * 500);
-    counter = 2;
   }
 }
 
@@ -407,44 +440,40 @@ opponentGrid.addEventListener("click", opponentGridFlow);
 
 function playerGridWeak(n){
   // hide player's grid;
-  setTimeout(() => {
-    playerGrid.classList.add("weak")
-    rowIndex1.parentNode.classList.add("playerIndex1");
-    playerContainer2.childNodes[0].classList.add("playerIndex2");
-    const notSunk = document.getElementsByClassName("notSunk");
-    const arrNotsunk = [].slice.call(notSunk);
-    arrNotsunk.forEach((el) => {
-      el.classList.replace("notSunk", "notSunkWeak");
-    });
-    const sunk2 = document.getElementsByClassName("sunk2");
-    const arrSunk2 = [].slice.call(sunk2);
-    arrSunk2.forEach((el) => {
-    el.classList.replace("sunk2","sunkWeak2");
-    });
-    const missed2 = document.getElementsByClassName("missed2");
-    const arrMissed2 = [].slice.call(missed2);
-    arrMissed2.forEach((el) => {
-    el.classList.replace("missed2","missedWeak2");
-    });
-  }, n);
+  playerGrid.classList.add("weak")
+  rowIndex1.parentNode.classList.add("playerIndex1");
+  playerContainer2.childNodes[0].classList.add("playerIndex2");
+  const notSunk = document.getElementsByClassName("notSunk");
+  const arrNotsunk = [].slice.call(notSunk);
+  arrNotsunk.forEach((el) => {
+    el.classList.replace("notSunk", "notSunkWeak");
+  });
+  const sunk2 = document.getElementsByClassName("sunk2");
+  const arrSunk2 = [].slice.call(sunk2);
+  arrSunk2.forEach((el) => {
+  el.classList.replace("sunk2","sunkWeak2");
+  });
+  const missed2 = document.getElementsByClassName("missed2");
+  const arrMissed2 = [].slice.call(missed2);
+  arrMissed2.forEach((el) => {
+  el.classList.replace("missed2","missedWeak2");
+  });
   
   // Open opponent's grid
-  setTimeout(() => {
-    opponentGrid.classList.remove("weak");
-    opponentIndex2.classList.remove("opponentIndex2");
-    opponentIndex1.classList.remove("opponentIndex1");
-    const sunkWeak = document.getElementsByClassName("sunkWeak");
-    const arrSunkWeak = [].slice.call(sunkWeak);
-    arrSunkWeak.forEach((el) => {
-      el.classList.replace("sunkWeak","sunk");
-    });
+  opponentGrid.classList.remove("weak");
+  opponentIndex2.classList.remove("opponentIndex2");
+  opponentIndex1.classList.remove("opponentIndex1");
+  const sunkWeak = document.getElementsByClassName("sunkWeak");
+  const arrSunkWeak = [].slice.call(sunkWeak);
+  arrSunkWeak.forEach((el) => {
+    el.classList.replace("sunkWeak","sunk");
+  });
 
-    const missedWeak = document.getElementsByClassName("missedWeak");
-    const arrMissedWeak = [].slice.call(missedWeak);
-    arrMissedWeak.forEach((el) => {
-    el.classList.replace("missedWeak","missed");
-    });
-  }, n);
+  const missedWeak = document.getElementsByClassName("missedWeak");
+  const arrMissedWeak = [].slice.call(missedWeak);
+  arrMissedWeak.forEach((el) => {
+  el.classList.replace("missedWeak","missed");
+  });
 }
 
 function adjacentMove1center(arr, anyBoard) {
