@@ -321,6 +321,7 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
     playerGridFlow(pBoard);
     console.log(oBoard);
     console.log(pBoard);
+    console.log(gameEnds(pBoard, oBoard))
     return;
   }
 
@@ -426,6 +427,7 @@ function opponentGridFlow(e) {
       if ((opponentBoard.allShipsSunk === true) || (playerBoard.allShipsSunk === true)) {
         console.log(opponentBoard);
         console.log(playerBoard);
+        console.log(gameEnds(playerBoard, opponentBoard))
       }
     }
   }
@@ -468,6 +470,22 @@ function playerGridWeak(n){
   arrMissedWeak.forEach((el) => {
   el.classList.replace("missedWeak","missed");
   });
+}
+
+function shipsSunk(board){
+  let amount = 0;
+  for (let i = 0; i < board.ships.length; i++) {
+    if (board.ships[i][0].sunk === true){
+      amount += 1;
+    }
+  }
+  return amount;
+}
+
+function gameEnds(pBoard, oBoard){
+  return {"player ships": `${shipsSunk(pBoard)}`,
+    "computer ships": `${shipsSunk(oBoard)}`
+  }
 }
 
 function adjacentMove1center(arr, anyBoard) {
