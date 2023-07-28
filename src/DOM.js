@@ -472,6 +472,52 @@ function playerGridWeak(n){
   });
 }
 
+function showWinner(firstBoard, secondBoard, winner) {
+  const winnerCard = document.createElement('div');
+  winnerCard.classList.add("winnerCard");
+  const winnerTitle = document.createElement('div');
+  winnerTitle.classList.add("winnerTitle");
+  winnerTitle.innerText = `${winner} won`;
+  winnerCard.appendChild(winnerTitle);
+  main.appendChild(winnerCard);
+
+  const results = document.createElement("div");
+  results.classList.add("results");
+  winnerCard.appendChild(results);
+  const winnerResults = document.createElement("div");
+  winnerResults.classList.add("winnerResults");
+  const loserResults = document.createElement("div");
+  loserResults.classList.add("loserResults");
+  results.appendChild(winnerResults);
+  results.appendChild(loserResults);
+
+  const winnerResultsTitle = document.createElement("div");
+  winnerResultsTitle.classList.add("winnerResultsTitle");
+  winnerResults.appendChild(winnerResultsTitle);
+  winnerResultsTitle.innerText = `Winner`;
+  const wrDescription = document.createElement("div");
+  wrDescription.classList.add("wrDescription");
+  winnerResults.appendChild(wrDescription);
+  wrDescription.innerText = `Sank ${firstBoard} ships`;
+
+  const loserResultsTitle = document.createElement("div");
+  loserResultsTitle.classList.add("loserResultsTitle");
+  loserResults.appendChild(loserResultsTitle);
+  loserResultsTitle.innerText = `Loser`;
+  const lrDescription = document.createElement("div");
+  lrDescription.classList.add("lrDescription");
+  loserResults.appendChild(lrDescription);
+  lrDescription.innerText = `Sank ${secondBoard} ships`;
+
+  const restartButton = document.createElement("div");
+  restartButton.classList.add("restartButton");
+  restartButton.innerText = `Restart`;
+  winnerCard.appendChild(restartButton);
+  restartButton.addEventListener("click", () => {
+    location.reload();
+  })
+}
+
 function shipsSunk(board){
   let amount = 0;
   for (let i = 0; i < board.ships.length; i++) {
@@ -483,8 +529,18 @@ function shipsSunk(board){
 }
 
 function gameEnds(pBoard, oBoard){
-  return {"player ships": `${shipsSunk(pBoard)}`,
-    "computer ships": `${shipsSunk(oBoard)}`
+
+  main.removeChild(main.children[0])
+  main.removeChild(main.children[0])
+
+  if (shipsSunk(oBoard) > shipsSunk(pBoard)) {
+    showWinner(shipsSunk(oBoard), shipsSunk(pBoard), "Player")
+  } else {
+    showWinner(shipsSunk(pBoard), shipsSunk(oBoard), "PC")
+  }
+
+  return {player: `${shipsSunk(pBoard)}`,
+    opponent: `${shipsSunk(oBoard)}`
   }
 }
 
