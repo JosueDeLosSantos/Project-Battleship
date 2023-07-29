@@ -6,10 +6,55 @@ import customiseIcon from "./icons/swipe.svg";
 const body = document.querySelector("body");
 const header = document.createElement("header");
 const main = document.createElement("main");
+const footer = document.createElement("footer");
 const grids = document.createElement("div");
 grids.classList.add("grids");
-const playerGridContainer = document.createElement("div");
-playerGridContainer.classList.add("playerGridContainer");
+body.appendChild(header);
+body.appendChild(main);
+main.appendChild(grids);
+body.appendChild(footer);
+
+function playerAction() {
+  const playerGridContainer = document.createElement("div");
+  playerGridContainer.classList.add("playerGridContainer");
+  const playerIndex1 = document.createElement("table");
+  playerIndex1.classList.add("playerIndex1");
+  const rowIndex1 = document.createElement("tr");
+  rowIndex1.classList.add("rowIndex1");
+  for (let i = 1; i < 11; i += 1) {
+    const tdIndex1 = document.createElement("td");
+    tdIndex1.dataset.columnIndex = `${i}`;
+    tdIndex1.textContent = `${i}`;
+    rowIndex1.appendChild(tdIndex1);
+  }
+
+  const playerContainer2 = document.createElement("div");
+  playerContainer2.classList.add("playerContainer2");
+  const playerIndex2 = document.createElement("table");
+  playerIndex2.classList.add("playerIndex2");
+  for (let i = 1; i < 11; i += 1) {
+    const trColumn1 = document.createElement("tr");
+    const tdColumn1 = document.createElement("td");
+    tdColumn1.dataset.rowIndex = `${i}`;
+    tdColumn1.textContent = `${i}`;
+    playerIndex2.appendChild(trColumn1);
+    trColumn1.appendChild(tdColumn1);
+  }
+
+  // Create the player grid
+  const playerGrid = document.createElement("table");
+  playerGrid.classList.add("playerGrid");
+
+  playerGridContainer.appendChild(playerIndex1);
+  playerIndex1.appendChild(rowIndex1);
+  playerGridContainer.appendChild(playerContainer2);
+  playerContainer2.appendChild(playerIndex2);
+  playerContainer2.appendChild(playerGrid);
+  grids.appendChild(playerGridContainer);
+}
+playerAction();
+
+
 const opponentGridContainer = document.createElement("div");
 opponentGridContainer.classList.add("opponentGridContainer");
 const gridsTitle = document.createElement("div");
@@ -33,18 +78,15 @@ gridOption2Icon.classList.add("gridOption2Icon");
 gridOption1Icon.setAttribute("title", "Randomise");
 gridOption2Icon.setAttribute("title", "customize positions");
 gridOption1Icon.src = randomIcon;
+gridOption1Icon.addEventListener("click", randomise);
 gridOption2Icon.src = customiseIcon;
+gridOption2Icon.addEventListener("click", dragDrop);
 gridOption1.appendChild(gridOption1Icon);
 gridOption2.appendChild(gridOption2Icon);
 gridOptions.appendChild(gridOption1);
 gridOptions.appendChild(gridOption2);
-const footer = document.createElement("footer");
 
-body.appendChild(header);
-body.appendChild(main);
-main.appendChild(grids);
-grids.appendChild(playerGridContainer);
-body.appendChild(footer);
+
 /* Create header containing the game name and a box for game alerts */
 // Template: http://en.battleship-game.org/
 // header
@@ -60,40 +102,13 @@ bar.textContent = "Place the ships.";
 notificationBar.appendChild(bar);
 header.appendChild(gameTitle);
 header.appendChild(notificationBar);
-// Create the player grid
-const playerGrid = document.createElement("table");
-playerGrid.classList.add("playerGrid");
-const playerIndex1 = document.createElement("table");
-const rowIndex1 = document.createElement("tr");
-rowIndex1.classList.add("rowIndex1");
-for (let i = 1; i < 11; i += 1) {
-  const tdIndex1 = document.createElement("td");
-  tdIndex1.dataset.columnIndex = `${i}`;
-  tdIndex1.textContent = `${i}`;
-  rowIndex1.appendChild(tdIndex1);
-}
-const playerContainer2 = document.createElement("div");
-playerContainer2.classList.add("playerContainer2");
-const playerIndex2 = document.createElement("table");
-for (let i = 1; i < 11; i += 1) {
-  const trColumn1 = document.createElement("tr");
-  const tdColumn1 = document.createElement("td");
-  tdColumn1.dataset.rowIndex = `${i}`;
-  tdColumn1.textContent = `${i}`;
-  playerIndex2.appendChild(trColumn1);
-  trColumn1.appendChild(tdColumn1);
-}
-grids.appendChild(playerGridContainer);
-playerGridContainer.appendChild(playerIndex1);
-playerIndex1.appendChild(rowIndex1);
-playerGridContainer.appendChild(playerContainer2);
-playerContainer2.appendChild(playerIndex2);
-playerContainer2.appendChild(playerGrid);
+
 let playerBoard = null;
 
 function playerBoardFunction(){
   const playerBoard1 = logic.Gameboard();
   playerBoard = playerBoard1;
+  const playerGrid = document.querySelector(".playerGrid");
   if (playerGrid.children.length > 0) {
     const playerGridTR = document.querySelectorAll(`[data-row]`)
     playerGridTR.forEach(el => {
@@ -121,6 +136,7 @@ function playerBoardFunction(){
   return playerBoard1;
 }
 playerBoardFunction();
+
 // Create the opponent grid
 grids.appendChild(opponentGridContainer);
 const opponentGrid = document.createElement("table");
@@ -191,7 +207,10 @@ main.appendChild(gridOptions);
 function randomise() {
   playerBoardFunction();
 }
-gridOption1Icon.addEventListener("click", randomise);
+
+function dragDrop(){
+  grids.hidden = true;
+}
 
 function play() {
   grids.removeChild(playButtonContainer);
@@ -199,9 +218,11 @@ function play() {
   opponentGrid.classList.add("opponentGrid");
   opponentIndex1.classList.remove("opponentIndex1");
   opponentIndex2.classList.remove("opponentIndex2");
-  playerIndex1.classList.add("playerIndex1");
-  playerIndex2.classList.add("playerIndex2");
-  playerGrid.classList.remove("playerGrid");
+  const playerIndex1 = document.querySelector(".playerIndex1");
+  playerIndex1.classList.add("playerIndex1Light");
+  const playerIndex2 = document.querySelector(".playerIndex2");
+  playerIndex2.classList.add("playerIndex2Light");
+  const playerGrid = document.querySelector(".playerGrid");
   playerGrid.classList.add("weak");
   const notSunk = document.getElementsByClassName("notSunk");
   // Most efficient way to convert an HTMLCollection to an Array
@@ -328,6 +349,7 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
   // Update playerBoard on each turn
   pBoard = logic.receiveAttack(randomePlay(pBoard), pBoard);
   newLength = pBoard.missedShot.length;
+  const playerGrid = document.querySelector(".playerGrid");
 
   if (newLength === (currentLength + 1)) {
   // Missed attacks will be reflected on the DOM
@@ -381,10 +403,13 @@ function opponentGridFlow(e) {
         opponentIndex1.classList.add("opponentIndex1");
         e.target.dataset.field2 = "1234";
         // Open the player's grid
+        const playerGrid = document.querySelector(".playerGrid");
         playerGrid.classList.remove("weak");
         playerGrid.classList.add("playerGrid");
-        playerIndex2.classList.remove("playerIndex2");
-        playerIndex1.classList.remove("playerIndex1");
+        const playerIndex2 = document.querySelector(".playerIndex2");
+        playerIndex2.classList.remove("playerIndex2Light");
+        const playerIndex1 = document.querySelector(".playerIndex1");
+        playerIndex1.classList.remove("playerIndex1Light");
         const notSunkWeak = document.getElementsByClassName("notSunkWeak");
         const sunkWeak = document.getElementsByClassName("sunk");
         // Most efficient way to convert an HTMLCollection to an Array
@@ -436,9 +461,12 @@ opponentGrid.addEventListener("click", opponentGridFlow);
 
 function playerGridWeak(n){
   // hide player's grid;
-  playerGrid.classList.add("weak")
-  rowIndex1.parentNode.classList.add("playerIndex1");
-  playerContainer2.childNodes[0].classList.add("playerIndex2");
+  const playerGrid = document.querySelector(".playerGrid");
+  playerGrid.classList.add("weak");
+  const rowIndex1 = document.querySelector(".rowIndex1");
+  rowIndex1.parentNode.classList.add("playerIndex1Light");
+  const playerContainer2 = document.querySelector(".playerContainer2");
+  playerContainer2.childNodes[0].classList.add("playerIndex2Light");
   const notSunk = document.getElementsByClassName("notSunk");
   const arrNotsunk = [].slice.call(notSunk);
   arrNotsunk.forEach((el) => {
