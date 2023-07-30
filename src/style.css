@@ -16,7 +16,7 @@ header > div:nth-child(2) {
 }
 
 .bar {
-  background-color: #f8f8f8;
+  background-color: rgb(233, 231, 231);
   width: 50%;
   padding: 8px 5px;
 }
@@ -77,8 +77,8 @@ main > div:nth-child(1) {
   text-align: center;
 }
 
-.opponentIndex1 > tr > td,
-.opponentIndex2 > tr > td,
+.opponentIndex1Light > tr > td,
+.opponentIndex2Light > tr > td,
 .playerIndex1Light > tr > td,
 .playerIndex2Light > tr > td {
   color: rgba(0, 0, 0, 0.301);
@@ -183,10 +183,10 @@ main > div:nth-child(1) {
   background-color: rgb(228, 228, 228);
 }
 .missedWeak {
-  background-color: rgba(228, 228, 228, 0.493);
+  background-color: rgba(228, 228, 228, 0.644);
 }
 .missedWeak2 {
-  background-color: rgba(228, 228, 228, 0.493);
+  background-color: rgba(228, 228, 228, 0.644);
 }
 
 
@@ -238,9 +238,9 @@ main > div:nth-child(1) {
   font-weight: bold;
   align-self: center;
   margin-top: 30%;
-  background-image: linear-gradient(to bottom, #ff0000, #ff9900);
+  background-image: linear-gradient(to bottom, #c50909, #ca7d08);
   color: white;
-  border-bottom: 2px solid #f39302;
+  border-bottom: 2px solid #865408;
   border-radius: 40%;
   padding-top: 3px;
   padding-bottom: 9px;

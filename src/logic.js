@@ -160,6 +160,7 @@ export function receiveAttack(C1, GameboardStatus) {
 }
 
 export function reOrderArr(arr) {
+  
   const newArray = [];
   let tempArr = []
   let first = null;

@@ -14,6 +14,22 @@ body.appendChild(main);
 main.appendChild(grids);
 body.appendChild(footer);
 
+/* Create header containing the game name and a box for game alerts */
+// Template: http://en.battleship-game.org/
+// header
+const gameTitle = document.createElement("div");
+const title = document.createElement("div");
+title.classList.add("gameTitle");
+title.textContent = "Battleship";
+gameTitle.appendChild(title);
+const notificationBar = document.createElement("div");
+const bar = document.createElement("div");
+bar.classList.add("bar");
+bar.textContent = "Place the ships.";
+notificationBar.appendChild(bar);
+header.appendChild(gameTitle);
+header.appendChild(notificationBar);
+
 function playerAction() {
   const playerGridContainer = document.createElement("div");
   playerGridContainer.classList.add("playerGridContainer");
@@ -54,55 +70,6 @@ function playerAction() {
 }
 playerAction();
 
-
-const opponentGridContainer = document.createElement("div");
-opponentGridContainer.classList.add("opponentGridContainer");
-const gridsTitle = document.createElement("div");
-gridsTitle.classList.add("gridsTitles");
-const title1 = document.createElement("div");
-title1.classList.add("title1");
-title1.innerText = "your grid";
-const title2 = document.createElement("div");
-title2.classList.add("title2");
-title2.innerText = "Opponent's grid";
-gridsTitle.appendChild(title1);
-gridsTitle.appendChild(title2);
-const gridOptions = document.createElement("div");
-gridOptions.classList.add("gridOptions");
-const gridOption1 = document.createElement("div");
-const gridOption2 = document.createElement("div");
-const gridOption1Icon = new Image();
-const gridOption2Icon = new Image();
-gridOption1Icon.classList.add("gridOption1Icon");
-gridOption2Icon.classList.add("gridOption2Icon");
-gridOption1Icon.setAttribute("title", "Randomise");
-gridOption2Icon.setAttribute("title", "customize positions");
-gridOption1Icon.src = randomIcon;
-gridOption1Icon.addEventListener("click", randomise);
-gridOption2Icon.src = customiseIcon;
-gridOption2Icon.addEventListener("click", dragDrop);
-gridOption1.appendChild(gridOption1Icon);
-gridOption2.appendChild(gridOption2Icon);
-gridOptions.appendChild(gridOption1);
-gridOptions.appendChild(gridOption2);
-
-
-/* Create header containing the game name and a box for game alerts */
-// Template: http://en.battleship-game.org/
-// header
-const gameTitle = document.createElement("div");
-const title = document.createElement("div");
-title.classList.add("gameTitle");
-title.textContent = "Battleship";
-gameTitle.appendChild(title);
-const notificationBar = document.createElement("div");
-const bar = document.createElement("div");
-bar.classList.add("bar");
-bar.textContent = "Place the ships.";
-notificationBar.appendChild(bar);
-header.appendChild(gameTitle);
-header.appendChild(notificationBar);
-
 let playerBoard = null;
 
 function playerBoardFunction(){
@@ -137,72 +104,127 @@ function playerBoardFunction(){
 }
 playerBoardFunction();
 
-// Create the opponent grid
-grids.appendChild(opponentGridContainer);
-const opponentGrid = document.createElement("table");
-opponentGrid.classList.add("opponentGrid");
-const opponentIndex1 = document.createElement("table");
-opponentIndex1.classList.add("opponentIndex1");
-const rowIndex2 = document.createElement("tr");
-for (let i = 1; i < 11; i += 1) {
-  const tdIndex = document.createElement("td");
-  tdIndex.dataset.columnIndex = `${i}`;
-  tdIndex.textContent = `${i}`;
-  rowIndex2.appendChild(tdIndex);
+
+function titlesAction() {
+  const gridsTitle = document.createElement("div");
+  gridsTitle.classList.add("gridsTitles");
+  const title1 = document.createElement("div");
+  title1.classList.add("title1");
+  title1.innerText = "your grid";
+  const title2 = document.createElement("div");
+  title2.classList.add("title2");
+  title2.innerText = "Opponent's grid";
+  gridsTitle.appendChild(title1);
+  gridsTitle.appendChild(title2);
+  const gridOptions = document.createElement("div");
+  gridOptions.classList.add("gridOptions");
+  const gridOption1 = document.createElement("div");
+  const gridOption2 = document.createElement("div");
+  const gridOption1Icon = new Image();
+  const gridOption2Icon = new Image();
+  gridOption1Icon.classList.add("gridOption1Icon");
+  gridOption2Icon.classList.add("gridOption2Icon");
+  gridOption1Icon.setAttribute("title", "Randomise");
+  gridOption2Icon.setAttribute("title", "customize positions");
+  gridOption1Icon.src = randomIcon;
+  gridOption1Icon.addEventListener("click", randomise);
+  gridOption2Icon.src = customiseIcon;
+  gridOption2Icon.addEventListener("click", dragDrop);
+  gridOption1.appendChild(gridOption1Icon);
+  gridOption2.appendChild(gridOption2Icon);
+  gridOptions.appendChild(gridOption1);
+  gridOptions.appendChild(gridOption2);
+  // Add titles to each grid
+  main.appendChild(gridsTitle);
+  // Add options to the player's grid
+  main.appendChild(gridOptions);
 }
-const opponentContainer2 = document.createElement("div");
-opponentContainer2.classList.add("opponentContainer2");
-const opponentIndex2 = document.createElement("table");
-opponentIndex2.classList.add("opponentIndex2");
-for (let i = 1; i < 11; i += 1) {
-  const trColumn = document.createElement("tr");
-  const tdColumn = document.createElement("td");
-  tdColumn.dataset.rowIndex = `${i}`;
-  tdColumn.textContent = `${i}`;
-  opponentIndex2.appendChild(trColumn);
-  trColumn.appendChild(tdColumn);
-}
-opponentGridContainer.appendChild(opponentIndex1);
-opponentIndex1.appendChild(rowIndex2);
-opponentGridContainer.appendChild(opponentContainer2);
-opponentContainer2.appendChild(opponentIndex2);
-opponentContainer2.appendChild(opponentGrid);
+titlesAction()
+const gridOptions = document.querySelector(".gridOptions");
+
 let opponentBoard = logic.Gameboard();
-console.log(opponentBoard);
-for (let i = 0; i < 10; i += 1) {
-  const gridRow = document.createElement("tr");
-  gridRow.dataset.row2 = `${i}`;
-  opponentGrid.appendChild(gridRow);
-  for (let j = 0; j < 10; j += 1) {
-    const gridField = document.createElement("td");
-    gridField.classList.add("gridFieldOpponent");
-    gridField.dataset.field2 = `${opponentBoard.board[i][j]}`;
-    if (!gridField.dataset.field2) {
-      gridField.dataset.field2 = `${i}${j}`;
+function opponentAction(){
+    // Create the opponent grid
+  const opponentGridContainer = document.createElement("div");
+  opponentGridContainer.classList.add("opponentGridContainer");
+  const opponentGrid = document.createElement("table");
+  opponentGrid.classList.add("opponentGrid");
+  const opponentIndex1 = document.createElement("table");
+  opponentIndex1.classList.add("opponentIndex1");
+  opponentIndex1.classList.add("opponentIndex1Light");
+  const rowIndex2 = document.createElement("tr");
+  for (let i = 1; i < 11; i += 1) {
+    const tdIndex = document.createElement("td");
+    tdIndex.dataset.columnIndex = `${i}`;
+    tdIndex.textContent = `${i}`;
+    rowIndex2.appendChild(tdIndex);
+  }
+  const opponentContainer2 = document.createElement("div");
+  opponentContainer2.classList.add("opponentContainer2");
+  const opponentIndex2 = document.createElement("table");
+  opponentIndex2.classList.add("opponentIndex2");
+  opponentIndex2.classList.add("opponentIndex2Light");
+  for (let i = 1; i < 11; i += 1) {
+    const trColumn = document.createElement("tr");
+    const tdColumn = document.createElement("td");
+    tdColumn.dataset.rowIndex = `${i}`;
+    tdColumn.textContent = `${i}`;
+    opponentIndex2.appendChild(trColumn);
+    trColumn.appendChild(tdColumn);
+  }
+  grids.appendChild(opponentGridContainer);
+  opponentGridContainer.appendChild(opponentIndex1);
+  opponentIndex1.appendChild(rowIndex2);
+  opponentGridContainer.appendChild(opponentContainer2);
+  opponentContainer2.appendChild(opponentIndex2);
+  opponentContainer2.appendChild(opponentGrid);
+
+  console.log(opponentBoard);
+  for (let i = 0; i < 10; i += 1) {
+    const gridRow = document.createElement("tr");
+    gridRow.dataset.row2 = `${i}`;
+    opponentGrid.appendChild(gridRow);
+    for (let j = 0; j < 10; j += 1) {
+      const gridField = document.createElement("td");
+      gridField.classList.add("gridFieldOpponent");
+      gridField.dataset.field2 = `${opponentBoard.board[i][j]}`;
+      if (!gridField.dataset.field2) {
+        gridField.dataset.field2 = `${i}${j}`;
+      }
+      const gridRowSelector = document.querySelector(`[data-row2 = "${i}"]`);
+      gridRowSelector.appendChild(gridField);
     }
-    const gridRowSelector = document.querySelector(`[data-row2 = "${i}"]`);
-    gridRowSelector.appendChild(gridField);
   }
 }
+opponentAction()
+
+// Selectors
+const playerGrid = document.querySelector(".playerGrid");
+const playerIndex1 = document.querySelector(".playerIndex1");
+const playerIndex2 = document.querySelector(".playerIndex2");
+const opponentGrid = document.querySelector(".opponentGrid");
+const opponentIndex1 = document.querySelector(".opponentIndex1");
+const opponentIndex2 = document.querySelector(".opponentIndex2");
+
 // Add play button on the opponent's grid
-opponentGrid.classList.add("weak");
-opponentGrid.classList.remove("opponentGrid");
-const playButton = document.createElement("div");
-const playButtonContainer = document.createElement("div");
-const playButtonTitle = document.createElement("div");
-playButtonTitle.classList.add("playButtonTitle");
-playButtonTitle.innerText = "Opponent";
-playButtonContainer.classList.add("playButtonContainer");
-playButton.classList.add("playButton");
-playButton.innerText = "Play";
-grids.appendChild(playButtonContainer);
-playButtonContainer.appendChild(playButtonTitle);
-playButtonContainer.appendChild(playButton);
-// Add titles to each grid
-main.appendChild(gridsTitle);
-// Add options to the player's grid
-main.appendChild(gridOptions);
-// Add option to place the player's ships randomly
+function playButtonAction(){
+  opponentGrid.classList.add("weak");
+  const playButton = document.createElement("div");
+  playButton.classList.add("playButton");
+  playButton.innerText = "Play";
+  const playButtonContainer = document.createElement("div");
+  const playButtonTitle = document.createElement("div");
+  playButtonTitle.classList.add("playButtonTitle");
+  playButtonTitle.innerText = "Opponent";
+  playButtonContainer.classList.add("playButtonContainer");
+  grids.appendChild(playButtonContainer);
+  playButtonContainer.appendChild(playButtonTitle);
+  playButtonContainer.appendChild(playButton);
+}
+playButtonAction()
+const playButton = document.querySelector(".playButton");
+const playButtonContainer = document.querySelector(".playButtonContainer");
+
 
 function randomise() {
   playerBoardFunction();
@@ -215,14 +237,10 @@ function dragDrop(){
 function play() {
   grids.removeChild(playButtonContainer);
   opponentGrid.classList.remove("weak");
-  opponentGrid.classList.add("opponentGrid");
-  opponentIndex1.classList.remove("opponentIndex1");
-  opponentIndex2.classList.remove("opponentIndex2");
-  const playerIndex1 = document.querySelector(".playerIndex1");
+  opponentIndex1.classList.remove("opponentIndex1Light");
+  opponentIndex2.classList.remove("opponentIndex2Light");
   playerIndex1.classList.add("playerIndex1Light");
-  const playerIndex2 = document.querySelector(".playerIndex2");
   playerIndex2.classList.add("playerIndex2Light");
-  const playerGrid = document.querySelector(".playerGrid");
   playerGrid.classList.add("weak");
   const notSunk = document.getElementsByClassName("notSunk");
   // Most efficient way to convert an HTMLCollection to an Array
@@ -272,11 +290,10 @@ function randomePlay(b) {
 
 function opponentGridFlowRefresh(oBoard) {
     // Spot all missed attacks
-    const opponentTable = document.querySelector(".opponentGrid");
     for (let i = 0; i < oBoard.missedShot.length; i += 1) {
       const ms1 = oBoard.missedShot[i][0];
       const ms2 = oBoard.missedShot[i][1];
-      const selection = opponentTable.childNodes[ms1].childNodes[ms2];
+      const selection = opponentGrid.childNodes[ms1].childNodes[ms2];
       selection.classList.add("missed");
     }
     // Spot all achieved attacks
@@ -284,7 +301,7 @@ function opponentGridFlowRefresh(oBoard) {
       for (let j = 0; j < oBoard.ships[i][0].hitsrecord.length; j += 1) {
         const ms1 = oBoard.ships[i][0].hitsrecord[j][0];
         const ms2 = oBoard.ships[i][0].hitsrecord[j][1];
-        const selection = opponentTable.childNodes[ms1].childNodes[ms2];
+        const selection = opponentGrid.childNodes[ms1].childNodes[ms2];
         selection.classList.add("sunk");
       }
     }
@@ -293,11 +310,10 @@ function opponentGridFlowRefresh(oBoard) {
 
 function playerGridFlow(pBoard){
   // Spot all missed attacks eccept the last one
-  const playerTable = document.querySelector(".playerGrid");
   for (let i = 0; i < pBoard.missedShot.length - 1; i += 1) {
     const ms1 = pBoard.missedShot[i][0];
     const ms2 = pBoard.missedShot[i][1];
-    const selection = playerTable.childNodes[ms1].childNodes[ms2];
+    const selection = playerGrid.childNodes[ms1].childNodes[ms2];
     if (!selection.classList.contains("missed2")) {
       selection.classList.add("missed2");
     }
@@ -307,7 +323,7 @@ function playerGridFlow(pBoard){
     for (let j = 0; j < pBoard.ships[i][0].hitsrecord.length; j += 1) {
       const ms1 = pBoard.ships[i][0].hitsrecord[j][0];
       const ms2 = pBoard.ships[i][0].hitsrecord[j][1];
-      const selection = playerTable.childNodes[ms1].childNodes[ms2];
+      const selection = playerGrid.childNodes[ms1].childNodes[ms2];
       if (selection.classList.contains("notSunk")) {
         selection.classList.remove("notSunk");
         selection.classList.add("sunk2");
@@ -334,7 +350,7 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
       tempSelection.classList.add("sunk2");
     }
     tempSelection = null;
-   }, 300);
+   }, 200);
   }
 
   // Check if game is over
@@ -349,7 +365,6 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
   // Update playerBoard on each turn
   pBoard = logic.receiveAttack(randomePlay(pBoard), pBoard);
   newLength = pBoard.missedShot.length;
-  const playerGrid = document.querySelector(".playerGrid");
 
   if (newLength === (currentLength + 1)) {
   // Missed attacks will be reflected on the DOM
@@ -387,6 +402,13 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
 }
 
 function opponentGridFlow(e) {
+
+  if ((opponentBoard.allShipsSunk === true) || (playerBoard.allShipsSunk === true)) {
+    console.log(opponentBoard);
+    console.log(playerBoard);
+    console.log(gameEnds(playerBoard, opponentBoard))
+  }
+
   if (!opponentGrid.classList.contains("weak") &&
   !e.target.classList.contains("missed") &&
   !e.target.classList.contains("sunk")) {
@@ -399,16 +421,13 @@ function opponentGridFlow(e) {
       setTimeout(() => {
         // Close the opponent's grid
         opponentGrid.classList.add("weak");
-        opponentIndex2.classList.add("opponentIndex2");
-        opponentIndex1.classList.add("opponentIndex1");
+        opponentIndex2.classList.add("opponentIndex2Light");
+        opponentIndex1.classList.add("opponentIndex1Light");
         e.target.dataset.field2 = "1234";
         // Open the player's grid
-        const playerGrid = document.querySelector(".playerGrid");
         playerGrid.classList.remove("weak");
         playerGrid.classList.add("playerGrid");
-        const playerIndex2 = document.querySelector(".playerIndex2");
         playerIndex2.classList.remove("playerIndex2Light");
-        const playerIndex1 = document.querySelector(".playerIndex1");
         playerIndex1.classList.remove("playerIndex1Light");
         const notSunkWeak = document.getElementsByClassName("notSunkWeak");
         const sunkWeak = document.getElementsByClassName("sunk");
@@ -459,9 +478,8 @@ function opponentGridFlow(e) {
 }
 opponentGrid.addEventListener("click", opponentGridFlow);
 
-function playerGridWeak(n){
+function playerGridWeak(){
   // hide player's grid;
-  const playerGrid = document.querySelector(".playerGrid");
   playerGrid.classList.add("weak");
   const rowIndex1 = document.querySelector(".rowIndex1");
   rowIndex1.parentNode.classList.add("playerIndex1Light");
@@ -485,8 +503,8 @@ function playerGridWeak(n){
   
   // Open opponent's grid
   opponentGrid.classList.remove("weak");
-  opponentIndex2.classList.remove("opponentIndex2");
-  opponentIndex1.classList.remove("opponentIndex1");
+  opponentIndex2.classList.remove("opponentIndex2Light");
+  opponentIndex1.classList.remove("opponentIndex1Light");
   const sunkWeak = document.getElementsByClassName("sunkWeak");
   const arrSunkWeak = [].slice.call(sunkWeak);
   arrSunkWeak.forEach((el) => {
