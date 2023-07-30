@@ -97,8 +97,8 @@ main > div:nth-child(1) {
   gap: 10px;
   align-items: center;
   position: absolute;
-  bottom: 55%;
-  right: 25%;
+  bottom: 60%;
+  right: 27%;
 }
 
 .playButtonTitle {
@@ -250,4 +250,58 @@ main > div:nth-child(1) {
   border: 1px solid #ff0000;
   background-image: linear-gradient(to bottom, #ff0000, #ff0000);
   padding-bottom: 8px;
+}
+
+.dBox {
+  height: 311px;
+  width: 311px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.firstContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.secondContainer, .thirdContainer, .fourthContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.dBoxFour {
+  height: 30px;
+  width: calc(31px * 4);
+  background-color: hsl(189, 91%, 87%);
+  box-shadow: inset 0 0 10px hsl(189, 84%, 71%);
+  border: 1px solid;
+  border-color: rgb(146, 146, 253);
+}
+
+.dBoxThree1, .dBoxThree2 {
+  height: 30px;
+  width: calc(31px * 3);
+  background-color: hsl(189, 91%, 87%);
+  box-shadow: inset 0 0 10px hsl(189, 84%, 71%);
+  border: 1px solid;
+  border-color: rgb(146, 146, 253);
+}
+
+.dBoxTwo1, .dBoxTwo2, .dBoxTwo3 {
+  height: 30px;
+  width: calc(31px * 2);
+  background-color: hsl(189, 91%, 87%);
+  box-shadow: inset 0 0 10px hsl(189, 84%, 71%);
+  border: 1px solid;
+  border-color: rgb(146, 146, 253);
+}
+
+.dBoxOne1, .dBoxOne2, .dBoxOne3, .dBoxOne4 {
+  height: 30px;
+  width: 30px;
+  background-color: hsl(189, 91%, 87%);
+  box-shadow: inset 0 0 10px hsl(189, 84%, 71%);
+  border: 1px solid;
+  border-color: rgb(146, 146, 253);
 }

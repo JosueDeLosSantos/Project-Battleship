@@ -69,6 +69,7 @@ function playerAction() {
   grids.appendChild(playerGridContainer);
 }
 playerAction();
+const playerGridContainer = document.querySelector(".playerGridContainer")
 
 let playerBoard = null;
 
@@ -104,46 +105,9 @@ function playerBoardFunction(){
 }
 playerBoardFunction();
 
-
-function titlesAction() {
-  const gridsTitle = document.createElement("div");
-  gridsTitle.classList.add("gridsTitles");
-  const title1 = document.createElement("div");
-  title1.classList.add("title1");
-  title1.innerText = "your grid";
-  const title2 = document.createElement("div");
-  title2.classList.add("title2");
-  title2.innerText = "Opponent's grid";
-  gridsTitle.appendChild(title1);
-  gridsTitle.appendChild(title2);
-  const gridOptions = document.createElement("div");
-  gridOptions.classList.add("gridOptions");
-  const gridOption1 = document.createElement("div");
-  const gridOption2 = document.createElement("div");
-  const gridOption1Icon = new Image();
-  const gridOption2Icon = new Image();
-  gridOption1Icon.classList.add("gridOption1Icon");
-  gridOption2Icon.classList.add("gridOption2Icon");
-  gridOption1Icon.setAttribute("title", "Randomise");
-  gridOption2Icon.setAttribute("title", "customize positions");
-  gridOption1Icon.src = randomIcon;
-  gridOption1Icon.addEventListener("click", randomise);
-  gridOption2Icon.src = customiseIcon;
-  gridOption2Icon.addEventListener("click", dragDrop);
-  gridOption1.appendChild(gridOption1Icon);
-  gridOption2.appendChild(gridOption2Icon);
-  gridOptions.appendChild(gridOption1);
-  gridOptions.appendChild(gridOption2);
-  // Add titles to each grid
-  main.appendChild(gridsTitle);
-  // Add options to the player's grid
-  main.appendChild(gridOptions);
-}
-titlesAction()
-const gridOptions = document.querySelector(".gridOptions");
-
-let opponentBoard = logic.Gameboard();
+let opponentBoard = null;
 function opponentAction(){
+  opponentBoard = logic.Gameboard();
     // Create the opponent grid
   const opponentGridContainer = document.createElement("div");
   opponentGridContainer.classList.add("opponentGridContainer");
@@ -197,6 +161,47 @@ function opponentAction(){
   }
 }
 opponentAction()
+const opponentGridContainer = document.querySelector(".opponentGridContainer")
+
+
+function titlesAction() {
+  const gridsTitle = document.createElement("div");
+  gridsTitle.classList.add("gridsTitles");
+  const title1 = document.createElement("div");
+  title1.classList.add("title1");
+  title1.innerText = "Your grid";
+  const title2 = document.createElement("div");
+  title2.classList.add("title2");
+  title2.innerText = "Opponent's grid";
+  gridsTitle.appendChild(title1);
+  gridsTitle.appendChild(title2);
+  const gridOptions = document.createElement("div");
+  gridOptions.classList.add("gridOptions");
+  const gridOption1 = document.createElement("div");
+  const gridOption2 = document.createElement("div");
+  const gridOption1Icon = new Image();
+  const gridOption2Icon = new Image();
+  gridOption1Icon.classList.add("gridOption1Icon");
+  gridOption2Icon.classList.add("gridOption2Icon");
+  gridOption1Icon.setAttribute("title", "Randomise");
+  gridOption2Icon.setAttribute("title", "customize positions");
+  gridOption1Icon.src = randomIcon;
+  gridOption1Icon.addEventListener("click", randomise);
+  gridOption2Icon.src = customiseIcon;
+  gridOption2Icon.addEventListener("click", dragDrop);
+  gridOption1.appendChild(gridOption1Icon);
+  gridOption2.appendChild(gridOption2Icon);
+  gridOptions.appendChild(gridOption1);
+  gridOptions.appendChild(gridOption2);
+  // Add titles to each grid
+  main.appendChild(gridsTitle);
+  // Add options to the player's grid
+  main.appendChild(gridOptions);
+}
+titlesAction()
+const gridOptions = document.querySelector(".gridOptions");
+const title1 = document.querySelector(".title1");
+const title2 = document.querySelector(".title2");
 
 // Selectors
 const playerGrid = document.querySelector(".playerGrid");
@@ -221,7 +226,7 @@ function playButtonAction(){
   playButtonContainer.appendChild(playButtonTitle);
   playButtonContainer.appendChild(playButton);
 }
-playButtonAction()
+playButtonAction();
 const playButton = document.querySelector(".playButton");
 const playButtonContainer = document.querySelector(".playButtonContainer");
 
@@ -230,8 +235,71 @@ function randomise() {
   playerBoardFunction();
 }
 
+function draggableShips() {
+  const dBox = document.createElement("div");
+  dBox.classList.add("dBox");
+  grids.appendChild(dBox);
+
+  const firstContainer = document.createElement("div");
+  firstContainer.classList.add("firstContainer");
+  const dBoxFour = document.createElement("div");
+  dBoxFour.classList.add("dBoxFour");
+  firstContainer.appendChild(dBoxFour);
+  dBox.appendChild(firstContainer);
+  
+  const secondContainer = document.createElement("div");
+  secondContainer.classList.add("secondContainer");
+  const dBoxThree1 = document.createElement("div");
+  dBoxThree1.classList.add("dBoxThree1");
+  dBox.appendChild(secondContainer);
+  secondContainer.appendChild(dBoxThree1);
+  const dBoxThree2 = document.createElement("div");
+  dBoxThree2.classList.add("dBoxThree2");
+  dBox.appendChild(secondContainer);
+  secondContainer.appendChild(dBoxThree2);
+
+  const thirdContainer = document.createElement("div");
+  thirdContainer.classList.add("thirdContainer");
+  const dBoxTwo1 = document.createElement("div");
+  dBoxTwo1.classList.add("dBoxTwo1");
+  dBox.appendChild(thirdContainer);
+  thirdContainer.appendChild(dBoxTwo1);
+  const dBoxTwo2 = document.createElement("div");
+  dBoxTwo2.classList.add("dBoxTwo2");
+  dBox.appendChild(thirdContainer);
+  thirdContainer.appendChild(dBoxTwo2);
+  const dBoxTwo3 = document.createElement("div");
+  dBoxTwo3.classList.add("dBoxTwo3");
+  dBox.appendChild(thirdContainer);
+  thirdContainer.appendChild(dBoxTwo3);
+
+  const fourthContainer = document.createElement("div");
+  fourthContainer.classList.add("fourthContainer");
+  const dBoxOne1 = document.createElement("div");
+  dBoxOne1.classList.add("dBoxOne1");
+  dBox.appendChild(fourthContainer);
+  fourthContainer.appendChild(dBoxOne1);
+  const dBoxOne2 = document.createElement("div");
+  dBoxOne2.classList.add("dBoxOne2");
+  dBox.appendChild(fourthContainer);
+  fourthContainer.appendChild(dBoxOne2);
+  const dBoxOne3 = document.createElement("div");
+  dBoxOne3.classList.add("dBoxOne3");
+  dBox.appendChild(fourthContainer);
+  fourthContainer.appendChild(dBoxOne3);
+  const dBoxOne4 = document.createElement("div");
+  dBoxOne4.classList.add("dBoxOne4");
+  dBox.appendChild(fourthContainer);
+  fourthContainer.appendChild(dBoxOne4);
+}
+
 function dragDrop(){
-  grids.hidden = true;
+  grids.removeChild(playerGridContainer);
+  grids.removeChild(opponentGridContainer);
+  grids.removeChild(playButtonContainer);
+  draggableShips() 
+  title1.innerText = "Your ships";
+  title2.innerText = "Your grid";
 }
 
 function play() {
@@ -332,26 +400,12 @@ function playerGridFlow(pBoard){
   }
 }
 
-
-let tempSelection = null;
 let counter = 1;
 
 function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
   counter += 1;
   const currentLength = pBoard.missedShot.length;
   let newLength = currentLength;
-
-  // Achieved attacks will be reflected on the DOM
-  if (tempSelection !== null) {
-   setTimeout(() => {
-
-    if (tempSelection.classList.contains("notSunk")) {
-      tempSelection.classList.remove("notSunk");
-      tempSelection.classList.add("sunk2");
-    }
-    tempSelection = null;
-   }, 200);
-  }
 
   // Check if game is over
   if ((oBoard.allShipsSunk === true) || (pBoard.allShipsSunk === true)) {
@@ -386,17 +440,13 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
         const ms1 = pBoard.ships[i][0].hitsrecord[j][0];
         const ms2 = pBoard.ships[i][0].hitsrecord[j][1];
         const selection = playerGrid.childNodes[ms1].childNodes[ms2];
-        
-        if (selection.classList.contains("notSunkWeak")) {
-          tempSelection = selection;
-        }
 
         if (selection.classList.contains("notSunk")) {
-          tempSelection = selection;
+          selection.classList.remove("notSunk");
+          selection.classList.add("sunk2");
         }
       }
     }
-
     setTimeout(() => {pcTurn(pBoard, oBoard)}, 500);
   }
 }
