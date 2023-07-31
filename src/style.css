@@ -41,7 +41,8 @@ main > div:nth-child(1) {
 }
 
 .playerGridContainer,
-.opponentGridContainer {
+.opponentGridContainer,
+.dropTableContainer {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -54,8 +55,10 @@ main > div:nth-child(1) {
 
 .playerGrid,
 .opponentGrid,
+.dTable,
 [data-field],
-[data-field2] {
+[data-field2],
+[data-drag-table-field] {
   border: 1px solid;
   border-color: rgb(146, 146, 253);
   border-collapse: collapse;
@@ -70,6 +73,7 @@ main > div:nth-child(1) {
 
 [data-field],
 [data-field2],
+[data-drag-table-field],
 [data-row-index],
 [data-column-index] {
   width: 30px;
@@ -257,7 +261,8 @@ main > div:nth-child(1) {
   width: 311px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-end;
+  gap: 40px;
 }
 
 .firstContainer {
@@ -304,4 +309,8 @@ main > div:nth-child(1) {
   box-shadow: inset 0 0 10px hsl(189, 84%, 71%);
   border: 1px solid;
   border-color: rgb(146, 146, 253);
+}
+
+.hide {
+  display: none;
 }

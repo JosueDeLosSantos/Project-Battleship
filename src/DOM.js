@@ -70,13 +70,13 @@ function playerAction() {
 }
 playerAction();
 const playerGridContainer = document.querySelector(".playerGridContainer")
+const playerGrid = document.querySelector(".playerGrid")
 
 let playerBoard = null;
 
 function playerBoardFunction(){
   const playerBoard1 = logic.Gameboard();
   playerBoard = playerBoard1;
-  const playerGrid = document.querySelector(".playerGrid");
   if (playerGrid.children.length > 0) {
     const playerGridTR = document.querySelectorAll(`[data-row]`)
     playerGridTR.forEach(el => {
@@ -204,7 +204,6 @@ const title1 = document.querySelector(".title1");
 const title2 = document.querySelector(".title2");
 
 // Selectors
-const playerGrid = document.querySelector(".playerGrid");
 const playerIndex1 = document.querySelector(".playerIndex1");
 const playerIndex2 = document.querySelector(".playerIndex2");
 const opponentGrid = document.querySelector(".opponentGrid");
@@ -235,6 +234,65 @@ function randomise() {
   playerBoardFunction();
 }
 
+function dropTable(){
+  const dropTableContainer = document.createElement("div");
+  dropTableContainer.classList.add("dropTableContainer");
+  const dropIndex1 = document.createElement("table");
+  dropIndex1.classList.add("dropIndex1");
+  const rowIndex1 = document.createElement("tr");
+  rowIndex1.classList.add("rowIndex1");
+  for (let i = 1; i < 11; i += 1) {
+    const tdIndex1 = document.createElement("td");
+    tdIndex1.dataset.columnIndex = `${i}`;
+    tdIndex1.textContent = `${i}`;
+    rowIndex1.appendChild(tdIndex1);
+  }
+
+  const playerContainer2 = document.createElement("div");
+  playerContainer2.classList.add("playerContainer2");
+  const dropTableIndex2 = document.createElement("table");
+  dropTableIndex2.classList.add("dropTableIndex2");
+  for (let i = 1; i < 11; i += 1) {
+    const trColumn1 = document.createElement("tr");
+    const tdColumn1 = document.createElement("td");
+    tdColumn1.dataset.rowIndex = `${i}`;
+    tdColumn1.textContent = `${i}`;
+    dropTableIndex2.appendChild(trColumn1);
+    trColumn1.appendChild(tdColumn1);
+  }
+
+  // Create the dropTable grid
+  const dTable = document.createElement("table");
+  dTable.classList.add("dTable");
+
+  dropTableContainer.appendChild(dropIndex1);
+  dropIndex1.appendChild(rowIndex1);
+  dropTableContainer.appendChild(playerContainer2);
+  playerContainer2.appendChild(dropTableIndex2);
+  playerContainer2.appendChild(dTable);
+  grids.appendChild(dropTableContainer);
+
+  for (let i = 0; i < 10; i += 1) {
+    const gridRow = document.createElement("tr");
+    gridRow.dataset.dragTableRow = `${i}`;
+    dTable.appendChild(gridRow);
+    for (let j = 0; j < 10; j += 1) {
+      const gridField = document.createElement("td");
+      gridField.dataset.dragTableField = `${[i]},${[j]}`;
+
+      const gridRowSelector = document.querySelector(`[data-drag-table-row = "${i}"]`);
+      gridRowSelector.appendChild(gridField);
+    }
+  }
+}
+
+function dragStart(e) {
+  e.dataTransfer.setData('text/plain', e.target.id);
+  setTimeout(() => {
+    e.target.classList.add('hide');
+  }, 0);
+}
+
 function draggableShips() {
   const dBox = document.createElement("div");
   dBox.classList.add("dBox");
@@ -244,8 +302,10 @@ function draggableShips() {
   firstContainer.classList.add("firstContainer");
   const dBoxFour = document.createElement("div");
   dBoxFour.classList.add("dBoxFour");
+  dBoxFour.draggable = true;
   firstContainer.appendChild(dBoxFour);
   dBox.appendChild(firstContainer);
+  dBoxFour.addEventListener("dragstart", dragStart);
   
   const secondContainer = document.createElement("div");
   secondContainer.classList.add("secondContainer");
@@ -294,10 +354,14 @@ function draggableShips() {
 }
 
 function dragDrop(){
-  grids.removeChild(playerGridContainer);
+  /* grids.removeChild(playerGridContainer);
   grids.removeChild(opponentGridContainer);
-  grids.removeChild(playButtonContainer);
+  grids.removeChild(playButtonContainer); */
+  playerGridContainer.classList.add("hide");
+  opponentGridContainer.classList.add("hide");
+  playButtonContainer.classList.add("hide");
   draggableShips() 
+  dropTable()
   title1.innerText = "Your ships";
   title2.innerText = "Your grid";
 }
@@ -428,7 +492,7 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
     const ms2 = pBoard.missedShot[pBoard.missedShot.length - 1][1];
     setTimeout(() => {
       playerGrid.children[ms1].children[ms2].classList.add("missed2");
-    }, 500);
+    }, 600);
     // Hide the players grid and oppen the opponet's grid
     setTimeout(() => {playerGridWeak();}, counter * 300);
     counter = 1;
