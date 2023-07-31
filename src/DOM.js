@@ -284,14 +284,70 @@ function dropTable(){
       gridRowSelector.appendChild(gridField);
     }
   }
+  // Add event listeners to all fields
+  const dropFields = document.querySelectorAll("[data-drag-table-field]");
+  dropFields.forEach(field => {
+    field.addEventListener("dragenter", dragEnter);
+    field.addEventListener("dragover", dragOver);
+    field.addEventListener("dragleave", dragLeave);
+    field.addEventListener("drop", drop);
+  })
 }
 
 function dragStart(e) {
-  e.dataTransfer.setData('text/plain', e.target.id);
+  e.dataTransfer.setData('text/plain', e.target.classList[0]);
+  /* const selectedClass = e.dataTransfer.getData('text/plain');
+  const dTable = document.querySelector(".dTable")
+  console.log(dTable) */
+  let ex = e.x;
+  let ey = e.y;
+  console.log(e)
+  console.log(e.target)
+
+  // x-249 y-215
+  if(e.target.classList[0] === "dBoxFour"){
+    if(ex > 248) ex = 248;
+    if(ex < 134) ex = 134
+    if(ey > 214) ey = 214;
+    if(ey < 188) ey = 188;
+
+    const NewelementAtCoordinates = document.elementFromPoint(ex, ey);
+    console.log(NewelementAtCoordinates)
+  }
   setTimeout(() => {
     e.target.classList.add('hide');
   }, 0);
 }
+
+function dragEnter(e) {
+  e.preventDefault();
+  e.target.classList.add('drag-over');
+}
+
+function dragOver(e) {
+  e.preventDefault();
+  e.target.classList.add('drag-over');
+  const coordinate = e.target.dataset.dragTableField.split(",");
+  /* if (dTable.classList.contains("dBoxFour")) {
+    console.log("this is the largest")
+  } */
+}
+
+function dragLeave(e) {
+  e.target.classList.remove('drag-over');
+}
+
+function drop(e) {
+  e.target.classList.remove('drag-over');
+  const selectedClass = e.dataTransfer.getData('text/plain');
+  const draggable = document.querySelector(`.${selectedClass}`);
+  // e.target.innerText = `${selectedClass}`;
+  if (selectedClass === "dBoxFour") {
+    console.log(e.target)
+  }
+  draggable.classList.remove("hide")
+}
+
 
 function draggableShips() {
   const dBox = document.createElement("div");
@@ -303,9 +359,21 @@ function draggableShips() {
   const dBoxFour = document.createElement("div");
   dBoxFour.classList.add("dBoxFour");
   dBoxFour.draggable = true;
+  for(let i = 0; i < 4; i += 1){
+    const dBoxFourBox = document.createElement("div")
+    dBoxFourBox.dataset.dboxdiv = `${i}`;
+    dBoxFour.appendChild(dBoxFourBox);
+  }
+  dBoxFour.addEventListener("dragstart", dragStart)
+  /* setTimeout(() => {
+    const dBoxFourBox = document.querySelectorAll('[data-dboxdiv]');
+    dBoxFourBox.forEach(el => {
+      el.parentElement.addEventListener("dragstart", dragStart);
+    })
+  }, 0); */
+  
   firstContainer.appendChild(dBoxFour);
   dBox.appendChild(firstContainer);
-  dBoxFour.addEventListener("dragstart", dragStart);
   
   const secondContainer = document.createElement("div");
   secondContainer.classList.add("secondContainer");
