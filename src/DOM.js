@@ -264,6 +264,7 @@ function dropTable(){
   // Create the dropTable grid
   const dTable = document.createElement("table");
   dTable.classList.add("dTable");
+  dTable.dataset.grab = "none";
 
   dropTableContainer.appendChild(dropIndex1);
   dropIndex1.appendChild(rowIndex1);
@@ -287,7 +288,7 @@ function dropTable(){
   // Add event listeners to all fields
   const dropFields = document.querySelectorAll("[data-drag-table-field]");
   dropFields.forEach(field => {
-    field.addEventListener("dragenter", dragEnter);
+    field.addEventListener("dragend", dragEnd);
     field.addEventListener("dragover", dragOver);
     field.addEventListener("dragleave", dragLeave);
     field.addEventListener("drop", drop);
@@ -295,57 +296,121 @@ function dropTable(){
 }
 
 function dragStart(e) {
-  e.dataTransfer.setData('text/plain', e.target.classList[0]);
+  e.dataTransfer.setData('text/plain', e.target.classList[1]);
   /* const selectedClass = e.dataTransfer.getData('text/plain');
   const dTable = document.querySelector(".dTable")
   console.log(dTable) */
+  const dTable = document.querySelector(".dTable")
   let ex = e.x;
   let ey = e.y;
-  console.log(e)
-  console.log(e.target)
 
   // x-249 y-215
   if(e.target.classList[0] === "dBoxFour"){
     if(ex > 248) ex = 248;
-    if(ex < 134) ex = 134
+    if(ex < 134) ex = 134;
     if(ey > 214) ey = 214;
     if(ey < 188) ey = 188;
 
-    const NewelementAtCoordinates = document.elementFromPoint(ex, ey);
-    console.log(NewelementAtCoordinates)
+    const elementAtCoordinates = document.elementFromPoint(ex, ey);
+
+    if (elementAtCoordinates.dataset.dboxdiv === "0") {
+      dTable.dataset.grab = "0";
+    }
+    if (elementAtCoordinates.dataset.dboxdiv === "1") {
+      dTable.dataset.grab = "1";
+    }
+    if (elementAtCoordinates.dataset.dboxdiv === "2") {
+      dTable.dataset.grab = "2";
+    }
+    if (elementAtCoordinates.dataset.dboxdiv === "3") {
+      dTable.dataset.grab = "3";
+    }
   }
+  
   setTimeout(() => {
     e.target.classList.add('hide');
   }, 0);
+
+  e.target.addEventListener("dragend", dragEnd);
 }
 
-function dragEnter(e) {
-  e.preventDefault();
-  e.target.classList.add('drag-over');
+function dragEnd() {
+  const dBoxFour = document.querySelector(".dBoxFour");
+  const dTable = document.querySelector(".dTable")
+  if (dBoxFour.classList.contains("hide")) {
+    if (!dTable.classList.contains("dBox4")) {
+      dBoxFour.classList.remove("hide")
+    }
+  }
+  
+  console.log("drag ended")
+  // e.target.removeEventListener("dragend", dragEnd);
 }
 
 function dragOver(e) {
   e.preventDefault();
-  e.target.classList.add('drag-over');
+
+  const dTable = document.querySelector(".dTable")
   const coordinate = e.target.dataset.dragTableField.split(",");
-  /* if (dTable.classList.contains("dBoxFour")) {
-    console.log("this is the largest")
-  } */
+
+  if (dTable.dataset.grab === "0"){
+    if(+coordinate[1] < 7){
+      e.target.parentElement.children[+coordinate[1]].classList.add('drag-over')
+      e.target.parentElement.children[+coordinate[1] + 1].classList.add('drag-over')
+      e.target.parentElement.children[+coordinate[1] + 2].classList.add('drag-over')
+      e.target.parentElement.children[+coordinate[1] + 3].classList.add('drag-over')
+    }
+  }
 }
 
 function dragLeave(e) {
-  e.target.classList.remove('drag-over');
+
+  const dTable = document.querySelector(".dTable")
+  const coordinate = e.target.dataset.dragTableField.split(",");
+
+  if (dTable.dataset.grab === "0"){
+    if(+coordinate[1] < 7){
+      e.target.parentElement.children[+coordinate[1]].classList.remove('drag-over')
+      e.target.parentElement.children[+coordinate[1] + 1].classList.remove('drag-over')
+      e.target.parentElement.children[+coordinate[1] + 2].classList.remove('drag-over')
+      e.target.parentElement.children[+coordinate[1] + 3].classList.remove('drag-over')
+    }
+  }
 }
 
 function drop(e) {
   e.target.classList.remove('drag-over');
+
   const selectedClass = e.dataTransfer.getData('text/plain');
-  const draggable = document.querySelector(`.${selectedClass}`);
-  // e.target.innerText = `${selectedClass}`;
-  if (selectedClass === "dBoxFour") {
-    console.log(e.target)
+  const dTable = document.querySelector(".dTable")
+  // Add class if it has not been added
+  if (selectedClass === "dBox4"){
+    if (!dTable.classList.contains("dBox4")){
+      dTable.classList.add(selectedClass)
+    }
   }
-  draggable.classList.remove("hide")
+  // const draggable = document.querySelector(`.${selectedClass}`);
+  // e.target.innerText = `${selectedClass}`;
+  
+  const coordinate = e.target.dataset.dragTableField.split(",");
+  if (dTable.dataset.grab === "0"){
+    if (dTable.classList.contains("dBox4")){
+      dBoxFourDrop(e, coordinate)
+    }
+  }
+}
+
+function dBoxFourDrop(e, coordinate){
+  if(+coordinate[1] < 7){
+    e.target.parentElement.children[+coordinate[1]].classList.remove('drag-over')
+    e.target.parentElement.children[+coordinate[1] + 1].classList.remove('drag-over')
+    e.target.parentElement.children[+coordinate[1] + 2].classList.remove('drag-over')
+    e.target.parentElement.children[+coordinate[1] + 3].classList.remove('drag-over')
+    e.target.parentElement.children[+coordinate[1]].classList.add('notSunk')
+    e.target.parentElement.children[+coordinate[1] + 1].classList.add('notSunk')
+    e.target.parentElement.children[+coordinate[1] + 2].classList.add('notSunk')
+    e.target.parentElement.children[+coordinate[1] + 3].classList.add('notSunk')
+  }
 }
 
 
@@ -358,6 +423,7 @@ function draggableShips() {
   firstContainer.classList.add("firstContainer");
   const dBoxFour = document.createElement("div");
   dBoxFour.classList.add("dBoxFour");
+  dBoxFour.classList.add("dBox4");
   dBoxFour.draggable = true;
   for(let i = 0; i < 4; i += 1){
     const dBoxFourBox = document.createElement("div")
@@ -365,12 +431,6 @@ function draggableShips() {
     dBoxFour.appendChild(dBoxFourBox);
   }
   dBoxFour.addEventListener("dragstart", dragStart)
-  /* setTimeout(() => {
-    const dBoxFourBox = document.querySelectorAll('[data-dboxdiv]');
-    dBoxFourBox.forEach(el => {
-      el.parentElement.addEventListener("dragstart", dragStart);
-    })
-  }, 0); */
   
   firstContainer.appendChild(dBoxFour);
   dBox.appendChild(firstContainer);
