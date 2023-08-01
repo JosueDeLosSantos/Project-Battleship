@@ -379,25 +379,27 @@ function dragLeave(e) {
 }
 
 function drop(e) {
-  e.target.classList.remove('drag-over');
 
   const selectedClass = e.dataTransfer.getData('text/plain');
   const dTable = document.querySelector(".dTable")
-  // Add class if it has not been added
-  if (selectedClass === "dBox4"){
-    if (!dTable.classList.contains("dBox4")){
-      dTable.classList.add(selectedClass)
+  
+  
+  if (e.target.classList.contains("drag-over")) {
+    if (selectedClass === "dBox4"){
+      if (!dTable.classList.contains("dBox4")){
+        dTable.classList.add(selectedClass)
+      }
     }
   }
-  // const draggable = document.querySelector(`.${selectedClass}`);
-  // e.target.innerText = `${selectedClass}`;
-  
+
   const coordinate = e.target.dataset.dragTableField.split(",");
   if (dTable.dataset.grab === "0"){
     if (dTable.classList.contains("dBox4")){
       dBoxFourDrop(e, coordinate)
     }
   }
+
+  e.target.classList.remove('drag-over');
 }
 
 function dBoxFourDrop(e, coordinate){
