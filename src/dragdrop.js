@@ -55,6 +55,7 @@ function dropTable(){
     const dropFields = document.querySelectorAll("[data-drag-table-field]");
     dropFields.forEach(field => {
       field.addEventListener("dragend", dragEnd);
+      field.addEventListener('dragenter', dragEnter)
       field.addEventListener("dragover", dragOver);
       field.addEventListener("dragleave", dragLeave);
       field.addEventListener("drop", drop);
@@ -100,7 +101,7 @@ function dragStart(e) {
 
     e.target.addEventListener("dragend", dragEnd);
 }
-  
+
 function dragEnd() {
     const dBoxFour = document.querySelector(".dBoxFour");
     const dTable = document.querySelector(".dTable")
@@ -113,63 +114,89 @@ function dragEnd() {
     console.log("drag ended")
     // e.target.removeEventListener("dragend", dragEnd);
 }
+
+function dragEnter(e) {
+    e.preventDefault();
+    const first = +e.target.dataset.dragTableField.split(",")[1]
+
+    const dBox = document.querySelector(".dBox")
+
+    if (dBox.children[0].children[0]){
+        if(first < 7){
+            e.target.classList.add('drag-over');
+            e.target.parentElement.children[first + 1].classList.add("drag-over")
+            e.target.parentElement.children[first + 2].classList.add("drag-over")
+            e.target.parentElement.children[first + 3].classList.add("drag-over")
+        }
+    } 
+}
   
 function dragOver(e) {
     e.preventDefault();
+    const first = +e.target.dataset.dragTableField.split(",")[1]
 
-    const dTable = document.querySelector(".dTable")
-    const coordinate = e.target.dataset.dragTableField.split(",");
+    const dBox = document.querySelector(".dBox")
 
-    if (dTable.dataset.grab === "0"){
-        if(+coordinate[1] < 7){
-        e.target.parentElement.children[+coordinate[1]].classList.add('drag-over')
-        e.target.parentElement.children[+coordinate[1] + 1].classList.add('drag-over')
-        e.target.parentElement.children[+coordinate[1] + 2].classList.add('drag-over')
-        e.target.parentElement.children[+coordinate[1] + 3].classList.add('drag-over')
+    if (dBox.children[0].children[0]){
+        if(first < 7){
+            e.target.classList.add('drag-over');
+            e.target.parentElement.children[first + 1].classList.add("drag-over")
+            e.target.parentElement.children[first + 2].classList.add("drag-over")
+            e.target.parentElement.children[first + 3].classList.add("drag-over")
         }
-    }
+    } 
 }
   
 function dragLeave(e) {
-  
-    const dTable = document.querySelector(".dTable")
-    const coordinate = e.target.dataset.dragTableField.split(",");
-  
-    if (dTable.dataset.grab === "0"){
-      if(+coordinate[1] < 7){
-        e.target.parentElement.children[+coordinate[1]].classList.remove('drag-over')
-        e.target.parentElement.children[+coordinate[1] + 1].classList.remove('drag-over')
-        e.target.parentElement.children[+coordinate[1] + 2].classList.remove('drag-over')
-        e.target.parentElement.children[+coordinate[1] + 3].classList.remove('drag-over')
-      }
-    }
+    e.preventDefault()
+    const first = +e.target.dataset.dragTableField.split(",")[1]
+    
+    const dBox = document.querySelector(".dBox")
+
+    if (dBox.children[0].children[0]){
+        if(first < 7){
+            e.target.classList.remove('drag-over');
+            e.target.parentElement.children[first + 1].classList.remove("drag-over")
+            e.target.parentElement.children[first + 2].classList.remove("drag-over")
+            e.target.parentElement.children[first + 3].classList.remove("drag-over")
+        }
+    } 
 }
   
 function drop(e) {
-  
     const selectedClass = e.dataTransfer.getData('text/plain');
-    
-     const dTable = document.querySelector(".dTable")
-    
-    
+
+    const dTable = e.target.parentElement.parentElement
     if (e.target.classList.contains("drag-over")) {
-      if (selectedClass === "dBox4"){
-        if (!dTable.classList.contains("dBox4")){
-          dTable.classList.add(selectedClass)
+        if (selectedClass === "dBox4"){
+          if (!dTable.classList.contains("dBox4")){
+            dTable.classList.add(selectedClass)
+          }
         }
-      }
     }
+
+    /* const first = +e.target.dataset.dragTableField.split(",")[1]
+    const dBox = document.querySelector(".dBox")
+
+    if (dBox.children[0].children[0]){
+        if(first < 7){
+            e.target.classList.remove('drag-over');
+            e.target.parentElement.children[first + 1].classList.remove("drag-over")
+            e.target.parentElement.children[first + 2].classList.remove("drag-over")
+            e.target.parentElement.children[first + 3].classList.remove("drag-over")
+        }
+    }  */
+    
   
-    const coordinate = e.target.dataset.dragTableField.split(",");
+    /* const coordinate = e.target.dataset.dragTableField.split(",");
     if (dTable.dataset.grab === "0"){
       if (dTable.classList.contains("dBox4")){
-        dBoxFourDrop(e, coordinate)
+        // dBoxFourDrop(e, coordinate)
       }
-    }
-    e.target.classList.remove('drag-over');
+    } */
 }
   
-function dBoxFourDrop(e, coordinate){
+/* function dBoxFourDrop(e, coordinate){
     if(+coordinate[1] < 7){
       e.target.parentElement.children[+coordinate[1]].classList.remove('drag-over')
       e.target.parentElement.children[+coordinate[1] + 1].classList.remove('drag-over')
@@ -184,7 +211,7 @@ function dBoxFourDrop(e, coordinate){
       e.target.parentElement.children[+coordinate[1] + 2].dataset.dbox4 = 2;
       e.target.parentElement.children[+coordinate[1] + 3].dataset.dbox4 = 3;
     }
-}
+} */
   
   
 function draggableShips() {
