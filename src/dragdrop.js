@@ -209,6 +209,8 @@ function drop(e) {
    dTable.classList.add("dBox4")
    dBoxFourDrop(e, hor, agent)
   }
+  const chunk = document.querySelector("[data-chunk]")
+  chunk.removeAttribute("data-chunk")
  }
  /* if (agent.classList.contains("dBoxFour")) {
   const dragOverArr = document.querySelectorAll(".drag-over")
@@ -283,6 +285,12 @@ function dBoxFourDrop(e, coordinate, agent) {
             e.target.parentElement.children[coordinate].dataset.dbox4 = 3
         }
     }
+    const dbox4All = document.querySelectorAll("[data-dbox4]")
+    dbox4All.forEach((el) => {el.addEventListener("dragstart", dragStart2)})
+}
+
+function dragStart2(){
+    console.log("dragStart2 started...")
 }
 
 function draggableShips() {
