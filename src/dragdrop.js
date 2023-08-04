@@ -123,31 +123,31 @@ function dragOver(e) {
   }
 
   if (dBoxFour.dataset.chunk === "1") {
-    if ((first < 8) && (first > 0)) {
-     e.target.parentElement.children[first - 1].classList.add("drag-over")
-     e.target.parentElement.children[first].classList.add("drag-over")
-     e.target.parentElement.children[first + 1].classList.add("drag-over")
-     e.target.parentElement.children[first + 2].classList.add("drag-over")
-    }
+   if (first < 8 && first > 0) {
+    e.target.parentElement.children[first - 1].classList.add("drag-over")
+    e.target.parentElement.children[first].classList.add("drag-over")
+    e.target.parentElement.children[first + 1].classList.add("drag-over")
+    e.target.parentElement.children[first + 2].classList.add("drag-over")
    }
+  }
 
-   if (dBoxFour.dataset.chunk === "2") {
-    if ((first < 9) && (first > 1)) {
-     e.target.parentElement.children[first - 2].classList.add("drag-over")
-     e.target.parentElement.children[first - 1].classList.add("drag-over")
-     e.target.parentElement.children[first].classList.add("drag-over")
-     e.target.parentElement.children[first + 1].classList.add("drag-over")
-    }
+  if (dBoxFour.dataset.chunk === "2") {
+   if (first < 9 && first > 1) {
+    e.target.parentElement.children[first - 2].classList.add("drag-over")
+    e.target.parentElement.children[first - 1].classList.add("drag-over")
+    e.target.parentElement.children[first].classList.add("drag-over")
+    e.target.parentElement.children[first + 1].classList.add("drag-over")
    }
+  }
 
-   if (dBoxFour.dataset.chunk === "3") {
-    if ((first < 10) && (first > 2)) {
-     e.target.parentElement.children[first - 3].classList.add("drag-over")
-     e.target.parentElement.children[first - 2].classList.add("drag-over")
-     e.target.parentElement.children[first - 1].classList.add("drag-over")
-     e.target.parentElement.children[first].classList.add("drag-over")
-    }
+  if (dBoxFour.dataset.chunk === "3") {
+   if (first < 10 && first > 2) {
+    e.target.parentElement.children[first - 3].classList.add("drag-over")
+    e.target.parentElement.children[first - 2].classList.add("drag-over")
+    e.target.parentElement.children[first - 1].classList.add("drag-over")
+    e.target.parentElement.children[first].classList.add("drag-over")
    }
+  }
  }
 }
 
@@ -168,31 +168,31 @@ function dragLeave(e) {
   }
 
   if (dBoxFour.dataset.chunk === "1") {
-    if ((first < 8) && (first > 0)) {
-     e.target.parentElement.children[first - 1].classList.remove("drag-over")
-     e.target.parentElement.children[first].classList.remove("drag-over")
-     e.target.parentElement.children[first + 1].classList.remove("drag-over")
-     e.target.parentElement.children[first + 2].classList.remove("drag-over")
-    }
+   if (first < 8 && first > 0) {
+    e.target.parentElement.children[first - 1].classList.remove("drag-over")
+    e.target.parentElement.children[first].classList.remove("drag-over")
+    e.target.parentElement.children[first + 1].classList.remove("drag-over")
+    e.target.parentElement.children[first + 2].classList.remove("drag-over")
    }
+  }
 
-   if (dBoxFour.dataset.chunk === "2") {
-    if ((first < 9) && (first > 1)) {
-     e.target.parentElement.children[first - 2].classList.remove("drag-over")
-     e.target.parentElement.children[first - 1].classList.remove("drag-over")
-     e.target.parentElement.children[first].classList.remove("drag-over")
-     e.target.parentElement.children[first + 1].classList.remove("drag-over")
-    }
+  if (dBoxFour.dataset.chunk === "2") {
+   if (first < 9 && first > 1) {
+    e.target.parentElement.children[first - 2].classList.remove("drag-over")
+    e.target.parentElement.children[first - 1].classList.remove("drag-over")
+    e.target.parentElement.children[first].classList.remove("drag-over")
+    e.target.parentElement.children[first + 1].classList.remove("drag-over")
    }
+  }
 
-   if (dBoxFour.dataset.chunk === "3") {
-    if ((first < 10) && (first > 2)) {
-     e.target.parentElement.children[first - 3].classList.remove("drag-over")
-     e.target.parentElement.children[first - 2].classList.remove("drag-over")
-     e.target.parentElement.children[first - 1].classList.remove("drag-over")
-     e.target.parentElement.children[first].classList.remove("drag-over")
-    }
+  if (dBoxFour.dataset.chunk === "3") {
+   if (first < 10 && first > 2) {
+    e.target.parentElement.children[first - 3].classList.remove("drag-over")
+    e.target.parentElement.children[first - 2].classList.remove("drag-over")
+    e.target.parentElement.children[first - 1].classList.remove("drag-over")
+    e.target.parentElement.children[first].classList.remove("drag-over")
    }
+  }
  }
 }
 
@@ -203,37 +203,86 @@ function drop(e) {
  const agent = doc.children[0].children[1].children[0]
 
  const hor = +e.target.dataset.dragTableField.split(",")[1]
-
- if (agent.classList.contains("dBox4")) {
+ if (e.target.classList.contains("drag-over")) {
   const dTable = document.querySelector(".dTable")
-  dTable.classList.add("dBox4")
-  if (agent.dataset.dboxdiv === "0") {
-   dBoxFourDrop(e, hor)
+  if (agent.classList.contains("dBox4")) {
+   dTable.classList.add("dBox4")
+   dBoxFourDrop(e, hor, agent)
   }
  }
- if (agent.classList.contains("dBoxFour")) {
+ /* if (agent.classList.contains("dBoxFour")) {
   const dragOverArr = document.querySelectorAll(".drag-over")
   dragOverArr.forEach((el) => {
    el.classList.remove("drag-over")
   })
- }
+ } */
 }
 
-function dBoxFourDrop(e, coordinate) {
- if (coordinate < 7) {
-  e.target.parentElement.children[coordinate].classList.remove("drag-over")
-  e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
-  e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
-  e.target.parentElement.children[coordinate + 3].classList.remove("drag-over")
-  e.target.parentElement.children[coordinate].classList.add("notSunk")
-  e.target.parentElement.children[coordinate + 1].classList.add("notSunk")
-  e.target.parentElement.children[coordinate + 2].classList.add("notSunk")
-  e.target.parentElement.children[coordinate + 3].classList.add("notSunk")
-  e.target.parentElement.children[coordinate].dataset.dbox4 = 0
-  e.target.parentElement.children[coordinate + 1].dataset.dbox4 = 1
-  e.target.parentElement.children[coordinate + 2].dataset.dbox4 = 2
-  e.target.parentElement.children[coordinate + 3].dataset.dbox4 = 3
- }
+function dBoxFourDrop(e, coordinate, agent) {
+    if (agent.dataset.dboxdiv === "0") {
+        if (coordinate < 7) {
+            e.target.parentElement.children[coordinate].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate + 3].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate].classList.add("notSunk")
+            e.target.parentElement.children[coordinate + 1].classList.add("notSunk")
+            e.target.parentElement.children[coordinate + 2].classList.add("notSunk")
+            e.target.parentElement.children[coordinate + 3].classList.add("notSunk")
+            e.target.parentElement.children[coordinate].dataset.dbox4 = 0
+            e.target.parentElement.children[coordinate + 1].dataset.dbox4 = 1
+            e.target.parentElement.children[coordinate + 2].dataset.dbox4 = 2
+            e.target.parentElement.children[coordinate + 3].dataset.dbox4 = 3
+        }
+    }
+    if (agent.dataset.dboxdiv === "1") {
+        if (coordinate < 8 && coordinate > 0) {
+            e.target.parentElement.children[coordinate - 1].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate - 1].classList.add("notSunk")
+            e.target.parentElement.children[coordinate].classList.add("notSunk")
+            e.target.parentElement.children[coordinate + 1].classList.add("notSunk")
+            e.target.parentElement.children[coordinate + 2].classList.add("notSunk")
+            e.target.parentElement.children[coordinate - 1].dataset.dbox4 = 0
+            e.target.parentElement.children[coordinate].dataset.dbox4 = 1
+            e.target.parentElement.children[coordinate + 1].dataset.dbox4 = 2
+            e.target.parentElement.children[coordinate + 2].dataset.dbox4 = 3
+        }
+    }
+    if (agent.dataset.dboxdiv === "2") {
+        if (coordinate < 9 && coordinate > 1) {
+            e.target.parentElement.children[coordinate - 2].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate - 1].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate - 2].classList.add("notSunk")
+            e.target.parentElement.children[coordinate - 1].classList.add("notSunk")
+            e.target.parentElement.children[coordinate].classList.add("notSunk")
+            e.target.parentElement.children[coordinate + 1].classList.add("notSunk")
+            e.target.parentElement.children[coordinate - 2].dataset.dbox4 = 0
+            e.target.parentElement.children[coordinate - 1].dataset.dbox4 = 1
+            e.target.parentElement.children[coordinate].dataset.dbox4 = 2
+            e.target.parentElement.children[coordinate + 1].dataset.dbox4 = 3
+        }
+    }
+    if (agent.dataset.dboxdiv === "3") {
+        if (coordinate < 10 && coordinate > 2) {
+            e.target.parentElement.children[coordinate - 3].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate - 2].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate - 1].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate].classList.remove("drag-over")
+            e.target.parentElement.children[coordinate - 3].classList.add("notSunk")
+            e.target.parentElement.children[coordinate - 2].classList.add("notSunk")
+            e.target.parentElement.children[coordinate - 1].classList.add("notSunk")
+            e.target.parentElement.children[coordinate].classList.add("notSunk")
+            e.target.parentElement.children[coordinate - 3].dataset.dbox4 = 0
+            e.target.parentElement.children[coordinate - 2].dataset.dbox4 = 1
+            e.target.parentElement.children[coordinate - 1].dataset.dbox4 = 2
+            e.target.parentElement.children[coordinate].dataset.dbox4 = 3
+        }
+    }
 }
 
 function draggableShips() {
