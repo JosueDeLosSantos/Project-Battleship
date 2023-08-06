@@ -57,6 +57,20 @@ function dropTable() {
 		field.addEventListener("dragleave", dragLeave)
 		field.addEventListener("drop", drop)
 	})
+
+    const firstCell = document.querySelector("[data-drag-table-field='0,1']")
+    firstCell.addEventListener("click", () => {console.log("me too1!")})
+    firstCell.classList.add("addStyle")
+    const example = document.createElement("div")
+    example.classList.add("example")
+    example.addEventListener("click", () => {console.log("i was clicked")})
+    const firstCell4 = document.querySelector("[data-drag-table-field='0,4']")
+    firstCell4.addEventListener("click", () => {console.log("me too4!")})
+    /* const exampleSpan = document.createElement("span")
+    example.appendChild(exampleSpan)
+    example.innerText = '"&nbsp;"' */
+    firstCell.appendChild(example)
+    console.log(firstCell)
 }
 
 function dragStart(e) {
@@ -186,9 +200,8 @@ function drop(e) {
 
 	const hor = +e.target.dataset.dragTableField.split(",")[1]
 	if (e.target.classList.contains("drag-over")) {
-		const dTable = document.querySelector(".dTable")
+		// const dTable = document.querySelector(".dTable")
 		if (agent.classList.contains("dBox4")) {
-			dTable.classList.toggle("dBox4")
 			dBoxFourDrop(e, hor, agent.dataset.dboxdiv)
 		}
 		const chunk = document.querySelector("[data-chunk]")
@@ -265,10 +278,11 @@ function dBoxFourDrop(e, coordinate, agent) {
 	const dTable = document.querySelector(".dTable")
 	dTable.classList.toggle("dBox4")
 
-	const dbox4All = document.querySelectorAll("[data-dbox4]")
+	/* const dbox4All = document.querySelectorAll("[data-dbox4]")
 	dbox4All.forEach((el) => {
 		el.addEventListener("dragstart", dragStartFour)
-	})
+		el.addEventListener("dragstart", dragEnd2)
+	}) */
 }
 
 function dragStartFour(e) {
@@ -279,6 +293,7 @@ function dragStartFour(e) {
 	const dBoxFour = document.querySelector(".dBoxFour")
 	dBoxFour.dataset.chunk = e.target.dataset.dbox4
 
+    // Change all fields back to their original state
     const dbox4All = document.querySelectorAll("[data-dbox4]")
     dbox4All.forEach((el) => {
         el.classList.remove("notSunk")
@@ -291,6 +306,18 @@ function dragStartFour(e) {
 		field.removeEventListener("drop", drop)
 		field.addEventListener("drop", drop2)
 	})
+}
+
+function dragEnd2() {
+	const dBoxFour = document.querySelector(".dBoxFour")
+	const dTable = document.querySelector(".dTable")
+	if (dBoxFour.classList.contains("hide")) {
+		if (dTable.classList.contains("dBox4")) {
+			dBoxFour.classList.remove("hide")
+		}
+	}
+
+	console.log("drag ended")
 }
 
 function drop2(e) {
