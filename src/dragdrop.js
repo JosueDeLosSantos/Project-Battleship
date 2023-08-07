@@ -1,4 +1,7 @@
 import shipToggle from "./shipToggle"
+import cleaner from "./cleaner"
+import * as doHelp from "./dragoverhelp"
+import * as dlHelp from "./dragleavehelp"
 
 
 function dropTable() {
@@ -62,17 +65,6 @@ function dropTable() {
 		field.addEventListener("dragleave", dragLeave)
 		field.addEventListener("drop", drop)
 	})
-
-	/*  const firstCell = document.querySelector("[data-drag-table-field='0,1']")
-    firstCell.addEventListener("click", () => {console.log("me too1!")})
-    firstCell.classList.add("addStyle")
-    const example = document.createElement("div")
-    example.classList.add("example")
-    example.addEventListener("click", () => {console.log("i was clicked")})
-    const firstCell4 = document.querySelector("[data-drag-table-field='0,4']")
-    firstCell4.addEventListener("click", () => {console.log("me too4!")})
-    firstCell.appendChild(example)
-    console.log(firstCell) */
 }
 
 function dragStart(e) {
@@ -112,91 +104,26 @@ function dragEnd() {
 
 function dragOver(e) {
 	e.preventDefault()
-	const first = +e.target.dataset.dragTableField.split(",")[1]
+	
 
 	const dBoxFour = document.querySelector(".dBoxFour")
 
-	if (dBoxFour.dataset.chunk) {
-		if (dBoxFour.dataset.chunk === "0") {
-			if (first < 7) {
-				e.target.classList.add("drag-over")
-				e.target.parentElement.children[first + 1].classList.add("drag-over")
-				e.target.parentElement.children[first + 2].classList.add("drag-over")
-				e.target.parentElement.children[first + 3].classList.add("drag-over")
-			}
-		}
-
-		if (dBoxFour.dataset.chunk === "1") {
-			if (first < 8 && first > 0) {
-				e.target.parentElement.children[first - 1].classList.add("drag-over")
-				e.target.parentElement.children[first].classList.add("drag-over")
-				e.target.parentElement.children[first + 1].classList.add("drag-over")
-				e.target.parentElement.children[first + 2].classList.add("drag-over")
-			}
-		}
-
-		if (dBoxFour.dataset.chunk === "2") {
-			if (first < 9 && first > 1) {
-				e.target.parentElement.children[first - 2].classList.add("drag-over")
-				e.target.parentElement.children[first - 1].classList.add("drag-over")
-				e.target.parentElement.children[first].classList.add("drag-over")
-				e.target.parentElement.children[first + 1].classList.add("drag-over")
-			}
-		}
-
-		if (dBoxFour.dataset.chunk === "3") {
-			if (first < 10 && first > 2) {
-				e.target.parentElement.children[first - 3].classList.add("drag-over")
-				e.target.parentElement.children[first - 2].classList.add("drag-over")
-				e.target.parentElement.children[first - 1].classList.add("drag-over")
-				e.target.parentElement.children[first].classList.add("drag-over")
-			}
-		}
+	if (!dBoxFour.classList.contains("v4")) {
+		doHelp.dragOverH(e, dBoxFour)	
+	} else {
+		doHelp.dragOverV(e, dBoxFour)
 	}
 }
 
 function dragLeave(e) {
 	e.preventDefault()
-	const first = +e.target.dataset.dragTableField.split(",")[1]
 
 	const dBoxFour = document.querySelector(".dBoxFour")
-
-	if (dBoxFour.dataset.chunk) {
-		if (dBoxFour.dataset.chunk === "0") {
-			if (first < 7) {
-				e.target.classList.remove("drag-over")
-				e.target.parentElement.children[first + 1].classList.remove("drag-over")
-				e.target.parentElement.children[first + 2].classList.remove("drag-over")
-				e.target.parentElement.children[first + 3].classList.remove("drag-over")
-			}
-		}
-
-		if (dBoxFour.dataset.chunk === "1") {
-			if (first < 8 && first > 0) {
-				e.target.parentElement.children[first - 1].classList.remove("drag-over")
-				e.target.parentElement.children[first].classList.remove("drag-over")
-				e.target.parentElement.children[first + 1].classList.remove("drag-over")
-				e.target.parentElement.children[first + 2].classList.remove("drag-over")
-			}
-		}
-
-		if (dBoxFour.dataset.chunk === "2") {
-			if (first < 9 && first > 1) {
-				e.target.parentElement.children[first - 2].classList.remove("drag-over")
-				e.target.parentElement.children[first - 1].classList.remove("drag-over")
-				e.target.parentElement.children[first].classList.remove("drag-over")
-				e.target.parentElement.children[first + 1].classList.remove("drag-over")
-			}
-		}
-
-		if (dBoxFour.dataset.chunk === "3") {
-			if (first < 10 && first > 2) {
-				e.target.parentElement.children[first - 3].classList.remove("drag-over")
-				e.target.parentElement.children[first - 2].classList.remove("drag-over")
-				e.target.parentElement.children[first - 1].classList.remove("drag-over")
-				e.target.parentElement.children[first].classList.remove("drag-over")
-			}
-		}
+	
+	if (!dBoxFour.classList.contains("v4")) {
+		dlHelp.dragLeaveH(e, dBoxFour)	
+	} else {
+		dlHelp.dragLeaveV(e, dBoxFour)
 	}
 }
 
@@ -206,16 +133,16 @@ function drop(e) {
 	const doc = parser.parseFromString(data, "text/html")
 	const agent = doc.children[0].children[1].children[0]
 
-	console.log(data)
-
 	const hor = +e.target.dataset.dragTableField.split(",")[1]
 	if (e.target.classList.contains("drag-over")) {
-		// const dTable = document.querySelector(".dTable")
 		if (agent.classList.contains("dBox4")) {
 			dBoxFourDrop(e, hor, agent.dataset.dboxdiv)
+			const chunk = document.querySelector("[data-chunk]")
+			if(!chunk.parentElement.classList.contains("relDiv")) cleaner(chunk.parentElement)
+			chunk.parentElement.removeChild(chunk)
+			const dBoxFour = document.querySelector(".dBoxFour")
+			dBoxFour.addEventListener("dragstart", dragStart)
 		}
-		const chunk = document.querySelector("[data-chunk]")
-		chunk.removeAttribute("data-chunk")
 	}
 }
 
@@ -227,8 +154,8 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 3].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate].classList.add("busy")
-			const tag = e.target.parentElement.children[coordinate];
 			const dBoxFour = document.createElement("div")
+			const tag = e.target.parentElement.children[coordinate];
 			dBoxFour.addEventListener("click", () => {shipToggle(tag)})
 			dBoxFour.classList.add("dBoxFour")
 			dBoxFour.style.border = "none"
@@ -253,7 +180,8 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate - 1].classList.add("busy")
 			const dBoxFour = document.createElement("div")
-			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
+			const tag = e.target.parentElement.children[coordinate - 1];
+			dBoxFour.addEventListener("click", () => {shipToggle(tag)})
 			dBoxFour.classList.add("dBoxFour")
 			dBoxFour.style.border = "none"
 			dBoxFour.draggable = true
@@ -277,7 +205,8 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate - 2].classList.add("busy")
 			const dBoxFour = document.createElement("div")
-			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
+			const tag = e.target.parentElement.children[coordinate - 2];
+			dBoxFour.addEventListener("click", () => {shipToggle(tag)})
 			dBoxFour.classList.add("dBoxFour")
 			dBoxFour.style.border = "none"
 			dBoxFour.draggable = true
@@ -301,7 +230,8 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate - 3].classList.add("busy")
 			const dBoxFour = document.createElement("div")
-			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
+			const tag = e.target.parentElement.children[coordinate - 3];
+			dBoxFour.addEventListener("click", () => {shipToggle(tag)})
 			dBoxFour.classList.add("dBoxFour")
 			dBoxFour.style.border = "none"
 			dBoxFour.draggable = true
@@ -318,8 +248,8 @@ function dBoxFourDrop(e, coordinate, agent) {
 		}
 	}
 
-	/* const dTable = document.querySelector(".dTable")
-	dTable.classList.toggle("dBox4") */
+	const dTable = document.querySelector(".dTable")
+	dTable.classList.toggle("dBox4")
 
 	/* const dbox4All = document.querySelectorAll("[data-dbox4]")
 	dbox4All.forEach((el) => {
