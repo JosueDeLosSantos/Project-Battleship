@@ -44,6 +44,7 @@ function dropTable() {
 		dTable.appendChild(gridRow)
 		for (let j = 0; j < 10; j += 1) {
 			const gridField = document.createElement("td")
+			gridField.style.position = "relative"
 			gridField.dataset.dragTableField = `${[i]},${[j]}`
 
 			const gridRowSelector = document.querySelector(`[data-drag-table-row = "${i}"]`)
@@ -53,12 +54,13 @@ function dropTable() {
 	// Add event listeners to all fields
 	const dropFields = document.querySelectorAll("[data-drag-table-field]")
 	dropFields.forEach((field) => {
+		// field.addEventListener("dragenter", dragEnter)
 		field.addEventListener("dragover", dragOver)
 		field.addEventListener("dragleave", dragLeave)
 		field.addEventListener("drop", drop)
 	})
 
-    const firstCell = document.querySelector("[data-drag-table-field='0,1']")
+	/*  const firstCell = document.querySelector("[data-drag-table-field='0,1']")
     firstCell.addEventListener("click", () => {console.log("me too1!")})
     firstCell.classList.add("addStyle")
     const example = document.createElement("div")
@@ -66,11 +68,8 @@ function dropTable() {
     example.addEventListener("click", () => {console.log("i was clicked")})
     const firstCell4 = document.querySelector("[data-drag-table-field='0,4']")
     firstCell4.addEventListener("click", () => {console.log("me too4!")})
-    /* const exampleSpan = document.createElement("span")
-    example.appendChild(exampleSpan)
-    example.innerText = '"&nbsp;"' */
     firstCell.appendChild(example)
-    console.log(firstCell)
+    console.log(firstCell) */
 }
 
 function dragStart(e) {
@@ -81,6 +80,8 @@ function dragStart(e) {
 		e.target.dataset.chunk = elementAtCoordinates.dataset.dboxdiv
 	}
 
+	console.log(e.target)
+
 	setTimeout(() => {
 		e.target.addEventListener("dragend", dragEnd)
 	}, 0)
@@ -89,6 +90,10 @@ function dragStart(e) {
 		e.target.classList.add("hide")
 	}, 0)
 }
+
+/* function dragEnter(e) {
+	console.log(e)
+} */
 
 function dragEnd() {
 	const dBoxFour = document.querySelector(".dBoxFour")
@@ -198,6 +203,8 @@ function drop(e) {
 	const doc = parser.parseFromString(data, "text/html")
 	const agent = doc.children[0].children[1].children[0]
 
+	console.log(data)
+
 	const hor = +e.target.dataset.dragTableField.split(",")[1]
 	if (e.target.classList.contains("drag-over")) {
 		// const dTable = document.querySelector(".dTable")
@@ -216,14 +223,22 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 3].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate].classList.add("notSunk")
-			e.target.parentElement.children[coordinate + 1].classList.add("notSunk")
-			e.target.parentElement.children[coordinate + 2].classList.add("notSunk")
-			e.target.parentElement.children[coordinate + 3].classList.add("notSunk")
-			e.target.parentElement.children[coordinate].dataset.dbox4 = 0
-			e.target.parentElement.children[coordinate + 1].dataset.dbox4 = 1
-			e.target.parentElement.children[coordinate + 2].dataset.dbox4 = 2
-			e.target.parentElement.children[coordinate + 3].dataset.dbox4 = 3
+			e.target.parentElement.children[coordinate].classList.add("dBox4")
+			const dBoxFour = document.createElement("div")
+			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
+			dBoxFour.classList.add("dBoxFour")
+			dBoxFour.style.border = "none"
+			dBoxFour.draggable = true
+			for (let i = 0; i < 4; i += 1) {
+				const dBoxFourBox = document.createElement("div")
+				dBoxFourBox.dataset.dboxdiv = `${i}`
+				dBoxFourBox.classList.add("dBox4")
+				dBoxFour.appendChild(dBoxFourBox)
+			}
+			e.target.parentElement.children[coordinate].appendChild(dBoxFour)
+			e.target.parentElement.children[coordinate + 1].classList.add("dBox4")
+			e.target.parentElement.children[coordinate + 2].classList.add("dBox4")
+			e.target.parentElement.children[coordinate + 3].classList.add("dBox4")
 		}
 	}
 	if (agent === "1") {
@@ -232,14 +247,22 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 1].classList.add("notSunk")
-			e.target.parentElement.children[coordinate].classList.add("notSunk")
-			e.target.parentElement.children[coordinate + 1].classList.add("notSunk")
-			e.target.parentElement.children[coordinate + 2].classList.add("notSunk")
-			e.target.parentElement.children[coordinate - 1].dataset.dbox4 = 0
-			e.target.parentElement.children[coordinate].dataset.dbox4 = 1
-			e.target.parentElement.children[coordinate + 1].dataset.dbox4 = 2
-			e.target.parentElement.children[coordinate + 2].dataset.dbox4 = 3
+			e.target.parentElement.children[coordinate - 1].classList.add("dBox4")
+			const dBoxFour = document.createElement("div")
+			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
+			dBoxFour.classList.add("dBoxFour")
+			dBoxFour.style.border = "none"
+			dBoxFour.draggable = true
+			for (let i = 0; i < 4; i += 1) {
+				const dBoxFourBox = document.createElement("div")
+				dBoxFourBox.dataset.dboxdiv = `${i}`
+				dBoxFourBox.classList.add("dBox4")
+				dBoxFour.appendChild(dBoxFourBox)
+			}
+			e.target.parentElement.children[coordinate - 1].appendChild(dBoxFour)
+			e.target.parentElement.children[coordinate].classList.add("dBox4")
+			e.target.parentElement.children[coordinate + 1].classList.add("dBox4")
+			e.target.parentElement.children[coordinate + 2].classList.add("dBox4")
 		}
 	}
 	if (agent === "2") {
@@ -248,14 +271,22 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate - 1].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 2].classList.add("notSunk")
-			e.target.parentElement.children[coordinate - 1].classList.add("notSunk")
-			e.target.parentElement.children[coordinate].classList.add("notSunk")
-			e.target.parentElement.children[coordinate + 1].classList.add("notSunk")
-			e.target.parentElement.children[coordinate - 2].dataset.dbox4 = 0
-			e.target.parentElement.children[coordinate - 1].dataset.dbox4 = 1
-			e.target.parentElement.children[coordinate].dataset.dbox4 = 2
-			e.target.parentElement.children[coordinate + 1].dataset.dbox4 = 3
+			e.target.parentElement.children[coordinate - 2].classList.add("dBox4")
+			const dBoxFour = document.createElement("div")
+			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
+			dBoxFour.classList.add("dBoxFour")
+			dBoxFour.style.border = "none"
+			dBoxFour.draggable = true
+			for (let i = 0; i < 4; i += 1) {
+				const dBoxFourBox = document.createElement("div")
+				dBoxFourBox.dataset.dboxdiv = `${i}`
+				dBoxFourBox.classList.add("dBox4")
+				dBoxFour.appendChild(dBoxFourBox)
+			}
+			e.target.parentElement.children[coordinate - 2].appendChild(dBoxFour)
+			e.target.parentElement.children[coordinate - 1].classList.add("dBox4")
+			e.target.parentElement.children[coordinate].classList.add("dBox4")
+			e.target.parentElement.children[coordinate + 1].classList.add("dBox4")
 		}
 	}
 	if (agent === "3") {
@@ -264,14 +295,22 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate - 2].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate - 1].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 3].classList.add("notSunk")
-			e.target.parentElement.children[coordinate - 2].classList.add("notSunk")
-			e.target.parentElement.children[coordinate - 1].classList.add("notSunk")
-			e.target.parentElement.children[coordinate].classList.add("notSunk")
-			e.target.parentElement.children[coordinate - 3].dataset.dbox4 = 0
-			e.target.parentElement.children[coordinate - 2].dataset.dbox4 = 1
-			e.target.parentElement.children[coordinate - 1].dataset.dbox4 = 2
-			e.target.parentElement.children[coordinate].dataset.dbox4 = 3
+			e.target.parentElement.children[coordinate - 3].classList.add("dBox4")
+			const dBoxFour = document.createElement("div")
+			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
+			dBoxFour.classList.add("dBoxFour")
+			dBoxFour.style.border = "none"
+			dBoxFour.draggable = true
+			for (let i = 0; i < 4; i += 1) {
+				const dBoxFourBox = document.createElement("div")
+				dBoxFourBox.dataset.dboxdiv = `${i}`
+				dBoxFourBox.classList.add("dBox4")
+				dBoxFour.appendChild(dBoxFourBox)
+			}
+			e.target.parentElement.children[coordinate - 3].appendChild(dBoxFour)
+			e.target.parentElement.children[coordinate - 2].classList.add("dBox4")
+			e.target.parentElement.children[coordinate - 1].classList.add("dBox4")
+			e.target.parentElement.children[coordinate].classList.add("dBox4")
 		}
 	}
 
@@ -293,12 +332,12 @@ function dragStartFour(e) {
 	const dBoxFour = document.querySelector(".dBoxFour")
 	dBoxFour.dataset.chunk = e.target.dataset.dbox4
 
-    // Change all fields back to their original state
-    const dbox4All = document.querySelectorAll("[data-dbox4]")
-    dbox4All.forEach((el) => {
-        el.classList.remove("notSunk")
-        el.removeAttribute("data-dbox4")
-    })
+	// Change all fields back to their original state
+	const dbox4All = document.querySelectorAll("[data-dbox4]")
+	dbox4All.forEach((el) => {
+		el.classList.remove("notSunk")
+		el.removeAttribute("data-dbox4")
+	})
 
 	// Remove drop event listeners listeners to all fields temporarily
 	const dropFields = document.querySelectorAll("[data-drag-table-field]")
@@ -336,7 +375,7 @@ function drop2(e) {
 			// Remove drop event listeners listeners to all fields temporarily
 			const dropFields = document.querySelectorAll("[data-drag-table-field]")
 			dropFields.forEach((field) => {
-                field.removeEventListener("drop", drop2)
+				field.removeEventListener("drop", drop2)
 				field.addEventListener("drop", drop)
 			})
 		}
@@ -353,6 +392,8 @@ function draggableShips() {
 
 	const firstContainer = document.createElement("div")
 	firstContainer.classList.add("firstContainer")
+	const firstContainerdiv = document.createElement("div")
+	firstContainerdiv.classList.add("relDiv")
 	const dBoxFour = document.createElement("div")
 	dBoxFour.classList.add("dBoxFour")
 	dBoxFour.draggable = true
@@ -364,7 +405,8 @@ function draggableShips() {
 	}
 	dBoxFour.addEventListener("dragstart", dragStart)
 
-	firstContainer.appendChild(dBoxFour)
+	firstContainer.appendChild(firstContainerdiv)
+	firstContainerdiv.appendChild(dBoxFour)
 	dBox.appendChild(firstContainer)
 
 	const secondContainer = document.createElement("div")
