@@ -1,3 +1,6 @@
+import shipToggle from "./shipToggle"
+
+
 function dropTable() {
 	const grids = document.querySelector(".grids")
 	const dropTableContainer = document.createElement("div")
@@ -223,9 +226,10 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 3].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate].classList.add("dBox4")
+			e.target.parentElement.children[coordinate].classList.add("busy")
+			const tag = e.target.parentElement.children[coordinate];
 			const dBoxFour = document.createElement("div")
-			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
+			dBoxFour.addEventListener("click", () => {shipToggle(tag)})
 			dBoxFour.classList.add("dBoxFour")
 			dBoxFour.style.border = "none"
 			dBoxFour.draggable = true
@@ -236,9 +240,9 @@ function dBoxFourDrop(e, coordinate, agent) {
 				dBoxFour.appendChild(dBoxFourBox)
 			}
 			e.target.parentElement.children[coordinate].appendChild(dBoxFour)
-			e.target.parentElement.children[coordinate + 1].classList.add("dBox4")
-			e.target.parentElement.children[coordinate + 2].classList.add("dBox4")
-			e.target.parentElement.children[coordinate + 3].classList.add("dBox4")
+			e.target.parentElement.children[coordinate + 1].classList.add("busy")
+			e.target.parentElement.children[coordinate + 2].classList.add("busy")
+			e.target.parentElement.children[coordinate + 3].classList.add("busy")
 		}
 	}
 	if (agent === "1") {
@@ -247,7 +251,7 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 1].classList.add("dBox4")
+			e.target.parentElement.children[coordinate - 1].classList.add("busy")
 			const dBoxFour = document.createElement("div")
 			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
 			dBoxFour.classList.add("dBoxFour")
@@ -260,9 +264,9 @@ function dBoxFourDrop(e, coordinate, agent) {
 				dBoxFour.appendChild(dBoxFourBox)
 			}
 			e.target.parentElement.children[coordinate - 1].appendChild(dBoxFour)
-			e.target.parentElement.children[coordinate].classList.add("dBox4")
-			e.target.parentElement.children[coordinate + 1].classList.add("dBox4")
-			e.target.parentElement.children[coordinate + 2].classList.add("dBox4")
+			e.target.parentElement.children[coordinate].classList.add("busy")
+			e.target.parentElement.children[coordinate + 1].classList.add("busy")
+			e.target.parentElement.children[coordinate + 2].classList.add("busy")
 		}
 	}
 	if (agent === "2") {
@@ -271,7 +275,7 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate - 1].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 2].classList.add("dBox4")
+			e.target.parentElement.children[coordinate - 2].classList.add("busy")
 			const dBoxFour = document.createElement("div")
 			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
 			dBoxFour.classList.add("dBoxFour")
@@ -284,9 +288,9 @@ function dBoxFourDrop(e, coordinate, agent) {
 				dBoxFour.appendChild(dBoxFourBox)
 			}
 			e.target.parentElement.children[coordinate - 2].appendChild(dBoxFour)
-			e.target.parentElement.children[coordinate - 1].classList.add("dBox4")
-			e.target.parentElement.children[coordinate].classList.add("dBox4")
-			e.target.parentElement.children[coordinate + 1].classList.add("dBox4")
+			e.target.parentElement.children[coordinate - 1].classList.add("busy")
+			e.target.parentElement.children[coordinate].classList.add("busy")
+			e.target.parentElement.children[coordinate + 1].classList.add("busy")
 		}
 	}
 	if (agent === "3") {
@@ -295,7 +299,7 @@ function dBoxFourDrop(e, coordinate, agent) {
 			e.target.parentElement.children[coordinate - 2].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate - 1].classList.remove("drag-over")
 			e.target.parentElement.children[coordinate].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 3].classList.add("dBox4")
+			e.target.parentElement.children[coordinate - 3].classList.add("busy")
 			const dBoxFour = document.createElement("div")
 			dBoxFour.addEventListener("click", () => {dBoxFour.classList.toggle("v4")})
 			dBoxFour.classList.add("dBoxFour")
@@ -308,14 +312,14 @@ function dBoxFourDrop(e, coordinate, agent) {
 				dBoxFour.appendChild(dBoxFourBox)
 			}
 			e.target.parentElement.children[coordinate - 3].appendChild(dBoxFour)
-			e.target.parentElement.children[coordinate - 2].classList.add("dBox4")
-			e.target.parentElement.children[coordinate - 1].classList.add("dBox4")
-			e.target.parentElement.children[coordinate].classList.add("dBox4")
+			e.target.parentElement.children[coordinate - 2].classList.add("busy")
+			e.target.parentElement.children[coordinate - 1].classList.add("busy")
+			e.target.parentElement.children[coordinate].classList.add("busy")
 		}
 	}
 
-	const dTable = document.querySelector(".dTable")
-	dTable.classList.toggle("dBox4")
+	/* const dTable = document.querySelector(".dTable")
+	dTable.classList.toggle("dBox4") */
 
 	/* const dbox4All = document.querySelectorAll("[data-dbox4]")
 	dbox4All.forEach((el) => {

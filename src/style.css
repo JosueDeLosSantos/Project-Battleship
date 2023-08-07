@@ -333,7 +333,7 @@ main > div:nth-child(1) {
 }
 
 .drag-over {
-  background-color: rgba(83, 255, 255, 0.938);
+  background-color: greenyellow;
 }
 
 /* .addStyle {

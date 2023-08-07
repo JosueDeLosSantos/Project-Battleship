@@ -8,6 +8,7 @@ module.exports = {
       "./src/logic.js",
       "./src/DOM.js",
       "./src/dragdrop.js",
+      "./src/shipToggle.js",
       "./src/big4.js",
       "./src/big3.js",
       "./src/big2.js",
