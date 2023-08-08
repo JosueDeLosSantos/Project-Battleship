@@ -54,5 +54,29 @@ export function dragOverV(e, dBoxFour) {
 				twin[rowNum + 3].children[colNum].classList.add("drag-over")
 			}
 		}
+        if (dBoxFour.dataset.chunk === "1") {
+			if (rowNum < 8 && rowNum > 0) {
+				twin[rowNum - 1].children[colNum].classList.add("drag-over")
+				twin[rowNum].children[colNum].classList.add("drag-over")
+				twin[rowNum + 1].children[colNum].classList.add("drag-over")
+				twin[rowNum + 2].children[colNum].classList.add("drag-over")
+			}
+		}
+        if (dBoxFour.dataset.chunk === "2") {
+			if (rowNum < 9 && rowNum > 1) {
+				twin[rowNum - 2].children[colNum].classList.add("drag-over")
+				twin[rowNum - 1].children[colNum].classList.add("drag-over")
+				twin[rowNum].children[colNum].classList.add("drag-over")
+				twin[rowNum + 1].children[colNum].classList.add("drag-over")
+			}
+		}
+        if (dBoxFour.dataset.chunk === "3") {
+			if (rowNum < 10 && rowNum > 2) {
+				twin[rowNum - 3].children[colNum].classList.add("drag-over")
+				twin[rowNum - 2].children[colNum].classList.add("drag-over")
+				twin[rowNum - 1].children[colNum].classList.add("drag-over")
+				twin[rowNum].children[colNum].classList.add("drag-over")
+			}
+		}
     }
 }

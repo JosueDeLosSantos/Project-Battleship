@@ -1,7 +1,7 @@
-import shipToggle from "./shipToggle"
 import cleaner from "./cleaner"
 import * as doHelp from "./dragoverhelp"
 import * as dlHelp from "./dragleavehelp"
+import * as dropManager from "./dropManager"
 
 
 function dropTable() {
@@ -136,7 +136,7 @@ function drop(e) {
 	const hor = +e.target.dataset.dragTableField.split(",")[1]
 	if (e.target.classList.contains("drag-over")) {
 		if (agent.classList.contains("dBox4")) {
-			dBoxFourDrop(e, hor, agent.dataset.dboxdiv)
+			dropManager.dBoxFourDrop(e, hor, agent)
 			const chunk = document.querySelector("[data-chunk]")
 			if(!chunk.parentElement.classList.contains("relDiv")) cleaner(chunk.parentElement)
 			chunk.parentElement.removeChild(chunk)
@@ -146,119 +146,7 @@ function drop(e) {
 	}
 }
 
-function dBoxFourDrop(e, coordinate, agent) {
-	if (agent === "0") {
-		if (coordinate < 7) {
-			e.target.parentElement.children[coordinate].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate + 3].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate].classList.add("busy")
-			const dBoxFour = document.createElement("div")
-			const tag = e.target.parentElement.children[coordinate];
-			dBoxFour.addEventListener("click", () => {shipToggle(tag)})
-			dBoxFour.classList.add("dBoxFour")
-			dBoxFour.style.border = "none"
-			dBoxFour.draggable = true
-			for (let i = 0; i < 4; i += 1) {
-				const dBoxFourBox = document.createElement("div")
-				dBoxFourBox.dataset.dboxdiv = `${i}`
-				dBoxFourBox.classList.add("dBox4")
-				dBoxFour.appendChild(dBoxFourBox)
-			}
-			e.target.parentElement.children[coordinate].appendChild(dBoxFour)
-			e.target.parentElement.children[coordinate + 1].classList.add("busy")
-			e.target.parentElement.children[coordinate + 2].classList.add("busy")
-			e.target.parentElement.children[coordinate + 3].classList.add("busy")
-		}
-	}
-	if (agent === "1") {
-		if (coordinate < 8 && coordinate > 0) {
-			e.target.parentElement.children[coordinate - 1].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate + 2].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 1].classList.add("busy")
-			const dBoxFour = document.createElement("div")
-			const tag = e.target.parentElement.children[coordinate - 1];
-			dBoxFour.addEventListener("click", () => {shipToggle(tag)})
-			dBoxFour.classList.add("dBoxFour")
-			dBoxFour.style.border = "none"
-			dBoxFour.draggable = true
-			for (let i = 0; i < 4; i += 1) {
-				const dBoxFourBox = document.createElement("div")
-				dBoxFourBox.dataset.dboxdiv = `${i}`
-				dBoxFourBox.classList.add("dBox4")
-				dBoxFour.appendChild(dBoxFourBox)
-			}
-			e.target.parentElement.children[coordinate - 1].appendChild(dBoxFour)
-			e.target.parentElement.children[coordinate].classList.add("busy")
-			e.target.parentElement.children[coordinate + 1].classList.add("busy")
-			e.target.parentElement.children[coordinate + 2].classList.add("busy")
-		}
-	}
-	if (agent === "2") {
-		if (coordinate < 9 && coordinate > 1) {
-			e.target.parentElement.children[coordinate - 2].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 1].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate + 1].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 2].classList.add("busy")
-			const dBoxFour = document.createElement("div")
-			const tag = e.target.parentElement.children[coordinate - 2];
-			dBoxFour.addEventListener("click", () => {shipToggle(tag)})
-			dBoxFour.classList.add("dBoxFour")
-			dBoxFour.style.border = "none"
-			dBoxFour.draggable = true
-			for (let i = 0; i < 4; i += 1) {
-				const dBoxFourBox = document.createElement("div")
-				dBoxFourBox.dataset.dboxdiv = `${i}`
-				dBoxFourBox.classList.add("dBox4")
-				dBoxFour.appendChild(dBoxFourBox)
-			}
-			e.target.parentElement.children[coordinate - 2].appendChild(dBoxFour)
-			e.target.parentElement.children[coordinate - 1].classList.add("busy")
-			e.target.parentElement.children[coordinate].classList.add("busy")
-			e.target.parentElement.children[coordinate + 1].classList.add("busy")
-		}
-	}
-	if (agent === "3") {
-		if (coordinate < 10 && coordinate > 2) {
-			e.target.parentElement.children[coordinate - 3].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 2].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 1].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate].classList.remove("drag-over")
-			e.target.parentElement.children[coordinate - 3].classList.add("busy")
-			const dBoxFour = document.createElement("div")
-			const tag = e.target.parentElement.children[coordinate - 3];
-			dBoxFour.addEventListener("click", () => {shipToggle(tag)})
-			dBoxFour.classList.add("dBoxFour")
-			dBoxFour.style.border = "none"
-			dBoxFour.draggable = true
-			for (let i = 0; i < 4; i += 1) {
-				const dBoxFourBox = document.createElement("div")
-				dBoxFourBox.dataset.dboxdiv = `${i}`
-				dBoxFourBox.classList.add("dBox4")
-				dBoxFour.appendChild(dBoxFourBox)
-			}
-			e.target.parentElement.children[coordinate - 3].appendChild(dBoxFour)
-			e.target.parentElement.children[coordinate - 2].classList.add("busy")
-			e.target.parentElement.children[coordinate - 1].classList.add("busy")
-			e.target.parentElement.children[coordinate].classList.add("busy")
-		}
-	}
-
-	const dTable = document.querySelector(".dTable")
-	dTable.classList.toggle("dBox4")
-
-	/* const dbox4All = document.querySelectorAll("[data-dbox4]")
-	dbox4All.forEach((el) => {
-		el.addEventListener("dragstart", dragStartFour)
-		el.addEventListener("dragstart", dragEnd2)
-	}) */
-}
-
-function dragStartFour(e) {
+/* function dragStartFour(e) {
 	e.target.parentElement.parentElement.dataset.grab = e.target.dataset.dbox4
 	e.target.parentElement.parentElement.classList.add("dBox4")
 	e.dataTransfer.setData("text/html", e.target.parentElement.parentElement.outerHTML)
@@ -279,9 +167,9 @@ function dragStartFour(e) {
 		field.removeEventListener("drop", drop)
 		field.addEventListener("drop", drop2)
 	})
-}
+} */
 
-function dragEnd2() {
+/* function dragEnd2() {
 	const dBoxFour = document.querySelector(".dBoxFour")
 	const dTable = document.querySelector(".dTable")
 	if (dBoxFour.classList.contains("hide")) {
@@ -291,9 +179,9 @@ function dragEnd2() {
 	}
 
 	console.log("drag ended")
-}
+} */
 
-function drop2(e) {
+/* function drop2(e) {
 	const data = e.dataTransfer.getData("text/html")
 	const parser = new DOMParser()
 	const doc = parser.parseFromString(data, "text/html")
@@ -316,7 +204,7 @@ function drop2(e) {
 		const chunk = document.querySelector("[data-chunk]")
 		chunk.removeAttribute("data-chunk")
 	}
-}
+} */
 
 function draggableShips() {
 	const grids = document.querySelector(".grids")

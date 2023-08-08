@@ -11,6 +11,7 @@ module.exports = {
       "./src/shipToggle.js",
       "./src/dragoverhelp.js",
       "./src/dragleavehelp.js",
+      "./src/dropManager.js",
       "./src/cleaner.js",
       "./src/big4.js",
       "./src/big3.js",

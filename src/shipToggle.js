@@ -2,6 +2,10 @@ export default function shipToggle(tag) {
 	if (tag.children[0].classList.contains("dBoxFour")) {
 		if (!tag.children[0].classList.contains("v4")) {
 			tag.children[0].classList.toggle("v4")
+			const tagchildren = [...tag.children[0].children]
+			tagchildren.forEach(el => {
+				el.classList.add("v")
+			});
 			tag.nextSibling.classList.remove("busy")
 			tag.nextSibling.nextSibling.classList.remove("busy")
 			tag.nextSibling.nextSibling.nextSibling.classList.remove("busy")
@@ -15,6 +19,10 @@ export default function shipToggle(tag) {
             col4.classList.add("busy")
 		} else {
             tag.children[0].classList.toggle("v4")
+			const tagchildren = [...tag.children[0].children]
+			tagchildren.forEach(el => {
+				el.classList.remove("v")
+			});
 			tag.nextSibling.classList.add("busy")
 			tag.nextSibling.nextSibling.classList.add("busy")
 			tag.nextSibling.nextSibling.nextSibling.classList.add("busy")
