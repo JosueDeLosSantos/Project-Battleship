@@ -111,7 +111,7 @@ export function dBoxFourDrop(e, coordinate, agent) {
 		const twin = e.target.parentElement.parentElement.children
 
 		if (agent.dataset.dboxdiv === "0") {
-			if (rowNum< 7) {
+			if (rowNum < 7) {
 				twin[rowNum].children[colNum].classList.remove("drag-over")
 				twin[rowNum + 1].children[colNum].classList.remove("drag-over")
 				twin[rowNum + 2].children[colNum].classList.remove("drag-over")
@@ -136,6 +136,93 @@ export function dBoxFourDrop(e, coordinate, agent) {
 				twin[rowNum + 1].children[colNum].classList.add("busy")
 				twin[rowNum + 2].children[colNum].classList.add("busy")
 				twin[rowNum + 3].children[colNum].classList.add("busy")
+			}
+		}
+
+		if (agent.dataset.dboxdiv === "1") {
+			if (rowNum < 8 && rowNum > 0) {
+				twin[rowNum - 1].children[colNum].classList.remove("drag-over")
+				twin[rowNum].children[colNum].classList.remove("drag-over")
+				twin[rowNum + 1].children[colNum].classList.remove("drag-over")
+				twin[rowNum + 2].children[colNum].classList.remove("drag-over")
+
+				twin[rowNum - 1].children[colNum].classList.add("busy")
+				const dBoxFour = document.createElement("div")
+				const tag = twin[rowNum - 1].children[colNum];
+				dBoxFour.addEventListener("click", () => {shipToggle(tag)})
+				dBoxFour.classList.add("dBoxFour")
+				dBoxFour.classList.add("v4")
+				dBoxFour.style.border = "none"
+				dBoxFour.draggable = true
+				for (let i = 0; i < 4; i += 1) {
+					const dBoxFourBox = document.createElement("div")
+					dBoxFourBox.dataset.dboxdiv = `${i}`
+					dBoxFourBox.classList.add("dBox4")
+					dBoxFourBox.classList.add("v")
+					dBoxFour.appendChild(dBoxFourBox)
+				}
+				twin[rowNum - 1].children[colNum].appendChild(dBoxFour)
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum + 1].children[colNum].classList.add("busy")
+				twin[rowNum + 2].children[colNum].classList.add("busy")
+			}
+		}
+
+		if (agent.dataset.dboxdiv === "2") {
+			if (rowNum < 9 && rowNum > 1) {
+				twin[rowNum - 2].children[colNum].classList.remove("drag-over")
+				twin[rowNum - 1].children[colNum].classList.remove("drag-over")
+				twin[rowNum].children[colNum].classList.remove("drag-over")
+				twin[rowNum + 1].children[colNum].classList.remove("drag-over")
+
+				twin[rowNum - 2].children[colNum].classList.add("busy")
+				const dBoxFour = document.createElement("div")
+				const tag = twin[rowNum - 2].children[colNum];
+				dBoxFour.addEventListener("click", () => {shipToggle(tag)})
+				dBoxFour.classList.add("dBoxFour")
+				dBoxFour.classList.add("v4")
+				dBoxFour.style.border = "none"
+				dBoxFour.draggable = true
+				for (let i = 0; i < 4; i += 1) {
+					const dBoxFourBox = document.createElement("div")
+					dBoxFourBox.dataset.dboxdiv = `${i}`
+					dBoxFourBox.classList.add("dBox4")
+					dBoxFourBox.classList.add("v")
+					dBoxFour.appendChild(dBoxFourBox)
+				}
+				twin[rowNum - 2].children[colNum].appendChild(dBoxFour)
+				twin[rowNum - 1].children[colNum].classList.add("busy")
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum + 1].children[colNum].classList.add("busy")
+			}
+		}
+
+		if (agent.dataset.dboxdiv === "3") {
+			if (rowNum < 10 && rowNum > 2) {
+				twin[rowNum - 3].children[colNum].classList.remove("drag-over")
+				twin[rowNum - 2].children[colNum].classList.remove("drag-over")
+				twin[rowNum - 1].children[colNum].classList.remove("drag-over")
+				twin[rowNum].children[colNum].classList.remove("drag-over")
+
+				twin[rowNum - 3].children[colNum].classList.add("busy")
+				const dBoxFour = document.createElement("div")
+				const tag = twin[rowNum - 3].children[colNum];
+				dBoxFour.addEventListener("click", () => {shipToggle(tag)})
+				dBoxFour.classList.add("dBoxFour")
+				dBoxFour.classList.add("v4")
+				dBoxFour.style.border = "none"
+				dBoxFour.draggable = true
+				for (let i = 0; i < 4; i += 1) {
+					const dBoxFourBox = document.createElement("div")
+					dBoxFourBox.dataset.dboxdiv = `${i}`
+					dBoxFourBox.classList.add("dBox4")
+					dBoxFourBox.classList.add("v")
+					dBoxFour.appendChild(dBoxFourBox)
+				}
+				twin[rowNum - 3].children[colNum].appendChild(dBoxFour)
+				twin[rowNum - 2].children[colNum].classList.add("busy")
+				twin[rowNum - 1].children[colNum].classList.add("busy")
+				twin[rowNum].children[colNum].classList.add("busy")
 			}
 		}
 	}
