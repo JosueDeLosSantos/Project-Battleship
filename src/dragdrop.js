@@ -87,6 +87,12 @@ function dragEnd() {
 	const dBoxFour = document.querySelector(".dBoxFour")
 	if (dBoxFour.classList.contains("hide")) {
 		dBoxFour.classList.remove("hide")
+		if (dBoxFour.dataset.chunk) dBoxFour.removeAttribute("data-chunk")
+	}
+	const dBoxThree1 = document.querySelector(".dBoxThree1")
+	if (dBoxThree1.classList.contains("hide")) {
+		dBoxThree1.classList.remove("hide")
+		if (dBoxThree1.dataset.chunk) dBoxThree1.removeAttribute("data-chunk")
 	}
 }
 
@@ -94,11 +100,22 @@ function dragOver(e) {
 	e.preventDefault()
 
 	const dBoxFour = document.querySelector(".dBoxFour")
+	const dBoxThree1 = document.querySelector(".dBoxThree1")
 
-	if (!dBoxFour.classList.contains("v4")) {
+	if (!dBoxFour.classList.contains("v4") && 
+	dBoxFour.classList.contains("hide")) {
 		doHelp.dragOverH(e, dBoxFour)
-	} else {
+	} else if (dBoxFour.classList.contains("v4") && 
+	dBoxFour.classList.contains("hide")) {
 		doHelp.dragOverV(e, dBoxFour)
+	}
+
+	if (!dBoxThree1.classList.contains("v3") && 
+	dBoxThree1.classList.contains("hide")) {
+		doHelp.dragOverH(e, dBoxThree1)
+	} else if (dBoxThree1.classList.contains("v3") && 
+	dBoxThree1.classList.contains("hide")) {
+		doHelp.dragOverV(e, dBoxThree1)
 	}
 }
 
@@ -106,11 +123,22 @@ function dragLeave(e) {
 	e.preventDefault()
 
 	const dBoxFour = document.querySelector(".dBoxFour")
+	const dBoxThree1 = document.querySelector(".dBoxThree1")
 
-	if (!dBoxFour.classList.contains("v4")) {
+	if (!dBoxFour.classList.contains("v4") && 
+	dBoxFour.classList.contains("hide"))  {
 		dlHelp.dragLeaveH(e, dBoxFour)
-	} else {
+	} else if (dBoxFour.classList.contains("v4") && 
+	dBoxFour.classList.contains("hide")) {
 		dlHelp.dragLeaveV(e, dBoxFour)
+	}
+
+	if (!dBoxThree1.classList.contains("v3") && 
+	dBoxThree1.classList.contains("hide")) {
+		dlHelp.dragLeaveH(e, dBoxThree1)
+	} else if (dBoxThree1.classList.contains("v3") && 
+	dBoxThree1.classList.contains("hide")) {
+		dlHelp.dragLeaveV(e, dBoxThree1)
 	}
 }
 
@@ -129,6 +157,15 @@ function drop(e) {
 			dropManager.dBoxFourDrop(e, hor, agent)
 			const dBoxFour = document.querySelector(".dBoxFour")
 			dBoxFour.addEventListener("dragstart", dragStart)
+		}
+
+		if (agent.classList.contains("dBox3")) {
+			const chunk = document.querySelector("[data-chunk]")
+			if (!chunk.parentElement.classList.contains("relDiv3")) cleaner(chunk.parentElement)
+			chunk.parentElement.removeChild(chunk)
+			dropManager.dBoxThree1Drop(e, hor, agent)
+			const dBoxThree1 = document.querySelector(".dBoxThree1")
+			dBoxThree1.addEventListener("dragstart", dragStart)
 		}
 	}
 }
@@ -160,10 +197,24 @@ function draggableShips() {
 
 	const secondContainer = document.createElement("div")
 	secondContainer.classList.add("secondContainer")
+	const secondContainerDiv = document.createElement("div")
+	secondContainerDiv.classList.add("relDiv3")
 	const dBoxThree1 = document.createElement("div")
 	dBoxThree1.classList.add("dBoxThree1")
+	dBoxThree1.draggable = true
+	for(let i = 0; i < 3; i += 1){
+		const dBoxThree1Box = document.createElement("div")
+		dBoxThree1Box.dataset.dboxdiv = `${i}`
+		dBoxThree1Box.classList.add("dBox3")
+		dBoxThree1.appendChild(dBoxThree1Box)
+	}
+	dBoxThree1.addEventListener("dragstart", dragStart)
+
+	secondContainer.appendChild(secondContainerDiv)
+	secondContainerDiv.appendChild(dBoxThree1)
 	dBox.appendChild(secondContainer)
-	secondContainer.appendChild(dBoxThree1)
+
+
 	const dBoxThree2 = document.createElement("div")
 	dBoxThree2.classList.add("dBoxThree2")
 	dBox.appendChild(secondContainer)
