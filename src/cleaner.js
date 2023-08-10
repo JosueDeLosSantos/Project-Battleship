@@ -6,14 +6,13 @@ export default function cleaner(tag) {
 			tag.nextSibling.nextSibling.classList.remove("busy")
 			tag.nextSibling.nextSibling.nextSibling.classList.remove("busy")
 		} else {
-            const colNum = +tag.dataset.dragTableField.split(",")[0]
-			const col2 = tag.parentElement.parentElement.children[colNum + 1].children[colNum]
-			const col3 = tag.parentElement.parentElement.children[colNum + 2].children[colNum]
-			const col4 = tag.parentElement.parentElement.children[colNum + 3].children[colNum]
-            tag.classList.remove("busy")
-            col2.classList.remove("busy")
-            col3.classList.remove("busy")
-            col4.classList.remove("busy")
-        }
+			const rowNum = +tag.dataset.dragTableField.split(",")[0]
+			const colNum = +tag.dataset.dragTableField.split(",")[1]
+			const twin = tag.parentElement.parentElement.children
+			twin[rowNum].children[colNum].classList.remove("busy")
+			twin[rowNum + 1].children[colNum].classList.remove("busy")
+			twin[rowNum + 2].children[colNum].classList.remove("busy")
+			twin[rowNum + 3].children[colNum].classList.remove("busy")
+		}
 	}
 }

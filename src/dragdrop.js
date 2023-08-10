@@ -3,7 +3,6 @@ import * as doHelp from "./dragoverhelp"
 import * as dlHelp from "./dragleavehelp"
 import * as dropManager from "./dropManager"
 
-
 function dropTable() {
 	const grids = document.querySelector(".grids")
 	const dropTableContainer = document.createElement("div")
@@ -60,7 +59,6 @@ function dropTable() {
 	// Add event listeners to all fields
 	const dropFields = document.querySelectorAll("[data-drag-table-field]")
 	dropFields.forEach((field) => {
-		// field.addEventListener("dragenter", dragEnter)
 		field.addEventListener("dragover", dragOver)
 		field.addEventListener("dragleave", dragLeave)
 		field.addEventListener("drop", drop)
@@ -69,13 +67,12 @@ function dropTable() {
 
 function dragStart(e) {
 	const elementAtCoordinates = document.elementFromPoint(e.x, e.y)
-	e.dataTransfer.setData("text/html", elementAtCoordinates.outerHTML)
 
 	if (elementAtCoordinates.dataset.dboxdiv) {
 		e.target.dataset.chunk = elementAtCoordinates.dataset.dboxdiv
 	}
 
-	console.log(e.target)
+	e.dataTransfer.setData("text/html", elementAtCoordinates.outerHTML)
 
 	setTimeout(() => {
 		e.target.addEventListener("dragend", dragEnd)
@@ -86,30 +83,20 @@ function dragStart(e) {
 	}, 0)
 }
 
-/* function dragEnter(e) {
-	console.log(e)
-} */
-
 function dragEnd() {
 	const dBoxFour = document.querySelector(".dBoxFour")
-	const dTable = document.querySelector(".dTable")
 	if (dBoxFour.classList.contains("hide")) {
-		if (!dTable.classList.contains("dBox4")) {
-			dBoxFour.classList.remove("hide")
-		}
+		dBoxFour.classList.remove("hide")
 	}
-
-	console.log("drag ended")
 }
 
 function dragOver(e) {
 	e.preventDefault()
-	
 
 	const dBoxFour = document.querySelector(".dBoxFour")
 
 	if (!dBoxFour.classList.contains("v4")) {
-		doHelp.dragOverH(e, dBoxFour)	
+		doHelp.dragOverH(e, dBoxFour)
 	} else {
 		doHelp.dragOverV(e, dBoxFour)
 	}
@@ -119,9 +106,9 @@ function dragLeave(e) {
 	e.preventDefault()
 
 	const dBoxFour = document.querySelector(".dBoxFour")
-	
+
 	if (!dBoxFour.classList.contains("v4")) {
-		dlHelp.dragLeaveH(e, dBoxFour)	
+		dlHelp.dragLeaveH(e, dBoxFour)
 	} else {
 		dlHelp.dragLeaveV(e, dBoxFour)
 	}
@@ -136,75 +123,15 @@ function drop(e) {
 	const hor = +e.target.dataset.dragTableField.split(",")[1]
 	if (e.target.classList.contains("drag-over")) {
 		if (agent.classList.contains("dBox4")) {
-			dropManager.dBoxFourDrop(e, hor, agent)
 			const chunk = document.querySelector("[data-chunk]")
-			if(!chunk.parentElement.classList.contains("relDiv")) cleaner(chunk.parentElement)
+			if (!chunk.parentElement.classList.contains("relDiv")) cleaner(chunk.parentElement)
 			chunk.parentElement.removeChild(chunk)
+			dropManager.dBoxFourDrop(e, hor, agent)
 			const dBoxFour = document.querySelector(".dBoxFour")
 			dBoxFour.addEventListener("dragstart", dragStart)
 		}
 	}
 }
-
-/* function dragStartFour(e) {
-	e.target.parentElement.parentElement.dataset.grab = e.target.dataset.dbox4
-	e.target.parentElement.parentElement.classList.add("dBox4")
-	e.dataTransfer.setData("text/html", e.target.parentElement.parentElement.outerHTML)
-
-	const dBoxFour = document.querySelector(".dBoxFour")
-	dBoxFour.dataset.chunk = e.target.dataset.dbox4
-
-	// Change all fields back to their original state
-	const dbox4All = document.querySelectorAll("[data-dbox4]")
-	dbox4All.forEach((el) => {
-		el.classList.remove("notSunk")
-		el.removeAttribute("data-dbox4")
-	})
-
-	// Remove drop event listeners listeners to all fields temporarily
-	const dropFields = document.querySelectorAll("[data-drag-table-field]")
-	dropFields.forEach((field) => {
-		field.removeEventListener("drop", drop)
-		field.addEventListener("drop", drop2)
-	})
-} */
-
-/* function dragEnd2() {
-	const dBoxFour = document.querySelector(".dBoxFour")
-	const dTable = document.querySelector(".dTable")
-	if (dBoxFour.classList.contains("hide")) {
-		if (dTable.classList.contains("dBox4")) {
-			dBoxFour.classList.remove("hide")
-		}
-	}
-
-	console.log("drag ended")
-} */
-
-/* function drop2(e) {
-	const data = e.dataTransfer.getData("text/html")
-	const parser = new DOMParser()
-	const doc = parser.parseFromString(data, "text/html")
-	const agent = doc.children[0].children[1].children[0]
-	const hor = +e.target.dataset.dragTableField.split(",")[1]
-
-	const dTable = document.querySelector(".dTable")
-
-	if (e.target.classList.contains("drag-over")) {
-		if (dTable.classList.contains("dBox4")) {
-			dBoxFourDrop(e, hor, agent.dataset.grab)
-
-			// Remove drop event listeners listeners to all fields temporarily
-			const dropFields = document.querySelectorAll("[data-drag-table-field]")
-			dropFields.forEach((field) => {
-				field.removeEventListener("drop", drop2)
-				field.addEventListener("drop", drop)
-			})
-		}
-		const chunk = document.querySelector("[data-chunk]")
-		chunk.removeAttribute("data-chunk")
-	}
-} */
 
 function draggableShips() {
 	const grids = document.querySelector(".grids")

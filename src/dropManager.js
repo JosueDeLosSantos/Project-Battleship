@@ -1,7 +1,7 @@
 import shipToggle from "./shipToggle"
 
 export function dBoxFourDrop(e, coordinate, agent) {
-    console.log(agent)
+
 	if(!agent.classList.contains("v")){
 		if (agent.dataset.dboxdiv === "0") {
 			if (coordinate < 7) {
@@ -111,7 +111,7 @@ export function dBoxFourDrop(e, coordinate, agent) {
 		const twin = e.target.parentElement.parentElement.children
 
 		if (agent.dataset.dboxdiv === "0") {
-			if (coordinate < 7) {
+			if (rowNum< 7) {
 				twin[rowNum].children[colNum].classList.remove("drag-over")
 				twin[rowNum + 1].children[colNum].classList.remove("drag-over")
 				twin[rowNum + 2].children[colNum].classList.remove("drag-over")
@@ -139,13 +139,4 @@ export function dBoxFourDrop(e, coordinate, agent) {
 			}
 		}
 	}
-
-	const dTable = document.querySelector(".dTable")
-	dTable.classList.toggle("dBox4")
-
-	/* const dbox4All = document.querySelectorAll("[data-dbox4]")
-	dbox4All.forEach((el) => {
-		el.addEventListener("dragstart", dragStartFour)
-		el.addEventListener("dragstart", dragEnd2)
-	}) */
 }
