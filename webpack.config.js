@@ -13,6 +13,7 @@ module.exports = {
       "./src/dragleavehelp.js",
       "./src/dropManager.js",
       "./src/cleaner.js",
+      "./src/danger.js",
       "./src/big4.js",
       "./src/big3.js",
       "./src/big2.js",

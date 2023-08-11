@@ -380,6 +380,12 @@ main > div:nth-child(1) {
   background-color: greenyellow;
 }
 
+.shipBanned {
+  background-color: rgb(255 0 0 / 58%);
+  box-shadow: none;
+  border: none;
+}
+
 .example {
   
   width: 119px;

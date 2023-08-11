@@ -1,5 +1,13 @@
+
 export function dragLeaveH(e, dBox){
-	const first = +e.target.dataset.dragTableField.split(",")[1]
+	const first = e.target.parentElement.hasAttribute("draggable") ? 
+	+e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1] : 
+	+e.target.dataset.dragTableField.split(",")[1]
+
+	if (e.target.parentElement.hasAttribute("draggable")){
+		e.target.parentElement.classList.remove("shipBanned")
+		return
+	}
 
 	if (dBox.classList.contains("dBoxFour")){
 		if (dBox.dataset.chunk) {
