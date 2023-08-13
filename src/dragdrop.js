@@ -79,6 +79,25 @@ function dragStart(e) {
 	}, 0)
 
 	setTimeout(() => {
+		if (
+			e.target.classList.contains("dBoxFour") &&
+			!e.target.parentElement.classList.contains("relDiv")
+		) {
+			const rowNum = +e.target.parentElement.dataset.dragTableField.split(",")[0]
+			const colNum = +e.target.parentElement.dataset.dragTableField.split(",")[1]
+			const twin = e.target.parentElement.parentElement.parentElement.children
+			if (!e.target.classList.contains("v4")) {
+				twin[rowNum].children[colNum].classList.remove("busy")
+				twin[rowNum].children[colNum + 1].classList.remove("busy")
+				twin[rowNum].children[colNum + 2].classList.remove("busy")
+				twin[rowNum].children[colNum + 3].classList.remove("busy")
+			} else {
+				twin[rowNum].children[colNum].classList.remove("busy")
+				twin[rowNum + 1].children[colNum].classList.remove("busy")
+				twin[rowNum + 2].children[colNum].classList.remove("busy")
+				twin[rowNum + 3].children[colNum].classList.remove("busy")
+			}
+		}
 		e.target.classList.add("hide")
 	}, 0)
 }
@@ -102,19 +121,15 @@ function dragOver(e) {
 	const dBoxFour = document.querySelector(".dBoxFour")
 	const dBoxThree1 = document.querySelector(".dBoxThree1")
 
-	if (!dBoxFour.classList.contains("v4") && 
-	dBoxFour.classList.contains("hide")) {
+	if (!dBoxFour.classList.contains("v4") && dBoxFour.classList.contains("hide")) {
 		doHelp.dragOverH(e, dBoxFour)
-	} else if (dBoxFour.classList.contains("v4") && 
-	dBoxFour.classList.contains("hide")) {
+	} else if (dBoxFour.classList.contains("v4") && dBoxFour.classList.contains("hide")) {
 		doHelp.dragOverV(e, dBoxFour)
 	}
 
-	if (!dBoxThree1.classList.contains("v3") && 
-	dBoxThree1.classList.contains("hide")) {
+	if (!dBoxThree1.classList.contains("v3") && dBoxThree1.classList.contains("hide")) {
 		doHelp.dragOverH(e, dBoxThree1)
-	} else if (dBoxThree1.classList.contains("v3") && 
-	dBoxThree1.classList.contains("hide")) {
+	} else if (dBoxThree1.classList.contains("v3") && dBoxThree1.classList.contains("hide")) {
 		doHelp.dragOverV(e, dBoxThree1)
 	}
 }
@@ -125,19 +140,15 @@ function dragLeave(e) {
 	const dBoxFour = document.querySelector(".dBoxFour")
 	const dBoxThree1 = document.querySelector(".dBoxThree1")
 
-	if (!dBoxFour.classList.contains("v4") && 
-	dBoxFour.classList.contains("hide"))  {
+	if (!dBoxFour.classList.contains("v4") && dBoxFour.classList.contains("hide")) {
 		dlHelp.dragLeaveH(e, dBoxFour)
-	} else if (dBoxFour.classList.contains("v4") && 
-	dBoxFour.classList.contains("hide")) {
+	} else if (dBoxFour.classList.contains("v4") && dBoxFour.classList.contains("hide")) {
 		dlHelp.dragLeaveV(e, dBoxFour)
 	}
 
-	if (!dBoxThree1.classList.contains("v3") && 
-	dBoxThree1.classList.contains("hide")) {
+	if (!dBoxThree1.classList.contains("v3") && dBoxThree1.classList.contains("hide")) {
 		dlHelp.dragLeaveH(e, dBoxThree1)
-	} else if (dBoxThree1.classList.contains("v3") && 
-	dBoxThree1.classList.contains("hide")) {
+	} else if (dBoxThree1.classList.contains("v3") && dBoxThree1.classList.contains("hide")) {
 		dlHelp.dragLeaveV(e, dBoxThree1)
 	}
 }
@@ -202,7 +213,7 @@ function draggableShips() {
 	const dBoxThree1 = document.createElement("div")
 	dBoxThree1.classList.add("dBoxThree1")
 	dBoxThree1.draggable = true
-	for(let i = 0; i < 3; i += 1){
+	for (let i = 0; i < 3; i += 1) {
 		const dBoxThree1Box = document.createElement("div")
 		dBoxThree1Box.dataset.dboxdiv = `${i}`
 		dBoxThree1Box.classList.add("dBox3")
@@ -213,7 +224,6 @@ function draggableShips() {
 	secondContainer.appendChild(secondContainerDiv)
 	secondContainerDiv.appendChild(dBoxThree1)
 	dBox.appendChild(secondContainer)
-
 
 	const dBoxThree2 = document.createElement("div")
 	dBoxThree2.classList.add("dBoxThree2")
