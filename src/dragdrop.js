@@ -98,6 +98,25 @@ function dragStart(e) {
 				twin[rowNum + 3].children[colNum].classList.remove("busy")
 			}
 		}
+
+		if (
+			e.target.classList.contains("dBoxThree1") &&
+			!e.target.parentElement.classList.contains("relDiv3")
+		) {
+			const rowNum = +e.target.parentElement.dataset.dragTableField.split(",")[0]
+			const colNum = +e.target.parentElement.dataset.dragTableField.split(",")[1]
+			const twin = e.target.parentElement.parentElement.parentElement.children
+			if (!e.target.classList.contains("v3")) {
+				twin[rowNum].children[colNum].classList.remove("busy")
+				twin[rowNum].children[colNum + 1].classList.remove("busy")
+				twin[rowNum].children[colNum + 2].classList.remove("busy")
+			} else {
+				twin[rowNum].children[colNum].classList.remove("busy")
+				twin[rowNum + 1].children[colNum].classList.remove("busy")
+				twin[rowNum + 2].children[colNum].classList.remove("busy")
+			}
+		}
+
 		e.target.classList.add("hide")
 	}, 0)
 }
@@ -107,11 +126,41 @@ function dragEnd() {
 	if (dBoxFour.classList.contains("hide")) {
 		dBoxFour.classList.remove("hide")
 		if (dBoxFour.dataset.chunk) dBoxFour.removeAttribute("data-chunk")
+		if (dBoxFour.parentElement.dataset.dragTableField) {
+			const rowNum = +dBoxFour.parentElement.dataset.dragTableField.split(",")[0]
+			const colNum = +dBoxFour.parentElement.dataset.dragTableField.split(",")[1]
+			const twin = dBoxFour.parentElement.parentElement.parentElement.children
+			if (!dBoxFour.classList.contains("v4")) {
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum].children[colNum + 1].classList.add("busy")
+				twin[rowNum].children[colNum + 2].classList.add("busy")
+				twin[rowNum].children[colNum + 3].classList.add("busy")
+			} else {
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum + 1].children[colNum].classList.add("busy")
+				twin[rowNum + 2].children[colNum].classList.add("busy")
+				twin[rowNum + 3].children[colNum].classList.add("busy")
+			}
+		}
 	}
 	const dBoxThree1 = document.querySelector(".dBoxThree1")
 	if (dBoxThree1.classList.contains("hide")) {
 		dBoxThree1.classList.remove("hide")
 		if (dBoxThree1.dataset.chunk) dBoxThree1.removeAttribute("data-chunk")
+		if (dBoxThree1.parentElement.dataset.dragTableField) {
+			const rowNum = +dBoxThree1.parentElement.dataset.dragTableField.split(",")[0]
+			const colNum = +dBoxThree1.parentElement.dataset.dragTableField.split(",")[1]
+			const twin = dBoxThree1.parentElement.parentElement.parentElement.children
+			if (!dBoxThree1.classList.contains("v3")) {
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum].children[colNum + 1].classList.add("busy")
+				twin[rowNum].children[colNum + 2].classList.add("busy")
+			} else {
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum + 1].children[colNum].classList.add("busy")
+				twin[rowNum + 2].children[colNum].classList.add("busy")
+			}
+		}
 	}
 }
 
