@@ -12,8 +12,15 @@ export default function shipToggle(tag) {
 				!twin[rowNum + 3].children[colNum2].classList.contains("busy")
 			) {
 				// next condition "if there is a ship in its way it can't work"
-				if (+tag.dataset.dragTableField.split(",")[0] < 6) {
-					if (!twin[rowNum + 4].children[colNum2].classList.contains("busy")) {
+				if (+tag.dataset.dragTableField.split(",")[0] < 6 &&
+				+tag.dataset.dragTableField.split(",")[1] > 0) {
+					if (!twin[rowNum + 2].children[colNum2 + 1].classList.contains("busy") &&
+					!twin[rowNum + 2].children[colNum2 - 1].classList.contains("busy") &&
+					!twin[rowNum + 3].children[colNum2 + 1].classList.contains("busy") &&
+					!twin[rowNum + 3].children[colNum2 - 1].classList.contains("busy") &&
+					!twin[rowNum + 4].children[colNum2 + 1].classList.contains("busy") &&
+					!twin[rowNum + 4].children[colNum2].classList.contains("busy") &&
+					!twin[rowNum + 4].children[colNum2 - 1].classList.contains("busy")) {
 						tag.children[0].classList.toggle("v4")
 						const tagchildren = [...tag.children[0].children]
 						tagchildren.forEach((el) => {
@@ -32,19 +39,76 @@ export default function shipToggle(tag) {
 							tag.children[0].classList.replace("dBoxFourError", "dBoxFour")
 						}, 300)
 					}
-				} else {
-					tag.children[0].classList.toggle("v4")
-					const tagchildren = [...tag.children[0].children]
-					tagchildren.forEach((el) => {
-						el.classList.add("v")
-					})
-					twin[rowNum].children[colNum2 + 1].classList.remove("busy")
-					twin[rowNum].children[colNum2 + 2].classList.remove("busy")
-					twin[rowNum].children[colNum2 + 3].classList.remove("busy")
+				} else if (+tag.dataset.dragTableField.split(",")[0] < 6 &&
+				+tag.dataset.dragTableField.split(",")[1] === 0) {
+					if (!twin[rowNum + 2].children[colNum2 + 1].classList.contains("busy") &&
+					!twin[rowNum + 3].children[colNum2 + 1].classList.contains("busy") &&
+					!twin[rowNum + 4].children[colNum2 + 1].classList.contains("busy") &&
+					!twin[rowNum + 4].children[colNum2].classList.contains("busy")) {
+						tag.children[0].classList.toggle("v4")
+						const tagchildren = [...tag.children[0].children]
+						tagchildren.forEach((el) => {
+							el.classList.add("v")
+						})
+						twin[rowNum].children[colNum2 + 1].classList.remove("busy")
+						twin[rowNum].children[colNum2 + 2].classList.remove("busy")
+						twin[rowNum].children[colNum2 + 3].classList.remove("busy")
 
-					twin[rowNum + 1].children[colNum2].classList.add("busy")
-					twin[rowNum + 2].children[colNum2].classList.add("busy")
-					twin[rowNum + 3].children[colNum2].classList.add("busy")
+						twin[rowNum + 1].children[colNum2].classList.add("busy")
+						twin[rowNum + 2].children[colNum2].classList.add("busy")
+						twin[rowNum + 3].children[colNum2].classList.add("busy")
+					} else {
+						tag.children[0].classList.replace("dBoxFour", "dBoxFourError")
+						setTimeout(() => {
+							tag.children[0].classList.replace("dBoxFourError", "dBoxFour")
+						}, 300)
+					}
+				} else if (+tag.dataset.dragTableField.split(",")[0] === 6 &&
+				+tag.dataset.dragTableField.split(",")[1] > 0){
+					if (!twin[rowNum + 2].children[colNum2 + 1].classList.contains("busy") &&
+					!twin[rowNum + 2].children[colNum2 - 1].classList.contains("busy") &&
+					!twin[rowNum + 3].children[colNum2 + 1].classList.contains("busy") &&
+					!twin[rowNum + 3].children[colNum2 - 1].classList.contains("busy")) {
+						tag.children[0].classList.toggle("v4")
+						const tagchildren = [...tag.children[0].children]
+						tagchildren.forEach((el) => {
+							el.classList.add("v")
+						})
+						twin[rowNum].children[colNum2 + 1].classList.remove("busy")
+						twin[rowNum].children[colNum2 + 2].classList.remove("busy")
+						twin[rowNum].children[colNum2 + 3].classList.remove("busy")
+
+						twin[rowNum + 1].children[colNum2].classList.add("busy")
+						twin[rowNum + 2].children[colNum2].classList.add("busy")
+						twin[rowNum + 3].children[colNum2].classList.add("busy")
+					} else {
+						tag.children[0].classList.replace("dBoxFour", "dBoxFourError")
+						setTimeout(() => {
+							tag.children[0].classList.replace("dBoxFourError", "dBoxFour")
+						}, 300)
+					}
+				} else if (+tag.dataset.dragTableField.split(",")[0] === 6 &&
+				+tag.dataset.dragTableField.split(",")[1] === 0){
+					if (!twin[rowNum + 2].children[colNum2 + 1].classList.contains("busy") &&
+					!twin[rowNum + 3].children[colNum2 + 1].classList.contains("busy")) {
+						tag.children[0].classList.toggle("v4")
+						const tagchildren = [...tag.children[0].children]
+						tagchildren.forEach((el) => {
+							el.classList.add("v")
+						})
+						twin[rowNum].children[colNum2 + 1].classList.remove("busy")
+						twin[rowNum].children[colNum2 + 2].classList.remove("busy")
+						twin[rowNum].children[colNum2 + 3].classList.remove("busy")
+
+						twin[rowNum + 1].children[colNum2].classList.add("busy")
+						twin[rowNum + 2].children[colNum2].classList.add("busy")
+						twin[rowNum + 3].children[colNum2].classList.add("busy")
+					} else {
+						tag.children[0].classList.replace("dBoxFour", "dBoxFourError")
+						setTimeout(() => {
+							tag.children[0].classList.replace("dBoxFourError", "dBoxFour")
+						}, 300)
+					}
 				}
 			} else {
 				tag.children[0].classList.replace("dBoxFour", "dBoxFourError")
@@ -59,8 +123,15 @@ export default function shipToggle(tag) {
 				!twin[rowNum].children[colNum2 + 2].classList.contains("busy") &&
 				!twin[rowNum].children[colNum2 + 3].classList.contains("busy")
 			) {
-				if (+tag.dataset.dragTableField.split(",")[1] < 6) {
-					if (!twin[rowNum].children[colNum2 + 4].classList.contains("busy")) {
+				if (+tag.dataset.dragTableField.split(",")[1] < 6 &&
+				+tag.dataset.dragTableField.split(",")[0] > 0) {
+					if (!twin[rowNum + 1].children[colNum2 + 2].classList.contains("busy") &&
+					!twin[rowNum - 1].children[colNum2 + 2].classList.contains("busy") &&
+					!twin[rowNum + 1].children[colNum2 + 3].classList.contains("busy") &&
+					!twin[rowNum - 1].children[colNum2 + 3].classList.contains("busy") &&
+					!twin[rowNum + 1].children[colNum2 + 4].classList.contains("busy") &&
+					!twin[rowNum].children[colNum2 + 4].classList.contains("busy") &&
+					!twin[rowNum - 1].children[colNum2 + 4].classList.contains("busy")) {
 						tag.children[0].classList.toggle("v4")
 						const tagchildren = [...tag.children[0].children]
 						tagchildren.forEach((el) => {
@@ -79,19 +150,76 @@ export default function shipToggle(tag) {
 							tag.children[0].classList.replace("dBoxFourError", "dBoxFour")
 						}, 300)
 					}
-				} else {
-					tag.children[0].classList.toggle("v4")
-					const tagchildren = [...tag.children[0].children]
-					tagchildren.forEach((el) => {
-						el.classList.remove("v")
-					})
-					twin[rowNum].children[colNum2 + 1].classList.add("busy")
-					twin[rowNum].children[colNum2 + 2].classList.add("busy")
-					twin[rowNum].children[colNum2 + 3].classList.add("busy")
+				} else if (+tag.dataset.dragTableField.split(",")[1] < 6 &&
+				+tag.dataset.dragTableField.split(",")[0] === 0) {
+					if (!twin[rowNum + 1].children[colNum2 + 2].classList.contains("busy") &&
+					!twin[rowNum + 1].children[colNum2 + 3].classList.contains("busy") &&
+					!twin[rowNum + 1].children[colNum2 + 4].classList.contains("busy") &&
+					!twin[rowNum].children[colNum2 + 4].classList.contains("busy")) {
+						tag.children[0].classList.toggle("v4")
+						const tagchildren = [...tag.children[0].children]
+						tagchildren.forEach((el) => {
+							el.classList.remove("v")
+						})
+						twin[rowNum].children[colNum2 + 1].classList.add("busy")
+						twin[rowNum].children[colNum2 + 2].classList.add("busy")
+						twin[rowNum].children[colNum2 + 3].classList.add("busy")
 
-					twin[rowNum + 1].children[colNum2].classList.remove("busy")
-					twin[rowNum + 2].children[colNum2].classList.remove("busy")
-					twin[rowNum + 3].children[colNum2].classList.remove("busy")
+						twin[rowNum + 1].children[colNum2].classList.remove("busy")
+						twin[rowNum + 2].children[colNum2].classList.remove("busy")
+						twin[rowNum + 3].children[colNum2].classList.remove("busy")
+					} else {
+						tag.children[0].classList.replace("dBoxFour", "dBoxFourError")
+						setTimeout(() => {
+							tag.children[0].classList.replace("dBoxFourError", "dBoxFour")
+						}, 300)
+					}
+				} else if (+tag.dataset.dragTableField.split(",")[1] === 6 &&
+				+tag.dataset.dragTableField.split(",")[0] > 0){
+					if (!twin[rowNum + 1].children[colNum2 + 2].classList.contains("busy") &&
+					!twin[rowNum - 1].children[colNum2 + 2].classList.contains("busy") &&
+					!twin[rowNum + 1].children[colNum2 + 3].classList.contains("busy") &&
+					!twin[rowNum - 1].children[colNum2 + 3].classList.contains("busy")) {
+						tag.children[0].classList.toggle("v4")
+						const tagchildren = [...tag.children[0].children]
+						tagchildren.forEach((el) => {
+							el.classList.remove("v")
+						})
+						twin[rowNum].children[colNum2 + 1].classList.add("busy")
+						twin[rowNum].children[colNum2 + 2].classList.add("busy")
+						twin[rowNum].children[colNum2 + 3].classList.add("busy")
+
+						twin[rowNum + 1].children[colNum2].classList.remove("busy")
+						twin[rowNum + 2].children[colNum2].classList.remove("busy")
+						twin[rowNum + 3].children[colNum2].classList.remove("busy")
+					} else {
+						tag.children[0].classList.replace("dBoxFour", "dBoxFourError")
+						setTimeout(() => {
+							tag.children[0].classList.replace("dBoxFourError", "dBoxFour")
+						}, 300)
+					}
+				} else if (+tag.dataset.dragTableField.split(",")[1] === 6 &&
+				+tag.dataset.dragTableField.split(",")[0] === 0){
+					if (!twin[rowNum + 1].children[colNum2 + 2].classList.contains("busy") &&
+					!twin[rowNum + 1].children[colNum2 + 3].classList.contains("busy")) {
+						tag.children[0].classList.toggle("v4")
+						const tagchildren = [...tag.children[0].children]
+						tagchildren.forEach((el) => {
+							el.classList.remove("v")
+						})
+						twin[rowNum].children[colNum2 + 1].classList.add("busy")
+						twin[rowNum].children[colNum2 + 2].classList.add("busy")
+						twin[rowNum].children[colNum2 + 3].classList.add("busy")
+
+						twin[rowNum + 1].children[colNum2].classList.remove("busy")
+						twin[rowNum + 2].children[colNum2].classList.remove("busy")
+						twin[rowNum + 3].children[colNum2].classList.remove("busy")
+					} else {
+						tag.children[0].classList.replace("dBoxFour", "dBoxFourError")
+						setTimeout(() => {
+							tag.children[0].classList.replace("dBoxFourError", "dBoxFour")
+						}, 300)
+					}
 				}
 			} else {
 				tag.children[0].classList.replace("dBoxFour", "dBoxFourError")
