@@ -79,44 +79,9 @@ function dragStart(e) {
 	}, 0)
 
 	setTimeout(() => {
-		if (
-			e.target.classList.contains("dBoxFour") &&
-			!e.target.parentElement.classList.contains("relDiv")
-		) {
-			const rowNum = +e.target.parentElement.dataset.dragTableField.split(",")[0]
-			const colNum = +e.target.parentElement.dataset.dragTableField.split(",")[1]
-			const twin = e.target.parentElement.parentElement.parentElement.children
-			if (!e.target.classList.contains("v4")) {
-				twin[rowNum].children[colNum].classList.remove("busy")
-				twin[rowNum].children[colNum + 1].classList.remove("busy")
-				twin[rowNum].children[colNum + 2].classList.remove("busy")
-				twin[rowNum].children[colNum + 3].classList.remove("busy")
-			} else {
-				twin[rowNum].children[colNum].classList.remove("busy")
-				twin[rowNum + 1].children[colNum].classList.remove("busy")
-				twin[rowNum + 2].children[colNum].classList.remove("busy")
-				twin[rowNum + 3].children[colNum].classList.remove("busy")
-			}
+		if (e.target.parentElement.dataset.dragTableField) {
+			cleaner(e.target, "remove")
 		}
-
-		if (
-			e.target.classList.contains("dBoxThree1") &&
-			!e.target.parentElement.classList.contains("relDiv3")
-		) {
-			const rowNum = +e.target.parentElement.dataset.dragTableField.split(",")[0]
-			const colNum = +e.target.parentElement.dataset.dragTableField.split(",")[1]
-			const twin = e.target.parentElement.parentElement.parentElement.children
-			if (!e.target.classList.contains("v3")) {
-				twin[rowNum].children[colNum].classList.remove("busy")
-				twin[rowNum].children[colNum + 1].classList.remove("busy")
-				twin[rowNum].children[colNum + 2].classList.remove("busy")
-			} else {
-				twin[rowNum].children[colNum].classList.remove("busy")
-				twin[rowNum + 1].children[colNum].classList.remove("busy")
-				twin[rowNum + 2].children[colNum].classList.remove("busy")
-			}
-		}
-
 		e.target.classList.add("hide")
 	}, 0)
 }
@@ -127,20 +92,7 @@ function dragEnd() {
 		dBoxFour.classList.remove("hide")
 		if (dBoxFour.dataset.chunk) dBoxFour.removeAttribute("data-chunk")
 		if (dBoxFour.parentElement.dataset.dragTableField) {
-			const rowNum = +dBoxFour.parentElement.dataset.dragTableField.split(",")[0]
-			const colNum = +dBoxFour.parentElement.dataset.dragTableField.split(",")[1]
-			const twin = dBoxFour.parentElement.parentElement.parentElement.children
-			if (!dBoxFour.classList.contains("v4")) {
-				twin[rowNum].children[colNum].classList.add("busy")
-				twin[rowNum].children[colNum + 1].classList.add("busy")
-				twin[rowNum].children[colNum + 2].classList.add("busy")
-				twin[rowNum].children[colNum + 3].classList.add("busy")
-			} else {
-				twin[rowNum].children[colNum].classList.add("busy")
-				twin[rowNum + 1].children[colNum].classList.add("busy")
-				twin[rowNum + 2].children[colNum].classList.add("busy")
-				twin[rowNum + 3].children[colNum].classList.add("busy")
-			}
+			cleaner(dBoxFour, "add")
 		}
 	}
 	const dBoxThree1 = document.querySelector(".dBoxThree1")
@@ -148,18 +100,7 @@ function dragEnd() {
 		dBoxThree1.classList.remove("hide")
 		if (dBoxThree1.dataset.chunk) dBoxThree1.removeAttribute("data-chunk")
 		if (dBoxThree1.parentElement.dataset.dragTableField) {
-			const rowNum = +dBoxThree1.parentElement.dataset.dragTableField.split(",")[0]
-			const colNum = +dBoxThree1.parentElement.dataset.dragTableField.split(",")[1]
-			const twin = dBoxThree1.parentElement.parentElement.parentElement.children
-			if (!dBoxThree1.classList.contains("v3")) {
-				twin[rowNum].children[colNum].classList.add("busy")
-				twin[rowNum].children[colNum + 1].classList.add("busy")
-				twin[rowNum].children[colNum + 2].classList.add("busy")
-			} else {
-				twin[rowNum].children[colNum].classList.add("busy")
-				twin[rowNum + 1].children[colNum].classList.add("busy")
-				twin[rowNum + 2].children[colNum].classList.add("busy")
-			}
+			cleaner(dBoxThree1, "add")
 		}
 	}
 }
@@ -212,7 +153,7 @@ function drop(e) {
 	if (e.target.classList.contains("drag-over")) {
 		if (agent.classList.contains("dBox4")) {
 			const chunk = document.querySelector("[data-chunk]")
-			if (!chunk.parentElement.classList.contains("relDiv")) cleaner(chunk.parentElement)
+			// if (!chunk.parentElement.classList.contains("relDiv")) cleaner(chunk.parentElement)
 			chunk.parentElement.removeChild(chunk)
 			dropManager.dBoxFourDrop(e, hor, agent)
 			const dBoxFour = document.querySelector(".dBoxFour")
@@ -221,7 +162,7 @@ function drop(e) {
 
 		if (agent.classList.contains("dBox3")) {
 			const chunk = document.querySelector("[data-chunk]")
-			if (!chunk.parentElement.classList.contains("relDiv3")) cleaner(chunk.parentElement)
+			// if (!chunk.parentElement.classList.contains("relDiv3")) cleaner(chunk.parentElement)
 			chunk.parentElement.removeChild(chunk)
 			dropManager.dBoxThree1Drop(e, hor, agent)
 			const dBoxThree1 = document.querySelector(".dBoxThree1")

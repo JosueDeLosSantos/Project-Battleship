@@ -1,33 +1,62 @@
-export default function cleaner(tag) {
-	if (tag.children[0].classList.contains("dBoxFour")) {
-		if (!tag.children[0].classList.contains("v4")) {
-			tag.classList.remove("busy")
-			tag.nextSibling.classList.remove("busy")
-			tag.nextSibling.nextSibling.classList.remove("busy")
-			tag.nextSibling.nextSibling.nextSibling.classList.remove("busy")
-		} else {
-			const rowNum = +tag.dataset.dragTableField.split(",")[0]
-			const colNum = +tag.dataset.dragTableField.split(",")[1]
-			const twin = tag.parentElement.parentElement.children
-			twin[rowNum].children[colNum].classList.remove("busy")
-			twin[rowNum + 1].children[colNum].classList.remove("busy")
-			twin[rowNum + 2].children[colNum].classList.remove("busy")
-			twin[rowNum + 3].children[colNum].classList.remove("busy")
+export default function cleaner(tag, action) {
+
+	const rowNum = +tag.parentElement.dataset.dragTableField.split(",")[0]
+	const colNum = +tag.parentElement.dataset.dragTableField.split(",")[1]
+	const twin = tag.parentElement.parentElement.parentElement.children
+
+	if (tag.classList.contains("dBoxFour")) {
+		if (action === "remove") {
+			if (!tag.classList.contains("v4")) {
+				twin[rowNum].children[colNum].classList.remove("busy")
+				twin[rowNum].children[colNum + 1].classList.remove("busy")
+				twin[rowNum].children[colNum + 2].classList.remove("busy")
+				twin[rowNum].children[colNum + 3].classList.remove("busy")
+			} else {
+				twin[rowNum].children[colNum].classList.remove("busy")
+				twin[rowNum + 1].children[colNum].classList.remove("busy")
+				twin[rowNum + 2].children[colNum].classList.remove("busy")
+				twin[rowNum + 3].children[colNum].classList.remove("busy")
+			}
+		}
+
+		if (action === "add") {
+			if (!tag.classList.contains("v4")) {
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum].children[colNum + 1].classList.add("busy")
+				twin[rowNum].children[colNum + 2].classList.add("busy")
+				twin[rowNum].children[colNum + 3].classList.add("busy")
+			} else {
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum + 1].children[colNum].classList.add("busy")
+				twin[rowNum + 2].children[colNum].classList.add("busy")
+				twin[rowNum + 3].children[colNum].classList.add("busy")
+			}
 		}
 	}
 
-	if (tag.children[0].classList.contains("dBoxThree1")) {
-		if (!tag.children[0].classList.contains("v3")) {
-			tag.classList.remove("busy")
-			tag.nextSibling.classList.remove("busy")
-			tag.nextSibling.nextSibling.classList.remove("busy")
-		} else {
-			const rowNum = +tag.dataset.dragTableField.split(",")[0]
-			const colNum = +tag.dataset.dragTableField.split(",")[1]
-			const twin = tag.parentElement.parentElement.children
-			twin[rowNum].children[colNum].classList.remove("busy")
-			twin[rowNum + 1].children[colNum].classList.remove("busy")
-			twin[rowNum + 2].children[colNum].classList.remove("busy")
+	if (tag.classList.contains("dBoxThree1")) {
+		if (action === "remove") {
+			if (!tag.classList.contains("v3")) {
+				twin[rowNum].children[colNum].classList.remove("busy")
+				twin[rowNum].children[colNum + 1].classList.remove("busy")
+				twin[rowNum].children[colNum + 2].classList.remove("busy")
+			} else {
+				twin[rowNum].children[colNum].classList.remove("busy")
+				twin[rowNum + 1].children[colNum].classList.remove("busy")
+				twin[rowNum + 2].children[colNum].classList.remove("busy")
+			}
+		}
+
+		if (action === "add") {
+			if (!tag.classList.contains("v3")) {
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum].children[colNum + 1].classList.add("busy")
+				twin[rowNum].children[colNum + 2].classList.add("busy")
+			} else {
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum + 1].children[colNum].classList.add("busy")
+				twin[rowNum + 2].children[colNum].classList.add("busy")
+			}
 		}
 	}
 }
