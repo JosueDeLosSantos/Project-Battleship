@@ -1,6 +1,6 @@
 import cleaner from "./cleaner"
-import * as doHelp from "./dragoverhelp"
-import * as dlHelp from "./dragleavehelp"
+import dragOverHelp from "./dragoverhelp"
+import dragLeaveHelp from "./dragleavehelp"
 import * as dropManager from "./dropManager"
 
 function dropTable() {
@@ -82,7 +82,9 @@ function dragStart(e) {
 		if (e.target.parentElement.dataset.dragTableField) {
 			cleaner(e.target, "remove")
 		}
-		e.target.classList.add("hide")
+		if (!e.target.classList.contains("dBox4")) {
+			e.target.classList.toggle("hide")
+		}
 	}, 0)
 }
 
@@ -109,38 +111,18 @@ function dragOver(e) {
 	e.preventDefault()
 
 	const dBoxFour = document.querySelector(".dBoxFour")
+	dragOverHelp(e, dBoxFour)
 	const dBoxThree1 = document.querySelector(".dBoxThree1")
-
-	if (!dBoxFour.classList.contains("v4") && dBoxFour.classList.contains("hide")) {
-		doHelp.dragOverH(e, dBoxFour)
-	} else if (dBoxFour.classList.contains("v4") && dBoxFour.classList.contains("hide")) {
-		doHelp.dragOverV(e, dBoxFour)
-	}
-
-	if (!dBoxThree1.classList.contains("v3") && dBoxThree1.classList.contains("hide")) {
-		doHelp.dragOverH(e, dBoxThree1)
-	} else if (dBoxThree1.classList.contains("v3") && dBoxThree1.classList.contains("hide")) {
-		doHelp.dragOverV(e, dBoxThree1)
-	}
+	dragOverHelp(e, dBoxThree1)
 }
 
 function dragLeave(e) {
 	e.preventDefault()
 
 	const dBoxFour = document.querySelector(".dBoxFour")
+	dragLeaveHelp(e, dBoxFour)
 	const dBoxThree1 = document.querySelector(".dBoxThree1")
-
-	if (!dBoxFour.classList.contains("v4") && dBoxFour.classList.contains("hide")) {
-		dlHelp.dragLeaveH(e, dBoxFour)
-	} else if (dBoxFour.classList.contains("v4") && dBoxFour.classList.contains("hide")) {
-		dlHelp.dragLeaveV(e, dBoxFour)
-	}
-
-	if (!dBoxThree1.classList.contains("v3") && dBoxThree1.classList.contains("hide")) {
-		dlHelp.dragLeaveH(e, dBoxThree1)
-	} else if (dBoxThree1.classList.contains("v3") && dBoxThree1.classList.contains("hide")) {
-		dlHelp.dragLeaveV(e, dBoxThree1)
-	}
+	dragLeaveHelp(e, dBoxThree1)
 }
 
 function drop(e) {
@@ -149,13 +131,12 @@ function drop(e) {
 	const doc = parser.parseFromString(data, "text/html")
 	const agent = doc.children[0].children[1].children[0]
 
-	const hor = +e.target.dataset.dragTableField.split(",")[1]
 	if (e.target.classList.contains("drag-over")) {
 		if (agent.classList.contains("dBox4")) {
 			const chunk = document.querySelector("[data-chunk]")
 			// if (!chunk.parentElement.classList.contains("relDiv")) cleaner(chunk.parentElement)
 			chunk.parentElement.removeChild(chunk)
-			dropManager.dBoxFourDrop(e, hor, agent)
+			dropManager.dBoxFourDrop(e, agent)
 			const dBoxFour = document.querySelector(".dBoxFour")
 			dBoxFour.addEventListener("dragstart", dragStart)
 		}
@@ -164,7 +145,7 @@ function drop(e) {
 			const chunk = document.querySelector("[data-chunk]")
 			// if (!chunk.parentElement.classList.contains("relDiv3")) cleaner(chunk.parentElement)
 			chunk.parentElement.removeChild(chunk)
-			dropManager.dBoxThree1Drop(e, hor, agent)
+			dropManager.dBoxThree1Drop(e, agent)
 			const dBoxThree1 = document.querySelector(".dBoxThree1")
 			dBoxThree1.addEventListener("dragstart", dragStart)
 		}

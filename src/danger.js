@@ -1,8 +1,18 @@
 export default function danger(e, dBox, chunk) {
 
-    const rowNum = +e.target.dataset.dragTableField.split(",")[0]
-	const colNum = +e.target.dataset.dragTableField.split(",")[1]
-	const twin = e.target.parentElement.parentElement.children
+    let rowNum = null;
+	let colNum = null;
+	let twin = null;
+
+	if (e.target.parentElement.hasAttribute("draggable")) {
+		rowNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[0]
+		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
+		twin = e.target.parentElement.parentElement.parentElement.children
+	} else {
+		rowNum = +e.target.dataset.dragTableField.split(",")[0]
+		colNum = +e.target.dataset.dragTableField.split(",")[1]
+		twin = e.target.parentElement.parentElement.children
+	}
 
     if (dBox.classList.contains("dBoxFour") && !dBox.classList.contains("v4")){
 		if (chunk) {
