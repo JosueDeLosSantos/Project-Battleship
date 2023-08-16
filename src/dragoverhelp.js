@@ -1,4 +1,4 @@
-import * as danger from "./danger"
+import danger from "./danger"
 
 export function dragOverH(e, dBox) {
 	const first = e.target.parentElement.hasAttribute("draggable")
@@ -14,7 +14,7 @@ export function dragOverH(e, dBox) {
 		if (dBox.dataset.chunk) {
 			if (dBox.dataset.chunk === "0") {
 				if (first < 7) {
-					if (danger.dangerH(e, dBox, dBox.dataset.chunk) !== null) {
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
 						e.target.classList.add("drag-over")
 						e.target.parentElement.children[first + 1].classList.add("drag-over")
 						e.target.parentElement.children[first + 2].classList.add("drag-over")
@@ -25,7 +25,7 @@ export function dragOverH(e, dBox) {
 
 			if (dBox.dataset.chunk === "1") {
 				if (first < 8 && first > 0) {
-					if (danger.dangerH(e, dBox, dBox.dataset.chunk) !== null) {
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
 						e.target.parentElement.children[first - 1].classList.add("drag-over")
 						e.target.parentElement.children[first].classList.add("drag-over")
 						e.target.parentElement.children[first + 1].classList.add("drag-over")
@@ -36,7 +36,7 @@ export function dragOverH(e, dBox) {
 
 			if (dBox.dataset.chunk === "2") {
 				if (first < 9 && first > 1) {
-					if (danger.dangerH(e, dBox, dBox.dataset.chunk) !== null) {
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
 						e.target.parentElement.children[first - 2].classList.add("drag-over")
 						e.target.parentElement.children[first - 1].classList.add("drag-over")
 						e.target.parentElement.children[first].classList.add("drag-over")
@@ -47,7 +47,7 @@ export function dragOverH(e, dBox) {
 
 			if (dBox.dataset.chunk === "3") {
 				if (first < 10 && first > 2) {
-					if (danger.dangerH(e, dBox, dBox.dataset.chunk) !== null) {
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
 						e.target.parentElement.children[first - 3].classList.add("drag-over")
 						e.target.parentElement.children[first - 2].classList.add("drag-over")
 						e.target.parentElement.children[first - 1].classList.add("drag-over")
@@ -96,34 +96,42 @@ export function dragOverV(e, dBox) {
 		if (dBox.dataset.chunk) {
 			if (dBox.dataset.chunk === "0") {
 				if (rowNum < 7) {
-					twin[rowNum].children[colNum].classList.add("drag-over")
-					twin[rowNum + 1].children[colNum].classList.add("drag-over")
-					twin[rowNum + 2].children[colNum].classList.add("drag-over")
-					twin[rowNum + 3].children[colNum].classList.add("drag-over")
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum].children[colNum].classList.add("drag-over")
+						twin[rowNum + 1].children[colNum].classList.add("drag-over")
+						twin[rowNum + 2].children[colNum].classList.add("drag-over")
+						twin[rowNum + 3].children[colNum].classList.add("drag-over")
+					}
 				}
 			}
 			if (dBox.dataset.chunk === "1") {
 				if (rowNum < 8 && rowNum > 0) {
-					twin[rowNum - 1].children[colNum].classList.add("drag-over")
-					twin[rowNum].children[colNum].classList.add("drag-over")
-					twin[rowNum + 1].children[colNum].classList.add("drag-over")
-					twin[rowNum + 2].children[colNum].classList.add("drag-over")
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum - 1].children[colNum].classList.add("drag-over")
+						twin[rowNum].children[colNum].classList.add("drag-over")
+						twin[rowNum + 1].children[colNum].classList.add("drag-over")
+						twin[rowNum + 2].children[colNum].classList.add("drag-over")
+					}
 				}
 			}
 			if (dBox.dataset.chunk === "2") {
 				if (rowNum < 9 && rowNum > 1) {
-					twin[rowNum - 2].children[colNum].classList.add("drag-over")
-					twin[rowNum - 1].children[colNum].classList.add("drag-over")
-					twin[rowNum].children[colNum].classList.add("drag-over")
-					twin[rowNum + 1].children[colNum].classList.add("drag-over")
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum - 2].children[colNum].classList.add("drag-over")
+						twin[rowNum - 1].children[colNum].classList.add("drag-over")
+						twin[rowNum].children[colNum].classList.add("drag-over")
+						twin[rowNum + 1].children[colNum].classList.add("drag-over")
+					}
 				}
 			}
 			if (dBox.dataset.chunk === "3") {
 				if (rowNum < 10 && rowNum > 2) {
-					twin[rowNum - 3].children[colNum].classList.add("drag-over")
-					twin[rowNum - 2].children[colNum].classList.add("drag-over")
-					twin[rowNum - 1].children[colNum].classList.add("drag-over")
-					twin[rowNum].children[colNum].classList.add("drag-over")
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum - 3].children[colNum].classList.add("drag-over")
+						twin[rowNum - 2].children[colNum].classList.add("drag-over")
+						twin[rowNum - 1].children[colNum].classList.add("drag-over")
+						twin[rowNum].children[colNum].classList.add("drag-over")
+					}
 				}
 			}
 		}
