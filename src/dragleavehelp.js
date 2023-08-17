@@ -6,7 +6,7 @@ export default function dragLeaveHelp(e, dBox) {
 	if (e.target.parentElement.hasAttribute("draggable")) {
 		rowNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[0]
 		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
-		e.target.parentElement.classList.remove("shipBanned")
+		// e.target.parentElement.classList.remove("shipBanned")
 		twin = e.target.parentElement.parentElement.parentElement.children
 	} else {
 		rowNum = e.target.dataset.dragTableField ? 

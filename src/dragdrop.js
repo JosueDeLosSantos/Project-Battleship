@@ -65,12 +65,16 @@ function dropTable() {
 	})
 }
 
+let dsClass = null
+
 function dragStart(e) {
 	const elementAtCoordinates = document.elementFromPoint(e.x, e.y)
-
 	if (elementAtCoordinates.dataset.dboxdiv) {
 		e.target.dataset.chunk = elementAtCoordinates.dataset.dboxdiv
+		const temp = elementAtCoordinates.parentElement
+		dsClass = temp
 	}
+
 
 	e.dataTransfer.setData("text/html", elementAtCoordinates.outerHTML)
 
@@ -82,47 +86,62 @@ function dragStart(e) {
 		if (e.target.parentElement.dataset.dragTableField) {
 			cleaner(e.target, "remove")
 		}
-		if (!e.target.classList.contains("dBox4")) {
+		if (!e.target.classList.contains("dBox4") && !e.target.classList.contains("dBox3")) {
 			e.target.classList.toggle("hide")
 		}
+		// console.log(e) why it freezes?
 	}, 0)
 }
 
 function dragEnd() {
-	const dBoxFour = document.querySelector(".dBoxFour")
-	if (dBoxFour.classList.contains("hide")) {
-		dBoxFour.classList.remove("hide")
-		if (dBoxFour.dataset.chunk) dBoxFour.removeAttribute("data-chunk")
-		if (dBoxFour.parentElement.dataset.dragTableField) {
-			cleaner(dBoxFour, "add")
+	function tempFunction() {
+		dsClass.classList.remove("hide")
+		if (dsClass.dataset.chunk) dsClass.removeAttribute("data-chunk")
+		if (dsClass.parentElement.dataset.dragTableField) {
+			cleaner(dsClass, "add")
 		}
 	}
-	const dBoxThree1 = document.querySelector(".dBoxThree1")
-	if (dBoxThree1.classList.contains("hide")) {
-		dBoxThree1.classList.remove("hide")
-		if (dBoxThree1.dataset.chunk) dBoxThree1.removeAttribute("data-chunk")
-		if (dBoxThree1.parentElement.dataset.dragTableField) {
-			cleaner(dBoxThree1, "add")
-		}
+
+	if (
+		dsClass.parentElement !== null &&
+		dsClass.classList.contains("dBoxfour") &&
+		dsClass.classList.contains("hide") &&
+		dsClass.parentElement.hasAttribute("data-drag-table-field")
+	) {
+		tempFunction()
+	} else if (
+		dsClass.parentElement !== null &&
+		dsClass.classList.contains("dBoxThree1") &&
+		dsClass.classList.contains("hide") &&
+		dsClass.parentElement.hasAttribute("data-drag-table-field")
+	) {
+		tempFunction()
 	}
+
+	dsClass.classList.remove("hide")
+	const all = [...dsClass.children]
+	all.forEach((element) => {
+		if (element.hasAttribute("data-chunk")) element.removeAttribute("data-chunk")
+	})
+	// alert("If the ship won't drag, click out of it and try to grab it again")
 }
 
 function dragOver(e) {
 	e.preventDefault()
 
-	const dBoxFour = document.querySelector(".dBoxFour")
-	dragOverHelp(e, dBoxFour)
-	const dBoxThree1 = document.querySelector(".dBoxThree1")
-	dragOverHelp(e, dBoxThree1)
+	// const dBoxFour = document.querySelector(".dBoxFour")
+	dragOverHelp(e, dsClass)
+	// const dBoxThree1 = document.querySelector(".dBoxThree1")
+	// dragOverHelp(e, dBoxThree1)
 }
 
 function dragLeave(e) {
 	e.preventDefault()
 
-	const dBoxFour = document.querySelector(".dBoxFour")
-	dragLeaveHelp(e, dBoxFour)
-	const dBoxThree1 = document.querySelector(".dBoxThree1")
-	dragLeaveHelp(e, dBoxThree1)
+	// const dBoxFour = document.querySelector(".dBoxFour")
+	dragLeaveHelp(e, dsClass)
+	// const dBoxThree1 = document.querySelector(".dBoxThree1")
+	// dragLeaveHelp(e, dBoxThree1)
 }
 
 function drop(e) {
@@ -146,6 +165,7 @@ function drop(e) {
 			// if (!chunk.parentElement.classList.contains("relDiv3")) cleaner(chunk.parentElement)
 			chunk.parentElement.removeChild(chunk)
 			dropManager.dBoxThree1Drop(e, agent)
+			
 			const dBoxThree1 = document.querySelector(".dBoxThree1")
 			dBoxThree1.addEventListener("dragstart", dragStart)
 		}
