@@ -34,7 +34,7 @@ function dropTable() {
 	// Create the dropTable grid
 	const dTable = document.createElement("table")
 	dTable.classList.add("dTable")
-	dTable.dataset.grab = "none"
+	// dTable.dataset.grab = "none"
 
 	dropTableContainer.appendChild(dropIndex1)
 	dropIndex1.appendChild(rowIndex1)
@@ -68,80 +68,73 @@ function dropTable() {
 let dsClass = null
 
 function dragStart(e) {
-	const elementAtCoordinates = document.elementFromPoint(e.x, e.y)
+	let elementAtCoordinates = document.elementFromPoint(e.x, e.y)
 	if (elementAtCoordinates.dataset.dboxdiv) {
 		e.target.dataset.chunk = elementAtCoordinates.dataset.dboxdiv
 		const temp = elementAtCoordinates.parentElement
 		dsClass = temp
 	}
 
+	if (!e.target.hasAttribute("data-dboxdiv")) {
+		e.dataTransfer.setData("text/html", elementAtCoordinates.outerHTML)
 
-	e.dataTransfer.setData("text/html", elementAtCoordinates.outerHTML)
+		setTimeout(() => {
+			e.target.addEventListener("dragend", dragEnd)
+		}, 0)
 
-	setTimeout(() => {
-		e.target.addEventListener("dragend", dragEnd)
-	}, 0)
+		setTimeout(() => {
+			if (e.target.parentElement.dataset.dragTableField) {
+				cleaner(e.target, "remove")
+			}
+			if (!e.target.classList.contains("dBox4") && !e.target.classList.contains("dBox3")) {
+				e.target.classList.add("hide")
+			}
+		}, 0)
+	} else if (e.target.hasAttribute("data-dboxdiv")) {
+		elementAtCoordinates = e.target.dataset.dboxdiv
+		e.target.parentElement.dataset.chunk = elementAtCoordinates
+		const temp = e.target.parentElement
+		dsClass = temp
 
-	setTimeout(() => {
-		if (e.target.parentElement.dataset.dragTableField) {
-			cleaner(e.target, "remove")
-		}
-		if (!e.target.classList.contains("dBox4") && !e.target.classList.contains("dBox3")) {
-			e.target.classList.toggle("hide")
-		}
-		// console.log(e) why it freezes?
-	}, 0)
+		console.log(e.target.outerHTML)
+
+		e.dataTransfer.setData("text/html", e.target.outerHTML)
+
+		setTimeout(() => {
+			e.target.parentElement.addEventListener("dragend", dragEnd)
+		}, 0)
+
+		setTimeout(() => {
+			if (e.target.parentElement.parentElement.dataset.dragTableField) {
+				cleaner(e.target.parentElement, "remove")
+			}
+			if (
+				!e.target.parentElement.classList.contains("dBox4") &&
+				!e.target.parentElement.classList.contains("dBox3")
+			) {
+				e.target.parentElement.classList.add("hide")
+			}
+		}, 0)
+	}
 }
 
 function dragEnd() {
-	function tempFunction() {
-		dsClass.classList.remove("hide")
-		if (dsClass.dataset.chunk) dsClass.removeAttribute("data-chunk")
-		if (dsClass.parentElement.dataset.dragTableField) {
-			cleaner(dsClass, "add")
-		}
-	}
-
-	if (
-		dsClass.parentElement !== null &&
-		dsClass.classList.contains("dBoxfour") &&
-		dsClass.classList.contains("hide") &&
-		dsClass.parentElement.hasAttribute("data-drag-table-field")
-	) {
-		tempFunction()
-	} else if (
-		dsClass.parentElement !== null &&
-		dsClass.classList.contains("dBoxThree1") &&
-		dsClass.classList.contains("hide") &&
-		dsClass.parentElement.hasAttribute("data-drag-table-field")
-	) {
-		tempFunction()
-	}
-
-	dsClass.classList.remove("hide")
-	const all = [...dsClass.children]
+	// dsClass.classList.remove("hide")
+	/* const all = [...dsClass.children]
 	all.forEach((element) => {
 		if (element.hasAttribute("data-chunk")) element.removeAttribute("data-chunk")
-	})
-	// alert("If the ship won't drag, click out of it and try to grab it again")
+	}) */
+	bugFixer()
 }
 
 function dragOver(e) {
 	e.preventDefault()
-
-	// const dBoxFour = document.querySelector(".dBoxFour")
 	dragOverHelp(e, dsClass)
-	// const dBoxThree1 = document.querySelector(".dBoxThree1")
-	// dragOverHelp(e, dBoxThree1)
 }
 
 function dragLeave(e) {
 	e.preventDefault()
-
-	// const dBoxFour = document.querySelector(".dBoxFour")
 	dragLeaveHelp(e, dsClass)
-	// const dBoxThree1 = document.querySelector(".dBoxThree1")
-	// dragLeaveHelp(e, dBoxThree1)
 }
 
 function drop(e) {
@@ -149,12 +142,15 @@ function drop(e) {
 	const parser = new DOMParser()
 	const doc = parser.parseFromString(data, "text/html")
 	const agent = doc.children[0].children[1].children[0]
+	if (agent.classList.contains("Apple-interchange-newline")) {
+		bugFixer()
+		return
+	}
 
 	if (e.target.classList.contains("drag-over")) {
 		if (agent.classList.contains("dBox4")) {
 			const chunk = document.querySelector("[data-chunk]")
-			// if (!chunk.parentElement.classList.contains("relDiv")) cleaner(chunk.parentElement)
-			chunk.parentElement.removeChild(chunk)
+			if (chunk.classList.contains("hide")) chunk.parentElement.removeChild(chunk)
 			dropManager.dBoxFourDrop(e, agent)
 			const dBoxFour = document.querySelector(".dBoxFour")
 			dBoxFour.addEventListener("dragstart", dragStart)
@@ -162,14 +158,32 @@ function drop(e) {
 
 		if (agent.classList.contains("dBox3")) {
 			const chunk = document.querySelector("[data-chunk]")
-			// if (!chunk.parentElement.classList.contains("relDiv3")) cleaner(chunk.parentElement)
-			chunk.parentElement.removeChild(chunk)
+			if (chunk.classList.contains("hide")) chunk.parentElement.removeChild(chunk)
 			dropManager.dBoxThree1Drop(e, agent)
-			
 			const dBoxThree1 = document.querySelector(".dBoxThree1")
 			dBoxThree1.addEventListener("dragstart", dragStart)
 		}
 	}
+}
+
+function bugFixer() {
+	const dTable = document.querySelector(".dTable")
+	const tchildren = [...dTable.children]
+	tchildren.forEach((el) => {
+		const tgrandchildren = [...el.children]
+		tgrandchildren.forEach((elChildren) => {
+			if (elChildren.classList.contains("drag-over")) elChildren.classList.remove("drag-over")
+			if (elChildren.childNodes[0] && !elChildren.classList.contains("busy")) {
+				cleaner(elChildren.childNodes[0], "add")
+			}
+			if (elChildren.childNodes[0] && elChildren.childNodes[0].classList.contains("hide")) {
+				elChildren.childNodes[0].classList.remove("hide")
+			}
+		})
+	})
+	const hide = document.querySelectorAll(".hide")
+	const hideList = [...hide]
+	if (hideList[3]) hideList[3].classList.remove("hide")
 }
 
 function draggableShips() {
