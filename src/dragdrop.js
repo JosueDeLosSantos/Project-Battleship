@@ -2,6 +2,7 @@ import cleaner from "./cleaner"
 import dragOverHelp from "./dragoverhelp"
 import dragLeaveHelp from "./dragleavehelp"
 import * as dropManager from "./dropManager"
+import chunkChecker from "./chunkChecker"
 
 function dropTable() {
 	const grids = document.querySelector(".grids")
@@ -119,11 +120,6 @@ function dragStart(e) {
 }
 
 function dragEnd() {
-	// dsClass.classList.remove("hide")
-	/* const all = [...dsClass.children]
-	all.forEach((element) => {
-		if (element.hasAttribute("data-chunk")) element.removeAttribute("data-chunk")
-	}) */
 	bugFixer()
 }
 
@@ -149,21 +145,23 @@ function drop(e) {
 
 	if (e.target.classList.contains("drag-over")) {
 		if (agent.classList.contains("dBox4")) {
-			const chunk = document.querySelector("[data-chunk]")
-			if (chunk.classList.contains("hide")) chunk.parentElement.removeChild(chunk)
+			const chunk = document.querySelector(".dBoxFour")
+			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
+			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
 			dropManager.dBoxFourDrop(e, agent)
 			const dBoxFour = document.querySelector(".dBoxFour")
 			dBoxFour.addEventListener("dragstart", dragStart)
 		}
 
 		if (agent.classList.contains("dBox3")) {
-			const chunk = document.querySelector("[data-chunk]")
-			if (chunk.classList.contains("hide")) chunk.parentElement.removeChild(chunk)
+			const chunk = document.querySelector(".dBoxThree1")
+			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
+			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
 			dropManager.dBoxThree1Drop(e, agent)
 			const dBoxThree1 = document.querySelector(".dBoxThree1")
 			dBoxThree1.addEventListener("dragstart", dragStart)
 		}
-	}
+	}                                                        
 }
 
 function bugFixer() {
@@ -284,3 +282,4 @@ export default function dragDrop() {
 	title1.innerText = "Your ships"
 	title2.innerText = "Your grid"
 }
+

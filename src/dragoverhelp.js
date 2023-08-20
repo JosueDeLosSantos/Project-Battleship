@@ -8,24 +8,26 @@ export default function dragOverHelp(e, dBox) {
 	if (e.target.parentElement.hasAttribute("draggable")) {
 		rowNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[0]
 		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
-		// e.target.parentElement.classList.add("shipBanned")
 		twin = e.target.parentElement.parentElement.parentElement.children
 	} else {
-		rowNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[0]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[0]
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
 
-		colNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[1]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[1]
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
 
-		twin = e.target.dataset.dragTableField ?
-		e.target.parentElement.parentElement.children:
-		e.target.parentElement.parentElement.parentElement.children
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
 	}
 
-	if (dBox.classList.contains("dBoxFour") && !e.target.parentElement.hasAttribute("draggable")
-	&& !dBox.classList.contains("v4")) {
+	if (
+		dBox.classList.contains("dBoxFour") &&
+		!e.target.parentElement.hasAttribute("draggable") &&
+		!dBox.classList.contains("v4")
+	) {
 		if (dBox.dataset.chunk) {
 			if (dBox.dataset.chunk === "0") {
 				if (colNum < 7) {
@@ -71,8 +73,11 @@ export default function dragOverHelp(e, dBox) {
 				}
 			}
 		}
-	} else if (dBox.classList.contains("dBoxFour") && !e.target.parentElement.hasAttribute("draggable")
-	&& dBox.classList.contains("v4")){
+	} else if (
+		dBox.classList.contains("dBoxFour") &&
+		!e.target.parentElement.hasAttribute("draggable") &&
+		dBox.classList.contains("v4")
+	) {
 		if (dBox.dataset.chunk) {
 			if (dBox.dataset.chunk === "0") {
 				if (rowNum < 7) {
@@ -117,55 +122,73 @@ export default function dragOverHelp(e, dBox) {
 		}
 	}
 
-	if (dBox.classList.contains("dBoxThree1") && !e.target.parentElement.hasAttribute("draggable")
-	&& !dBox.classList.contains("v3")) {
+	if (
+		dBox.classList.contains("dBoxThree1") &&
+		!e.target.parentElement.hasAttribute("draggable") &&
+		!dBox.classList.contains("v3")
+	) {
 		if (dBox.dataset.chunk) {
 			if (dBox.dataset.chunk === "0") {
 				if (colNum < 8) {
-					twin[rowNum].children[colNum].classList.add("drag-over")
-					twin[rowNum].children[colNum + 1].classList.add("drag-over")
-					twin[rowNum].children[colNum + 2].classList.add("drag-over")
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum].children[colNum].classList.add("drag-over")
+						twin[rowNum].children[colNum + 1].classList.add("drag-over")
+						twin[rowNum].children[colNum + 2].classList.add("drag-over")
+					}
 				}
 			}
 
 			if (dBox.dataset.chunk === "1") {
 				if (colNum < 9 && colNum > 0) {
-					twin[rowNum].children[colNum - 1].classList.add("drag-over")
-					twin[rowNum].children[colNum].classList.add("drag-over")
-					twin[rowNum].children[colNum + 1].classList.add("drag-over")
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum].children[colNum - 1].classList.add("drag-over")
+						twin[rowNum].children[colNum].classList.add("drag-over")
+						twin[rowNum].children[colNum + 1].classList.add("drag-over")
+					}
 				}
 			}
 
 			if (dBox.dataset.chunk === "2") {
 				if (colNum < 10 && colNum > 1) {
-					twin[rowNum].children[colNum - 2].classList.add("drag-over")
-					twin[rowNum].children[colNum - 1].classList.add("drag-over")
-					twin[rowNum].children[colNum].classList.add("drag-over")
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum].children[colNum - 2].classList.add("drag-over")
+						twin[rowNum].children[colNum - 1].classList.add("drag-over")
+						twin[rowNum].children[colNum].classList.add("drag-over")
+					}
 				}
 			}
 		}
-	} else if (dBox.classList.contains("dBoxThree1") && !e.target.parentElement.hasAttribute("draggable")
-	&& dBox.classList.contains("v3")) {
+	} else if (
+		dBox.classList.contains("dBoxThree1") &&
+		!e.target.parentElement.hasAttribute("draggable") &&
+		dBox.classList.contains("v3")
+	) {
 		if (dBox.dataset.chunk) {
 			if (dBox.dataset.chunk === "0") {
 				if (rowNum < 8) {
-					twin[rowNum].children[colNum].classList.add("drag-over")
-					twin[rowNum + 1].children[colNum].classList.add("drag-over")
-					twin[rowNum + 2].children[colNum].classList.add("drag-over")
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum].children[colNum].classList.add("drag-over")
+						twin[rowNum + 1].children[colNum].classList.add("drag-over")
+						twin[rowNum + 2].children[colNum].classList.add("drag-over")
+					}
 				}
 			}
 			if (dBox.dataset.chunk === "1") {
 				if (rowNum < 9 && rowNum > 0) {
-					twin[rowNum - 1].children[colNum].classList.add("drag-over")
-					twin[rowNum].children[colNum].classList.add("drag-over")
-					twin[rowNum + 1].children[colNum].classList.add("drag-over")
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum - 1].children[colNum].classList.add("drag-over")
+						twin[rowNum].children[colNum].classList.add("drag-over")
+						twin[rowNum + 1].children[colNum].classList.add("drag-over")
+					}
 				}
 			}
 			if (dBox.dataset.chunk === "2") {
 				if (rowNum < 10 && rowNum > 1) {
-					twin[rowNum - 2].children[colNum].classList.add("drag-over")
-					twin[rowNum - 1].children[colNum].classList.add("drag-over")
-					twin[rowNum].children[colNum].classList.add("drag-over")
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum - 2].children[colNum].classList.add("drag-over")
+						twin[rowNum - 1].children[colNum].classList.add("drag-over")
+						twin[rowNum].children[colNum].classList.add("drag-over")
+					}
 				}
 			}
 		}

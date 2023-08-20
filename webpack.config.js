@@ -14,6 +14,7 @@ module.exports = {
       "./src/dropManager.js",
       "./src/cleaner.js",
       "./src/danger.js",
+      "./src/chunkChecker.js",
       "./src/big4.js",
       "./src/big3.js",
       "./src/big2.js",
