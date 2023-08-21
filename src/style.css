@@ -290,7 +290,7 @@ main > div:nth-child(1) {
   display: flex;
 }
 
-.dBoxThree1 {
+.dBoxThree1, .dBoxThree2 {
   width: 89px;
   height: 31.4px;
   left: 0px;
@@ -315,7 +315,7 @@ main > div:nth-child(1) {
   display: flex;
 }
 
-.dBoxThree1Error {
+.dBoxThree1Error, .dBoxThree2Error {
   width: 89px;
   height: 31.4px;
   left: 0px;
@@ -341,14 +341,14 @@ main > div:nth-child(1) {
   flex-direction: column;
 }
 
-.dBoxThree2 {
+/* .dBoxThree2 {
   height: 29px;
   width: calc(29px * 3);
   background-color: hsl(189, 91%, 87%);
   box-shadow: inset 0 0 10px hsl(189, 84%, 71%);
   border: 1px solid;
   border-color: rgb(146, 146, 253);
-}
+} */
 
 .dBoxTwo1, .dBoxTwo2, .dBoxTwo3 {
   height: 29px;
@@ -387,7 +387,6 @@ main > div:nth-child(1) {
 }
 
 .example {
-  
   width: 119px;
   height: 31px;
   left: 0px;
@@ -405,7 +404,7 @@ main > div:nth-child(1) {
   border: 1px solid rgb(231, 229, 229);
 }
 
-.relDiv3 {
+.relDiv3, .relDiv3B {
   width: 89px;
   height: 31px;
   position: relative;

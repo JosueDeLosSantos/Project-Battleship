@@ -87,7 +87,11 @@ function dragStart(e) {
 			if (e.target.parentElement.dataset.dragTableField) {
 				cleaner(e.target, "remove")
 			}
-			if (!e.target.classList.contains("dBox4") && !e.target.classList.contains("dBox3")) {
+			if (
+				!e.target.classList.contains("dBox4") &&
+				!e.target.classList.contains("dBox3") &&
+				!e.target.classList.contains("dBox3B")
+			) {
 				e.target.classList.add("hide")
 			}
 		}, 0)
@@ -111,7 +115,8 @@ function dragStart(e) {
 			}
 			if (
 				!e.target.parentElement.classList.contains("dBox4") &&
-				!e.target.parentElement.classList.contains("dBox3")
+				!e.target.parentElement.classList.contains("dBox3") &&
+				!e.target.parentElement.classList.contains("dBox3B")
 			) {
 				e.target.parentElement.classList.add("hide")
 			}
@@ -138,6 +143,7 @@ function drop(e) {
 	const parser = new DOMParser()
 	const doc = parser.parseFromString(data, "text/html")
 	const agent = doc.children[0].children[1].children[0]
+
 	if (agent.classList.contains("Apple-interchange-newline")) {
 		bugFixer()
 		return
@@ -161,7 +167,16 @@ function drop(e) {
 			const dBoxThree1 = document.querySelector(".dBoxThree1")
 			dBoxThree1.addEventListener("dragstart", dragStart)
 		}
-	}                                                        
+
+		if (agent.classList.contains("dBox3B")) {
+			const chunk = document.querySelector(".dBoxThree2")
+			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
+			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
+			dropManager.dBoxThree2Drop(e, agent)
+			const dBoxThree2 = document.querySelector(".dBoxThree2")
+			dBoxThree2.addEventListener("dragstart", dragStart)
+		}
+	}
 }
 
 function bugFixer() {
@@ -189,7 +204,7 @@ function draggableShips() {
 	const dBox = document.createElement("div")
 	dBox.classList.add("dBox")
 	grids.appendChild(dBox)
-
+	// ship length 4
 	const firstContainer = document.createElement("div")
 	firstContainer.classList.add("firstContainer")
 	const firstContainerdiv = document.createElement("div")
@@ -204,11 +219,10 @@ function draggableShips() {
 		dBoxFour.appendChild(dBoxFourBox)
 	}
 	dBoxFour.addEventListener("dragstart", dragStart)
-
 	firstContainer.appendChild(firstContainerdiv)
 	firstContainerdiv.appendChild(dBoxFour)
 	dBox.appendChild(firstContainer)
-
+	// first ship length 3
 	const secondContainer = document.createElement("div")
 	secondContainer.classList.add("secondContainer")
 	const secondContainerDiv = document.createElement("div")
@@ -223,15 +237,24 @@ function draggableShips() {
 		dBoxThree1.appendChild(dBoxThree1Box)
 	}
 	dBoxThree1.addEventListener("dragstart", dragStart)
-
 	secondContainer.appendChild(secondContainerDiv)
 	secondContainerDiv.appendChild(dBoxThree1)
 	dBox.appendChild(secondContainer)
-
+	// second ship length 3
+	const secondContainerDiv2 = document.createElement("div")
+	secondContainerDiv2.classList.add("relDiv3B")
 	const dBoxThree2 = document.createElement("div")
 	dBoxThree2.classList.add("dBoxThree2")
-	dBox.appendChild(secondContainer)
-	secondContainer.appendChild(dBoxThree2)
+	dBoxThree2.draggable = true
+	for (let i = 0; i < 3; i += 1) {
+		const dBoxThree2Box = document.createElement("div")
+		dBoxThree2Box.dataset.dboxdiv = `${i}`
+		dBoxThree2Box.classList.add("dBox3B")
+		dBoxThree2.appendChild(dBoxThree2Box)
+	}
+	dBoxThree2.addEventListener("dragstart", dragStart)
+	secondContainer.appendChild(secondContainerDiv2)
+	secondContainerDiv2.appendChild(dBoxThree2)
 
 	const thirdContainer = document.createElement("div")
 	thirdContainer.classList.add("thirdContainer")
@@ -282,4 +305,3 @@ export default function dragDrop() {
 	title1.innerText = "Your ships"
 	title2.innerText = "Your grid"
 }
-

@@ -8,17 +8,17 @@ export default function dragLeaveHelp(e, dBox) {
 		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
 		twin = e.target.parentElement.parentElement.parentElement.children
 	} else {
-		rowNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[0]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[0]
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
 
-		colNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[1]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[1]
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
 
-		twin = e.target.dataset.dragTableField ?
-		e.target.parentElement.parentElement.children:
-		e.target.parentElement.parentElement.parentElement.children
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
 	}
 
 	if (
@@ -105,7 +105,7 @@ export default function dragLeaveHelp(e, dBox) {
 	}
 
 	if (
-		dBox.classList.contains("dBoxThree1") &&
+		(dBox.classList.contains("dBoxThree1") || dBox.classList.contains("dBoxThree2")) &&
 		!e.target.parentElement.hasAttribute("draggable") &&
 		!dBox.classList.contains("v3")
 	) {
@@ -135,7 +135,7 @@ export default function dragLeaveHelp(e, dBox) {
 			}
 		}
 	} else if (
-		dBox.classList.contains("dBoxThree1") &&
+		(dBox.classList.contains("dBoxThree1") || dBox.classList.contains("dBoxThree2")) &&
 		!e.target.parentElement.hasAttribute("draggable") &&
 		dBox.classList.contains("v3")
 	) {

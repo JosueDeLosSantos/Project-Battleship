@@ -34,7 +34,7 @@ export default function cleaner(tag, action) {
 		}
 	}
 
-	if (tag.classList.contains("dBoxThree1")) {
+	if ((tag.classList.contains("dBoxThree1") || tag.classList.contains("dBoxThree2"))) {
 		if (action === "remove") {
 			if (!tag.classList.contains("v3")) {
 				twin[rowNum].children[colNum].classList.remove("busy")

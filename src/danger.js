@@ -1435,7 +1435,10 @@ export default function danger(e, dBox, chunk) {
 		}
 	}
 
-	if (dBox.classList.contains("dBoxThree1") && !dBox.classList.contains("v3")) {
+	if (
+		(dBox.classList.contains("dBoxThree1") || dBox.classList.contains("dBoxThree2")) &&
+		!dBox.classList.contains("v3")
+	) {
 		if (chunk) {
 			if (chunk === "0") {
 				if (rowNum < 9 && rowNum > 0 && colNum < 7 && colNum > 0) {
@@ -1905,7 +1908,10 @@ export default function danger(e, dBox, chunk) {
 				}
 			}
 		}
-	} else if (dBox.classList.contains("dBoxThree1") && dBox.classList.contains("v3")) {
+	} else if (
+		(dBox.classList.contains("dBoxThree1") || dBox.classList.contains("dBoxThree2")) &&
+		dBox.classList.contains("v3")
+	) {
 		if (chunk) {
 			if (chunk === "0") {
 				if (rowNum < 7 && rowNum > 0 && colNum < 9 && colNum > 0) {

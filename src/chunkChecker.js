@@ -34,7 +34,7 @@ export default function chunkChecker(chunk) {
 		}	
 	}
 
-	if (chunk.classList.contains("dBoxThree1")) {
+	if ((chunk.classList.contains("dBoxThree1") || chunk.classList.contains("dBoxThree2"))) {
 		
 		if (!chunk.classList.contains("v3")) {
 			if (twin[rowNum].children[colNum].classList.contains("busy")){
