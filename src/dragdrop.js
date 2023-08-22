@@ -255,16 +255,27 @@ function draggableShips() {
 	dBoxThree2.addEventListener("dragstart", dragStart)
 	secondContainer.appendChild(secondContainerDiv2)
 	secondContainerDiv2.appendChild(dBoxThree2)
-
+	// first ship length 2
 	const thirdContainer = document.createElement("div")
 	thirdContainer.classList.add("thirdContainer")
+	const thirdContainerDiv = document.createElement("div")
+	thirdContainerDiv.classList.add("relDiv2")
 	const dBoxTwo1 = document.createElement("div")
 	dBoxTwo1.classList.add("dBoxTwo1")
+	dBoxTwo1.draggable = true
+	for (let i = 0; i < 3; i += 1) {
+		const dBoxTwo1Box = document.createElement("div")
+		dBoxTwo1Box.dataset.dboxdiv = `${i}`
+		dBoxTwo1Box.classList.add("dBox2")
+		dBoxTwo1.appendChild(dBoxTwo1Box)
+	}
+	dBoxTwo1.addEventListener("dragstart", dragStart)
+	thirdContainer.appendChild(thirdContainerDiv)
+	thirdContainerDiv.appendChild(dBoxTwo1)
 	dBox.appendChild(thirdContainer)
-	thirdContainer.appendChild(dBoxTwo1)
+
 	const dBoxTwo2 = document.createElement("div")
 	dBoxTwo2.classList.add("dBoxTwo2")
-	dBox.appendChild(thirdContainer)
 	thirdContainer.appendChild(dBoxTwo2)
 	const dBoxTwo3 = document.createElement("div")
 	dBoxTwo3.classList.add("dBoxTwo3")
