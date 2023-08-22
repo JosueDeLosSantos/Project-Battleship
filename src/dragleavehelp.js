@@ -163,4 +163,43 @@ export default function dragLeaveHelp(e, dBox) {
 			}
 		}
 	}
+
+	if (dBox.classList.contains("dBoxTwo1") &&
+		!e.target.parentElement.hasAttribute("draggable") &&
+		!dBox.classList.contains("v2")
+	) {
+		if (dBox.dataset.chunk) {
+			if (dBox.dataset.chunk === "0") {
+				if (colNum < 9) {
+					twin[rowNum].children[colNum].classList.remove("drag-over")
+					twin[rowNum].children[colNum + 1].classList.remove("drag-over")
+				}
+			}
+
+			if (dBox.dataset.chunk === "1") {
+				if (colNum < 10 && colNum > 0) {
+					twin[rowNum].children[colNum - 1].classList.remove("drag-over")
+					twin[rowNum].children[colNum].classList.remove("drag-over")
+				}
+			}
+		}
+	} else if (dBox.classList.contains("dBoxTwo1") &&
+		!e.target.parentElement.hasAttribute("draggable") &&
+		dBox.classList.contains("v2")
+	) {
+		if (dBox.dataset.chunk) {
+			if (dBox.dataset.chunk === "0") {
+				if (rowNum < 9) {
+					twin[rowNum].children[colNum].classList.remove("drag-over")
+					twin[rowNum + 1].children[colNum].classList.remove("drag-over")
+				}
+			}
+			if (dBox.dataset.chunk === "1") {
+				if (rowNum < 10 && rowNum > 0) {
+					twin[rowNum - 1].children[colNum].classList.remove("drag-over")
+					twin[rowNum].children[colNum].classList.remove("drag-over")
+				}
+			}
+		}
+	}
 }

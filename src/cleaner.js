@@ -59,4 +59,26 @@ export default function cleaner(tag, action) {
 			}
 		}
 	}
+
+	if (tag.classList.contains("dBoxTwo1")) {
+		if (action === "remove") {
+			if (!tag.classList.contains("v2")) {
+				twin[rowNum].children[colNum].classList.remove("busy")
+				twin[rowNum].children[colNum + 1].classList.remove("busy")
+			} else {
+				twin[rowNum].children[colNum].classList.remove("busy")
+				twin[rowNum + 1].children[colNum].classList.remove("busy")
+			}
+		}
+
+		if (action === "add") {
+			if (!tag.classList.contains("v2")) {
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum].children[colNum + 1].classList.add("busy")
+			} else {
+				twin[rowNum].children[colNum].classList.add("busy")
+				twin[rowNum + 1].children[colNum].classList.add("busy")
+			}
+		}
+	}
 }

@@ -193,4 +193,51 @@ export default function dragOverHelp(e, dBox) {
 			}
 		}
 	}
+
+	if (dBox.classList.contains("dBoxTwo1") &&
+		!e.target.parentElement.hasAttribute("draggable") &&
+		!dBox.classList.contains("v2")
+	) {
+		if (dBox.dataset.chunk) {
+			if (dBox.dataset.chunk === "0") {
+				if (colNum < 9) {
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum].children[colNum].classList.add("drag-over")
+						twin[rowNum].children[colNum + 1].classList.add("drag-over")
+					}
+				}
+			}
+
+			if (dBox.dataset.chunk === "1") {
+				if (colNum < 10 && colNum > 0) {
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum].children[colNum - 1].classList.add("drag-over")
+						twin[rowNum].children[colNum].classList.add("drag-over")
+					}
+				}
+			}
+		}
+	} else if (dBox.classList.contains("dBoxTwo1") &&
+		!e.target.parentElement.hasAttribute("draggable") &&
+		dBox.classList.contains("v2")
+	) {
+		if (dBox.dataset.chunk) {
+			if (dBox.dataset.chunk === "0") {
+				if (rowNum < 9) {
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum].children[colNum].classList.add("drag-over")
+						twin[rowNum + 1].children[colNum].classList.add("drag-over")
+					}
+				}
+			}
+			if (dBox.dataset.chunk === "1") {
+				if (rowNum < 10 && rowNum > 0) {
+					if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+						twin[rowNum - 1].children[colNum].classList.add("drag-over")
+						twin[rowNum].children[colNum].classList.add("drag-over")
+					}
+				}
+			}
+		}
+	}
 }

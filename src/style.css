@@ -279,7 +279,7 @@ main > div:nth-child(1) {
 
 .dBoxFour {
   width: 119px;
-  height: 31.4px;
+  height: 31px;
   left: 0px;
   top: 0px;
   background-color: hsla(189, 91%, 87%, 0.555);
@@ -292,7 +292,7 @@ main > div:nth-child(1) {
 
 .dBoxThree1, .dBoxThree2 {
   width: 89px;
-  height: 31.4px;
+  height: 31px;
   left: 0px;
   top: 0px;
   background-color: hsla(189, 91%, 87%, 0.555);
@@ -305,7 +305,7 @@ main > div:nth-child(1) {
 
 .dBoxTwo1 {
   width: 59px;
-  height: 31.4px;
+  height: 31px;
   left: 0px;
   top: 0px;
   background-color: hsla(189, 91%, 87%, 0.555);
@@ -353,22 +353,22 @@ main > div:nth-child(1) {
 }
 
 .v4 {
-  width: 30px;
+  width: 29px;
   height: 127px;
   display: flex;
   flex-direction: column;
 }
 
 .v3 {
-  width: 30px;
+  width: 29px;
   height: 97px;
   display: flex;
   flex-direction: column;
 }
 
 .v2 {
-  width: 30px;
-  height: 67px;
+  width: 29px;
+  height: 63px;
   display: flex;
   flex-direction: column;
 }

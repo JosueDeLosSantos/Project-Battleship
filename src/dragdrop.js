@@ -90,7 +90,8 @@ function dragStart(e) {
 			if (
 				!e.target.classList.contains("dBox4") &&
 				!e.target.classList.contains("dBox3") &&
-				!e.target.classList.contains("dBox3B")
+				!e.target.classList.contains("dBox3B")  &&
+				!e.target.classList.contains("dBox2")
 			) {
 				e.target.classList.add("hide")
 			}
@@ -116,7 +117,8 @@ function dragStart(e) {
 			if (
 				!e.target.parentElement.classList.contains("dBox4") &&
 				!e.target.parentElement.classList.contains("dBox3") &&
-				!e.target.parentElement.classList.contains("dBox3B")
+				!e.target.parentElement.classList.contains("dBox3B") &&
+				!e.target.parentElement.classList.contains("dBox2")
 			) {
 				e.target.parentElement.classList.add("hide")
 			}
@@ -175,6 +177,15 @@ function drop(e) {
 			dropManager.dBoxThree2Drop(e, agent)
 			const dBoxThree2 = document.querySelector(".dBoxThree2")
 			dBoxThree2.addEventListener("dragstart", dragStart)
+		}
+
+		if (agent.classList.contains("dBox2")) {
+			const chunk = document.querySelector(".dBoxTwo1")
+			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
+			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
+			dropManager.dBoxTwo1Drop(e, agent)
+			const dBoxTwo1 = document.querySelector(".dBoxTwo1")
+			dBoxTwo1.addEventListener("dragstart", dragStart)
 		}
 	}
 }
@@ -263,7 +274,7 @@ function draggableShips() {
 	const dBoxTwo1 = document.createElement("div")
 	dBoxTwo1.classList.add("dBoxTwo1")
 	dBoxTwo1.draggable = true
-	for (let i = 0; i < 3; i += 1) {
+	for (let i = 0; i < 2; i += 1) {
 		const dBoxTwo1Box = document.createElement("div")
 		dBoxTwo1Box.dataset.dboxdiv = `${i}`
 		dBoxTwo1Box.classList.add("dBox2")
@@ -279,7 +290,6 @@ function draggableShips() {
 	thirdContainer.appendChild(dBoxTwo2)
 	const dBoxTwo3 = document.createElement("div")
 	dBoxTwo3.classList.add("dBoxTwo3")
-	dBox.appendChild(thirdContainer)
 	thirdContainer.appendChild(dBoxTwo3)
 
 	const fourthContainer = document.createElement("div")

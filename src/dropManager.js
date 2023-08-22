@@ -653,3 +653,134 @@ export function dBoxThree2Drop(e, agent) {
 		}
 	}
 }
+
+export function dBoxTwo1Drop(e, agent) {
+	let rowNum = null
+	let colNum = null
+	let twin = null
+
+	if (e.target.parentElement.hasAttribute("draggable")) {
+		rowNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[0]
+		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
+		twin = e.target.parentElement.parentElement.parentElement.children
+	} else {
+		rowNum = e.target.dataset.dragTableField ? 
+		+e.target.dataset.dragTableField.split(",")[0]:
+		+e.target.parentElement.dataset.dragTableField.split(",")[0]
+
+		colNum = e.target.dataset.dragTableField ? 
+		+e.target.dataset.dragTableField.split(",")[1]:
+		+e.target.parentElement.dataset.dragTableField.split(",")[1]
+
+		twin = e.target.dataset.dragTableField ?
+		e.target.parentElement.parentElement.children:
+		e.target.parentElement.parentElement.parentElement.children
+	}
+
+	if (!agent.classList.contains("v")) {
+		if (agent.dataset.dboxdiv === "0") {
+			if (colNum < 9) {
+				twin[rowNum].children[colNum].classList.remove("drag-over")
+				twin[rowNum].children[colNum + 1].classList.remove("drag-over")
+
+				twin[rowNum].children[colNum].classList.add("busy")
+				const dBoxTwo1 = document.createElement("div")
+				const tag = twin[rowNum].children[colNum]
+				dBoxTwo1.addEventListener("click", () => {
+					shipToggle(tag)
+				})
+				dBoxTwo1.classList.add("dBoxTwo1")
+				dBoxTwo1.style.border = "none"
+				dBoxTwo1.draggable = true
+				for (let i = 0; i < 2; i += 1) {
+					const dBoxbox = document.createElement("div")
+					dBoxbox.dataset.dboxdiv = `${i}`
+					dBoxbox.classList.add("dBox2")
+					dBoxTwo1.appendChild(dBoxbox)
+				}
+				twin[rowNum].children[colNum].appendChild(dBoxTwo1)
+				twin[rowNum].children[colNum + 1].classList.add("busy")
+			}
+		}
+		if (agent.dataset.dboxdiv === "1") {
+			if (colNum < 10 && colNum > 0) {
+				twin[rowNum].children[colNum - 1].classList.remove("drag-over")
+				twin[rowNum].children[colNum].classList.remove("drag-over")
+				
+				twin[rowNum].children[colNum - 1].classList.add("busy")
+				const dBoxTwo1 = document.createElement("div")
+				const tag = twin[rowNum].children[colNum - 1]
+				dBoxTwo1.addEventListener("click", () => {
+					shipToggle(tag)
+				})
+				dBoxTwo1.classList.add("dBoxTwo1")
+				dBoxTwo1.style.border = "none"
+				dBoxTwo1.draggable = true
+				for (let i = 0; i < 2; i += 1) {
+					const dBoxbox = document.createElement("div")
+					dBoxbox.dataset.dboxdiv = `${i}`
+					dBoxbox.classList.add("dBox2")
+					dBoxTwo1.appendChild(dBoxbox)
+				}
+				twin[rowNum].children[colNum - 1].appendChild(dBoxTwo1)
+				twin[rowNum].children[colNum].classList.add("busy")
+			}
+		}
+	}
+
+	if (agent.classList.contains("v")) {
+		if (agent.dataset.dboxdiv === "0") {
+			if (rowNum < 9) {
+				twin[rowNum].children[colNum].classList.remove("drag-over")
+				twin[rowNum + 1].children[colNum].classList.remove("drag-over")
+
+				twin[rowNum].children[colNum].classList.add("busy")
+				const dBoxTwo1 = document.createElement("div")
+				const tag = twin[rowNum].children[colNum]
+				dBoxTwo1.addEventListener("click", () => {
+					shipToggle(tag)
+				})
+				dBoxTwo1.classList.add("dBoxTwo1")
+				dBoxTwo1.classList.add("v2")
+				dBoxTwo1.style.border = "none"
+				dBoxTwo1.draggable = true
+				for (let i = 0; i < 2; i += 1) {
+					const dBoxbox = document.createElement("div")
+					dBoxbox.dataset.dboxdiv = `${i}`
+					dBoxbox.classList.add("dBox2")
+					dBoxbox.classList.add("v")
+					dBoxTwo1.appendChild(dBoxbox)
+				}
+				twin[rowNum].children[colNum].appendChild(dBoxTwo1)
+				twin[rowNum + 1].children[colNum].classList.add("busy")
+			}
+		}
+
+		if (agent.dataset.dboxdiv === "1") {
+			if (rowNum < 10 && rowNum > 0) {
+				twin[rowNum - 1].children[colNum].classList.remove("drag-over")
+				twin[rowNum].children[colNum].classList.remove("drag-over")
+
+				twin[rowNum - 1].children[colNum].classList.add("busy")
+				const dBoxTwo1 = document.createElement("div")
+				const tag = twin[rowNum - 1].children[colNum]
+				dBoxTwo1.addEventListener("click", () => {
+					shipToggle(tag)
+				})
+				dBoxTwo1.classList.add("dBoxTwo1")
+				dBoxTwo1.classList.add("v2")
+				dBoxTwo1.style.border = "none"
+				dBoxTwo1.draggable = true
+				for (let i = 0; i < 2; i += 1) {
+					const dBoxbox = document.createElement("div")
+					dBoxbox.dataset.dboxdiv = `${i}`
+					dBoxbox.classList.add("dBox2")
+					dBoxbox.classList.add("v")
+					dBoxTwo1.appendChild(dBoxbox)
+				}
+				twin[rowNum - 1].children[colNum].appendChild(dBoxTwo1)
+				twin[rowNum].children[colNum].classList.add("busy")
+			}
+		}
+	}
+}
