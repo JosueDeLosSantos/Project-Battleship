@@ -194,7 +194,10 @@ export default function dragOverHelp(e, dBox) {
 		}
 	}
 
-	if (dBox.classList.contains("dBoxTwo1") &&
+	if (
+		(dBox.classList.contains("dBoxTwo1") ||
+			dBox.classList.contains("dBoxTwo2") ||
+			dBox.classList.contains("dBoxTwo3")) &&
 		!e.target.parentElement.hasAttribute("draggable") &&
 		!dBox.classList.contains("v2")
 	) {
@@ -217,7 +220,10 @@ export default function dragOverHelp(e, dBox) {
 				}
 			}
 		}
-	} else if (dBox.classList.contains("dBoxTwo1") &&
+	} else if (
+		(dBox.classList.contains("dBoxTwo1") ||
+			dBox.classList.contains("dBoxTwo2") ||
+			dBox.classList.contains("dBoxTwo3")) &&
 		!e.target.parentElement.hasAttribute("draggable") &&
 		dBox.classList.contains("v2")
 	) {

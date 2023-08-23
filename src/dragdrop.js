@@ -91,7 +91,9 @@ function dragStart(e) {
 				!e.target.classList.contains("dBox4") &&
 				!e.target.classList.contains("dBox3") &&
 				!e.target.classList.contains("dBox3B")  &&
-				!e.target.classList.contains("dBox2")
+				!e.target.classList.contains("dBox2") &&
+				!e.target.classList.contains("dBox2B") &&
+				!e.target.classList.contains("dBox2C")
 			) {
 				e.target.classList.add("hide")
 			}
@@ -118,7 +120,9 @@ function dragStart(e) {
 				!e.target.parentElement.classList.contains("dBox4") &&
 				!e.target.parentElement.classList.contains("dBox3") &&
 				!e.target.parentElement.classList.contains("dBox3B") &&
-				!e.target.parentElement.classList.contains("dBox2")
+				!e.target.parentElement.classList.contains("dBox2") &&
+				!e.target.parentElement.classList.contains("dBox2B") &&
+				!e.target.parentElement.classList.contains("dBox2C")
 			) {
 				e.target.parentElement.classList.add("hide")
 			}
@@ -187,6 +191,24 @@ function drop(e) {
 			const dBoxTwo1 = document.querySelector(".dBoxTwo1")
 			dBoxTwo1.addEventListener("dragstart", dragStart)
 		}
+
+		if (agent.classList.contains("dBox2B")) {
+			const chunk = document.querySelector(".dBoxTwo2")
+			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
+			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
+			dropManager.dBoxTwo2Drop(e, agent)
+			const dBoxTwo1 = document.querySelector(".dBoxTwo2")
+			dBoxTwo1.addEventListener("dragstart", dragStart)
+		}
+
+		if (agent.classList.contains("dBox2C")) {
+			const chunk = document.querySelector(".dBoxTwo3")
+			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
+			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
+			dropManager.dBoxTwo3Drop(e, agent)
+			const dBoxTwo1 = document.querySelector(".dBoxTwo3")
+			dBoxTwo1.addEventListener("dragstart", dragStart)
+		}
 	}
 }
 
@@ -242,10 +264,10 @@ function draggableShips() {
 	dBoxThree1.classList.add("dBoxThree1")
 	dBoxThree1.draggable = true
 	for (let i = 0; i < 3; i += 1) {
-		const dBoxThree1Box = document.createElement("div")
-		dBoxThree1Box.dataset.dboxdiv = `${i}`
-		dBoxThree1Box.classList.add("dBox3")
-		dBoxThree1.appendChild(dBoxThree1Box)
+		const dBoxThree = document.createElement("div")
+		dBoxThree.dataset.dboxdiv = `${i}`
+		dBoxThree.classList.add("dBox3")
+		dBoxThree1.appendChild(dBoxThree)
 	}
 	dBoxThree1.addEventListener("dragstart", dragStart)
 	secondContainer.appendChild(secondContainerDiv)
@@ -258,10 +280,10 @@ function draggableShips() {
 	dBoxThree2.classList.add("dBoxThree2")
 	dBoxThree2.draggable = true
 	for (let i = 0; i < 3; i += 1) {
-		const dBoxThree2Box = document.createElement("div")
-		dBoxThree2Box.dataset.dboxdiv = `${i}`
-		dBoxThree2Box.classList.add("dBox3B")
-		dBoxThree2.appendChild(dBoxThree2Box)
+		const dBoxThree = document.createElement("div")
+		dBoxThree.dataset.dboxdiv = `${i}`
+		dBoxThree.classList.add("dBox3B")
+		dBoxThree2.appendChild(dBoxThree)
 	}
 	dBoxThree2.addEventListener("dragstart", dragStart)
 	secondContainer.appendChild(secondContainerDiv2)
@@ -275,23 +297,46 @@ function draggableShips() {
 	dBoxTwo1.classList.add("dBoxTwo1")
 	dBoxTwo1.draggable = true
 	for (let i = 0; i < 2; i += 1) {
-		const dBoxTwo1Box = document.createElement("div")
-		dBoxTwo1Box.dataset.dboxdiv = `${i}`
-		dBoxTwo1Box.classList.add("dBox2")
-		dBoxTwo1.appendChild(dBoxTwo1Box)
+		const dBoxTwo = document.createElement("div")
+		dBoxTwo.dataset.dboxdiv = `${i}`
+		dBoxTwo.classList.add("dBox2")
+		dBoxTwo1.appendChild(dBoxTwo)
 	}
 	dBoxTwo1.addEventListener("dragstart", dragStart)
 	thirdContainer.appendChild(thirdContainerDiv)
 	thirdContainerDiv.appendChild(dBoxTwo1)
 	dBox.appendChild(thirdContainer)
-
+	// second ship length 2
+	const thirdContainerDivB = document.createElement("div")
+	thirdContainerDivB.classList.add("relDiv2B")
 	const dBoxTwo2 = document.createElement("div")
 	dBoxTwo2.classList.add("dBoxTwo2")
-	thirdContainer.appendChild(dBoxTwo2)
+	dBoxTwo2.draggable = true
+	for (let i = 0; i < 2; i += 1) {
+		const dBoxTwo = document.createElement("div")
+		dBoxTwo.dataset.dboxdiv = `${i}`
+		dBoxTwo.classList.add("dBox2B")
+		dBoxTwo2.appendChild(dBoxTwo)
+	}
+	dBoxTwo2.addEventListener("dragstart", dragStart)
+	thirdContainer.appendChild(thirdContainerDivB)
+	thirdContainerDivB.appendChild(dBoxTwo2)
+	// third ship length 2
+	const thirdContainerDivC = document.createElement("div")
+	thirdContainerDivC.classList.add("relDiv2C")
 	const dBoxTwo3 = document.createElement("div")
 	dBoxTwo3.classList.add("dBoxTwo3")
-	thirdContainer.appendChild(dBoxTwo3)
-
+	dBoxTwo3.draggable = true
+	for (let i = 0; i < 2; i += 1) {
+		const dBoxTwo = document.createElement("div")
+		dBoxTwo.dataset.dboxdiv = `${i}`
+		dBoxTwo.classList.add("dBox2C")
+		dBoxTwo3.appendChild(dBoxTwo)
+	}
+	dBoxTwo3.addEventListener("dragstart", dragStart)
+	thirdContainer.appendChild(thirdContainerDivC)
+	thirdContainerDivC.appendChild(dBoxTwo3)
+	// first ship length 1
 	const fourthContainer = document.createElement("div")
 	fourthContainer.classList.add("fourthContainer")
 	const dBoxOne1 = document.createElement("div")

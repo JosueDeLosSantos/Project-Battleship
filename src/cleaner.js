@@ -1,5 +1,4 @@
 export default function cleaner(tag, action) {
-
 	const rowNum = +tag.parentElement.dataset.dragTableField.split(",")[0]
 	const colNum = +tag.parentElement.dataset.dragTableField.split(",")[1]
 	const twin = tag.parentElement.parentElement.parentElement.children
@@ -34,7 +33,7 @@ export default function cleaner(tag, action) {
 		}
 	}
 
-	if ((tag.classList.contains("dBoxThree1") || tag.classList.contains("dBoxThree2"))) {
+	if (tag.classList.contains("dBoxThree1") || tag.classList.contains("dBoxThree2")) {
 		if (action === "remove") {
 			if (!tag.classList.contains("v3")) {
 				twin[rowNum].children[colNum].classList.remove("busy")
@@ -60,7 +59,11 @@ export default function cleaner(tag, action) {
 		}
 	}
 
-	if (tag.classList.contains("dBoxTwo1")) {
+	if (
+		tag.classList.contains("dBoxTwo1") ||
+		tag.classList.contains("dBoxTwo2") ||
+		tag.classList.contains("dBoxTwo3")
+	) {
 		if (action === "remove") {
 			if (!tag.classList.contains("v2")) {
 				twin[rowNum].children[colNum].classList.remove("busy")
