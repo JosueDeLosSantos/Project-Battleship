@@ -1,3 +1,4 @@
+// eslint-disable-next-line consistent-return
 export default function danger(e, dBox, chunk) {
 	let rowNum = null
 	let colNum = null
@@ -2372,6 +2373,552 @@ export default function danger(e, dBox, chunk) {
 						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
 						twin[rowNum].children[colNum].classList.contains("busy") ||
 						twin[rowNum - 3].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 2].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+			}
+		}
+	}
+
+	if (dBox.classList.contains("dBoxTwo1") && !dBox.classList.contains("v2")) {
+		if (chunk) {
+			if (chunk === "0") {
+				if (rowNum < 9 && rowNum > 0 && colNum < 8 && colNum > 0) {
+					if (
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 2].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 2].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 2].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 0 && colNum < 8 && colNum > 0) {
+					if (
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 2].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 2].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 9 && colNum < 8 && colNum > 0) {
+					if (
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 2].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 2].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum < 9 && rowNum > 0 && colNum === 0) {
+					if (
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 2].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 2].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 2].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum < 9 && rowNum > 0 && colNum === 8) {
+					if (
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 0 && colNum === 0) {
+					if (
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 2].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 2].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum === 9 && colNum === 0) {
+					if (
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 2].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 2].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum === 0 && colNum === 8) {
+					if (
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 9 && colNum === 8) {
+					if (
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+			}
+
+			if (chunk === "1") {
+				if (rowNum < 9 && rowNum > 0 && colNum < 9 && colNum > 1) {
+					if (
+						twin[rowNum].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 0 && colNum < 9 && colNum > 1) {
+					if (
+						twin[rowNum].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 9 && colNum < 9 && colNum > 1) {
+					if (
+						twin[rowNum].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum < 9 && rowNum > 0 && colNum === 1) {
+					if (
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum < 9 && rowNum > 0 && colNum === 9) {
+					if (
+						twin[rowNum].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 0 && colNum === 1) {
+					if (
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 0 && colNum === 9) {
+					if (
+						twin[rowNum].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 9 && colNum === 1) {
+					if (
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 9 && colNum === 9) {
+					if (
+						twin[rowNum].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 2].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+			}
+		}
+	} else if (dBox.classList.contains("dBoxTwo1") && dBox.classList.contains("v2")) {
+		if (chunk) {
+			if (chunk === "0") {
+				if (rowNum < 8 && rowNum > 0 && colNum < 9 && colNum > 0) {
+					if (
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum < 8 && rowNum > 0 && colNum === 0) {
+					if (
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum < 8 && rowNum > 0 && colNum === 9) {
+					if (
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum === 0 && colNum < 9 && colNum > 0) {
+					if (
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 8 && colNum < 9 && colNum > 0) {
+					if (
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum === 0 && colNum === 0) {
+					if (
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum === 0 && colNum === 9) {
+					if (
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 2].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+			
+				if (rowNum === 8 && colNum === 0) {
+					if (
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum === 8 && colNum === 9) {
+					if (
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+			}
+
+			if (chunk === "1") {
+				if (rowNum < 9 && rowNum > 1 && colNum < 9 && colNum > 0) {
+					if (
+						twin[rowNum - 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 2].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 2].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+
+				if (rowNum === 1 && colNum < 9 && colNum > 0) {
+					if (
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum === 9 && colNum < 9 && colNum > 0) {
+					if (
+						twin[rowNum - 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 2].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 2].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum < 9 && rowNum > 1 && colNum === 9) {
+					if (
+						twin[rowNum - 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 2].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum < 9 && rowNum > 1 && colNum === 0) {
+					if (
+						twin[rowNum - 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||					
+						twin[rowNum - 2].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+			
+				if (rowNum === 1 && colNum === 0) {
+					if (
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||	
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum === 1 && colNum === 9) {
+					if (
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum - 1].classList.contains("busy") ||
+						twin[rowNum + 1].children[colNum - 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum === 9 && colNum === 0) {
+					if (
+						twin[rowNum - 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 2].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum + 1].classList.contains("busy") ||
+						twin[rowNum].children[colNum + 1].classList.contains("busy")
+					) {
+						return null
+					}
+				}
+				
+				if (rowNum === 9 && colNum === 9) {
+					if (
+						twin[rowNum - 2].children[colNum].classList.contains("busy") ||
+						twin[rowNum - 1].children[colNum].classList.contains("busy") ||
+						twin[rowNum].children[colNum].classList.contains("busy") ||
 						twin[rowNum - 2].children[colNum - 1].classList.contains("busy") ||
 						twin[rowNum - 1].children[colNum - 1].classList.contains("busy") ||
 						twin[rowNum].children[colNum - 1].classList.contains("busy")

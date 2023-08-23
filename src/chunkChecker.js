@@ -58,4 +58,23 @@ export default function chunkChecker(chunk) {
 			}
 		}	
 	}
+
+	if (chunk.classList.contains("dBoxTwo1")) {
+		
+		if (!chunk.classList.contains("v2")) {
+			if (twin[rowNum].children[colNum].classList.contains("busy")){
+				twin[rowNum].children[colNum].classList.remove("busy")
+			}
+			if (twin[rowNum].children[colNum + 1].classList.contains("busy")){
+				twin[rowNum].children[colNum + 1].classList.remove("busy")
+			}
+		} else {
+			if (twin[rowNum].children[colNum].classList.contains("busy")){
+				twin[rowNum].children[colNum].classList.remove("busy")
+			}
+			if (twin[rowNum + 1].children[colNum].classList.contains("busy")) {
+				twin[rowNum + 1].children[colNum].classList.remove("busy")
+			}
+		}	
+	}
 }
