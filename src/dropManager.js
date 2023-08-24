@@ -7,20 +7,20 @@ export function dBoxFourDrop(e, agent) {
 
 	if (e.target.parentElement.hasAttribute("draggable")) {
 		rowNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[0]
-		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]		
+		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
 		twin = e.target.parentElement.parentElement.parentElement.children
 	} else {
-		rowNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[0]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[0]
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
 
-		colNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[1]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[1]
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
 
-		twin = e.target.dataset.dragTableField ?
-		e.target.parentElement.parentElement.children:
-		e.target.parentElement.parentElement.parentElement.children
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
 	}
 
 	if (!agent.classList.contains("v")) {
@@ -139,7 +139,6 @@ export function dBoxFourDrop(e, agent) {
 	}
 
 	if (agent.classList.contains("v")) {
-
 		if (agent.dataset.dboxdiv === "0") {
 			if (rowNum < 7) {
 				twin[rowNum].children[colNum].classList.remove("drag-over")
@@ -276,17 +275,17 @@ export function dBoxThree1Drop(e, agent) {
 		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
 		twin = e.target.parentElement.parentElement.parentElement.children
 	} else {
-		rowNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[0]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[0]
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
 
-		colNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[1]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[1]
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
 
-		twin = e.target.dataset.dragTableField ?
-		e.target.parentElement.parentElement.children:
-		e.target.parentElement.parentElement.parentElement.children
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
 	}
 
 	if (!agent.classList.contains("v")) {
@@ -321,7 +320,7 @@ export function dBoxThree1Drop(e, agent) {
 				twin[rowNum].children[colNum - 1].classList.remove("drag-over")
 				twin[rowNum].children[colNum].classList.remove("drag-over")
 				twin[rowNum].children[colNum + 1].classList.remove("drag-over")
-				
+
 				twin[rowNum].children[colNum - 1].classList.add("busy")
 				const dBoxThree1 = document.createElement("div")
 				const tag = twin[rowNum].children[colNum - 1]
@@ -470,17 +469,17 @@ export function dBoxThree2Drop(e, agent) {
 		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
 		twin = e.target.parentElement.parentElement.parentElement.children
 	} else {
-		rowNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[0]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[0]
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
 
-		colNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[1]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[1]
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
 
-		twin = e.target.dataset.dragTableField ?
-		e.target.parentElement.parentElement.children:
-		e.target.parentElement.parentElement.parentElement.children
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
 	}
 
 	if (!agent.classList.contains("v")) {
@@ -515,7 +514,7 @@ export function dBoxThree2Drop(e, agent) {
 				twin[rowNum].children[colNum - 1].classList.remove("drag-over")
 				twin[rowNum].children[colNum].classList.remove("drag-over")
 				twin[rowNum].children[colNum + 1].classList.remove("drag-over")
-				
+
 				twin[rowNum].children[colNum - 1].classList.add("busy")
 				const dBoxThree2 = document.createElement("div")
 				const tag = twin[rowNum].children[colNum - 1]
@@ -664,17 +663,17 @@ export function dBoxTwo1Drop(e, agent) {
 		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
 		twin = e.target.parentElement.parentElement.parentElement.children
 	} else {
-		rowNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[0]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[0]
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
 
-		colNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[1]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[1]
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
 
-		twin = e.target.dataset.dragTableField ?
-		e.target.parentElement.parentElement.children:
-		e.target.parentElement.parentElement.parentElement.children
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
 	}
 
 	if (!agent.classList.contains("v")) {
@@ -706,7 +705,7 @@ export function dBoxTwo1Drop(e, agent) {
 			if (colNum < 10 && colNum > 0) {
 				twin[rowNum].children[colNum - 1].classList.remove("drag-over")
 				twin[rowNum].children[colNum].classList.remove("drag-over")
-				
+
 				twin[rowNum].children[colNum - 1].classList.add("busy")
 				const dBoxTwo1 = document.createElement("div")
 				const tag = twin[rowNum].children[colNum - 1]
@@ -795,17 +794,17 @@ export function dBoxTwo2Drop(e, agent) {
 		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
 		twin = e.target.parentElement.parentElement.parentElement.children
 	} else {
-		rowNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[0]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[0]
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
 
-		colNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[1]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[1]
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
 
-		twin = e.target.dataset.dragTableField ?
-		e.target.parentElement.parentElement.children:
-		e.target.parentElement.parentElement.parentElement.children
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
 	}
 
 	if (!agent.classList.contains("v")) {
@@ -837,7 +836,7 @@ export function dBoxTwo2Drop(e, agent) {
 			if (colNum < 10 && colNum > 0) {
 				twin[rowNum].children[colNum - 1].classList.remove("drag-over")
 				twin[rowNum].children[colNum].classList.remove("drag-over")
-				
+
 				twin[rowNum].children[colNum - 1].classList.add("busy")
 				const dBoxTwo2 = document.createElement("div")
 				const tag = twin[rowNum].children[colNum - 1]
@@ -926,17 +925,17 @@ export function dBoxTwo3Drop(e, agent) {
 		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
 		twin = e.target.parentElement.parentElement.parentElement.children
 	} else {
-		rowNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[0]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[0]
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
 
-		colNum = e.target.dataset.dragTableField ? 
-		+e.target.dataset.dragTableField.split(",")[1]:
-		+e.target.parentElement.dataset.dragTableField.split(",")[1]
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
 
-		twin = e.target.dataset.dragTableField ?
-		e.target.parentElement.parentElement.children:
-		e.target.parentElement.parentElement.parentElement.children
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
 	}
 
 	if (!agent.classList.contains("v")) {
@@ -968,7 +967,7 @@ export function dBoxTwo3Drop(e, agent) {
 			if (colNum < 10 && colNum > 0) {
 				twin[rowNum].children[colNum - 1].classList.remove("drag-over")
 				twin[rowNum].children[colNum].classList.remove("drag-over")
-				
+
 				twin[rowNum].children[colNum - 1].classList.add("busy")
 				const dBoxTwo3 = document.createElement("div")
 				const tag = twin[rowNum].children[colNum - 1]
@@ -1045,4 +1044,160 @@ export function dBoxTwo3Drop(e, agent) {
 			}
 		}
 	}
+}
+
+export function dBoxOne1Drop(e) {
+	let rowNum = null
+	let colNum = null
+	let twin = null
+
+	if (e.target.parentElement.hasAttribute("draggable")) {
+		rowNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[0]
+		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
+		twin = e.target.parentElement.parentElement.parentElement.children
+	} else {
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
+
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
+
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
+	}
+
+	twin[rowNum].children[colNum].classList.remove("drag-over")
+
+	twin[rowNum].children[colNum].classList.add("busy")
+	const dBoxOne1 = document.createElement("div")
+
+	dBoxOne1.classList.add("dBoxOne1")
+	dBoxOne1.style.border = "none"
+	dBoxOne1.draggable = true
+	const dBoxbox = document.createElement("div")
+	dBoxbox.dataset.dboxdiv = "0"
+	dBoxbox.classList.add("dBox1")
+	dBoxOne1.appendChild(dBoxbox)
+
+	twin[rowNum].children[colNum].appendChild(dBoxOne1)
+}
+
+export function dBoxOne2Drop(e) {
+	let rowNum = null
+	let colNum = null
+	let twin = null
+
+	if (e.target.parentElement.hasAttribute("draggable")) {
+		rowNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[0]
+		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
+		twin = e.target.parentElement.parentElement.parentElement.children
+	} else {
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
+
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
+
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
+	}
+
+	twin[rowNum].children[colNum].classList.remove("drag-over")
+
+	twin[rowNum].children[colNum].classList.add("busy")
+	const dBoxOne2 = document.createElement("div")
+
+	dBoxOne2.classList.add("dBoxOne2")
+	dBoxOne2.style.border = "none"
+	dBoxOne2.draggable = true
+	const dBoxbox = document.createElement("div")
+	dBoxbox.dataset.dboxdiv = "0"
+	dBoxbox.classList.add("dBox1B")
+	dBoxOne2.appendChild(dBoxbox)
+
+	twin[rowNum].children[colNum].appendChild(dBoxOne2)
+}
+
+export function dBoxOne3Drop(e) {
+	let rowNum = null
+	let colNum = null
+	let twin = null
+
+	if (e.target.parentElement.hasAttribute("draggable")) {
+		rowNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[0]
+		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
+		twin = e.target.parentElement.parentElement.parentElement.children
+	} else {
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
+
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
+
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
+	}
+
+	twin[rowNum].children[colNum].classList.remove("drag-over")
+
+	twin[rowNum].children[colNum].classList.add("busy")
+	const dBoxOne3 = document.createElement("div")
+
+	dBoxOne3.classList.add("dBoxOne3")
+	dBoxOne3.style.border = "none"
+	dBoxOne3.draggable = true
+	const dBoxbox = document.createElement("div")
+	dBoxbox.dataset.dboxdiv = "0"
+	dBoxbox.classList.add("dBox1C")
+	dBoxOne3.appendChild(dBoxbox)
+
+	twin[rowNum].children[colNum].appendChild(dBoxOne3)
+}
+
+export function dBoxOne4Drop(e) {
+	let rowNum = null
+	let colNum = null
+	let twin = null
+
+	if (e.target.parentElement.hasAttribute("draggable")) {
+		rowNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[0]
+		colNum = +e.target.parentElement.parentElement.dataset.dragTableField.split(",")[1]
+		twin = e.target.parentElement.parentElement.parentElement.children
+	} else {
+		rowNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[0]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[0]
+
+		colNum = e.target.dataset.dragTableField
+			? +e.target.dataset.dragTableField.split(",")[1]
+			: +e.target.parentElement.dataset.dragTableField.split(",")[1]
+
+		twin = e.target.dataset.dragTableField
+			? e.target.parentElement.parentElement.children
+			: e.target.parentElement.parentElement.parentElement.children
+	}
+
+	twin[rowNum].children[colNum].classList.remove("drag-over")
+
+	twin[rowNum].children[colNum].classList.add("busy")
+	const dBoxOne4 = document.createElement("div")
+
+	dBoxOne4.classList.add("dBoxOne4")
+	dBoxOne4.style.border = "none"
+	dBoxOne4.draggable = true
+	const dBoxbox = document.createElement("div")
+	dBoxbox.dataset.dboxdiv = "0"
+	dBoxbox.classList.add("dBox1D")
+	dBoxOne4.appendChild(dBoxbox)
+
+	twin[rowNum].children[colNum].appendChild(dBoxOne4)
 }

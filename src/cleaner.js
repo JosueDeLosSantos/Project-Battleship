@@ -84,4 +84,19 @@ export default function cleaner(tag, action) {
 			}
 		}
 	}
+
+	if (
+		tag.classList.contains("dBoxOne1") ||
+		tag.classList.contains("dBoxOne2") ||
+		tag.classList.contains("dBoxOne3") ||
+		tag.classList.contains("dBoxOne4")
+	) {
+		if (action === "remove") {
+			twin[rowNum].children[colNum].classList.remove("busy")
+		}
+
+		if (action === "add") {
+			twin[rowNum].children[colNum].classList.add("busy")
+		}
+	}
 }

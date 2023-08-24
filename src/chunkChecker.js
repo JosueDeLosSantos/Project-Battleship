@@ -78,4 +78,15 @@ export default function chunkChecker(chunk) {
 			}
 		}
 	}
+
+	if (
+		chunk.classList.contains("dBoxOne1") ||
+		chunk.classList.contains("dBoxOne2") ||
+		chunk.classList.contains("dBoxOne3") ||
+		chunk.classList.contains("dBoxOne4")
+	) {
+		if (twin[rowNum].children[colNum].classList.contains("busy")) {
+			twin[rowNum].children[colNum].classList.remove("busy")
+		}
+	}
 }

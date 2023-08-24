@@ -208,4 +208,18 @@ export default function dragLeaveHelp(e, dBox) {
 			}
 		}
 	}
+
+	if (
+		dBox.classList.contains("dBoxOne1") ||
+		dBox.classList.contains("dBoxOne2") ||
+		dBox.classList.contains("dBoxOne3") ||
+		dBox.classList.contains("dBoxOne4")
+	) {
+		if (e.target.parentElement.hasAttribute("draggable")) {
+			twin = e.target.parentElement.parentElement.parentElement.parentElement.children
+		}
+		if (dBox.dataset.chunk) {
+			twin[rowNum].children[colNum].classList.remove("drag-over")
+		}
+	}
 }

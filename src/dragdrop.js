@@ -35,7 +35,6 @@ function dropTable() {
 	// Create the dropTable grid
 	const dTable = document.createElement("table")
 	dTable.classList.add("dTable")
-	// dTable.dataset.grab = "none"
 
 	dropTableContainer.appendChild(dropIndex1)
 	dropIndex1.appendChild(rowIndex1)
@@ -93,7 +92,11 @@ function dragStart(e) {
 				!e.target.classList.contains("dBox3B")  &&
 				!e.target.classList.contains("dBox2") &&
 				!e.target.classList.contains("dBox2B") &&
-				!e.target.classList.contains("dBox2C")
+				!e.target.classList.contains("dBox2C") &&
+				!e.target.classList.contains("dBox1") &&
+				!e.target.classList.contains("dBox1B") &&
+				!e.target.classList.contains("dBox1C") &&
+				!e.target.classList.contains("dBox1D")
 			) {
 				e.target.classList.add("hide")
 			}
@@ -103,8 +106,6 @@ function dragStart(e) {
 		e.target.parentElement.dataset.chunk = elementAtCoordinates
 		const temp = e.target.parentElement
 		dsClass = temp
-
-		console.log(e.target.outerHTML)
 
 		e.dataTransfer.setData("text/html", e.target.outerHTML)
 
@@ -122,7 +123,11 @@ function dragStart(e) {
 				!e.target.parentElement.classList.contains("dBox3B") &&
 				!e.target.parentElement.classList.contains("dBox2") &&
 				!e.target.parentElement.classList.contains("dBox2B") &&
-				!e.target.parentElement.classList.contains("dBox2C")
+				!e.target.parentElement.classList.contains("dBox2C") &&
+				!e.target.parentElement.classList.contains("dBox1") &&
+				!e.target.parentElement.classList.contains("dBox1B") &&
+				!e.target.parentElement.classList.contains("dBox1C") &&
+				!e.target.parentElement.classList.contains("dBox1D")
 			) {
 				e.target.parentElement.classList.add("hide")
 			}
@@ -197,8 +202,8 @@ function drop(e) {
 			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
 			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
 			dropManager.dBoxTwo2Drop(e, agent)
-			const dBoxTwo1 = document.querySelector(".dBoxTwo2")
-			dBoxTwo1.addEventListener("dragstart", dragStart)
+			const dBoxTwo2 = document.querySelector(".dBoxTwo2")
+			dBoxTwo2.addEventListener("dragstart", dragStart)
 		}
 
 		if (agent.classList.contains("dBox2C")) {
@@ -206,8 +211,44 @@ function drop(e) {
 			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
 			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
 			dropManager.dBoxTwo3Drop(e, agent)
-			const dBoxTwo1 = document.querySelector(".dBoxTwo3")
-			dBoxTwo1.addEventListener("dragstart", dragStart)
+			const dBoxTwo3 = document.querySelector(".dBoxTwo3")
+			dBoxTwo3.addEventListener("dragstart", dragStart)
+		}
+
+		if (agent.classList.contains("dBox1")) {
+			const chunk = document.querySelector(".dBoxOne1")
+			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
+			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
+			dropManager.dBoxOne1Drop(e)
+			const dBoxOne1 = document.querySelector(".dBoxOne1")
+			dBoxOne1.addEventListener("dragstart", dragStart)
+		}
+
+		if (agent.classList.contains("dBox1B")) {
+			const chunk = document.querySelector(".dBoxOne2")
+			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
+			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
+			dropManager.dBoxOne2Drop(e)
+			const dBoxOne2 = document.querySelector(".dBoxOne2")
+			dBoxOne2.addEventListener("dragstart", dragStart)
+		}
+
+		if (agent.classList.contains("dBox1C")) {
+			const chunk = document.querySelector(".dBoxOne3")
+			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
+			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
+			dropManager.dBoxOne3Drop(e)
+			const dBoxOne3 = document.querySelector(".dBoxOne3")
+			dBoxOne3.addEventListener("dragstart", dragStart)
+		}
+
+		if (agent.classList.contains("dBox1D")) {
+			const chunk = document.querySelector(".dBoxOne4")
+			if (chunk.parentElement.dataset.dragTableField) chunkChecker(chunk)
+			if (chunk.parentElement.childNodes[0]) chunk.parentElement.removeChild(chunk)
+			dropManager.dBoxOne4Drop(e)
+			const dBoxOne4 = document.querySelector(".dBoxOne4")
+			dBoxOne4.addEventListener("dragstart", dragStart)
 		}
 	}
 }
@@ -339,22 +380,58 @@ function draggableShips() {
 	// first ship length 1
 	const fourthContainer = document.createElement("div")
 	fourthContainer.classList.add("fourthContainer")
+	const fourthContainerDiv = document.createElement("div")
+	fourthContainerDiv.classList.add("relDiv1")
 	const dBoxOne1 = document.createElement("div")
 	dBoxOne1.classList.add("dBoxOne1")
+	dBoxOne1.draggable = true;
+	const one = document.createElement("div")
+	one.dataset.dboxdiv = "0"
+	one.classList.add("dBox1")
+	dBoxOne1.appendChild(one)
+	dBoxOne1.addEventListener("dragstart", dragStart)
+	fourthContainer.appendChild(fourthContainerDiv)
+	fourthContainerDiv.appendChild(dBoxOne1)
 	dBox.appendChild(fourthContainer)
-	fourthContainer.appendChild(dBoxOne1)
+	// second ship length 1
+	const fourthContainerDiv1 = document.createElement("div")
+	fourthContainerDiv1.classList.add("relDiv1B")
 	const dBoxOne2 = document.createElement("div")
 	dBoxOne2.classList.add("dBoxOne2")
-	dBox.appendChild(fourthContainer)
-	fourthContainer.appendChild(dBoxOne2)
+	dBoxOne2.draggable = true;
+	const two = document.createElement("div")
+	two.dataset.dboxdiv = "0"
+	two.classList.add("dBox1B")
+	dBoxOne2.appendChild(two)
+	dBoxOne2.addEventListener("dragstart", dragStart)
+	fourthContainer.appendChild(fourthContainerDiv1)
+	fourthContainerDiv1.appendChild(dBoxOne2)
+	// third ship length 1
+	const fourthContainerDiv2 = document.createElement("div")
+	fourthContainerDiv2.classList.add("relDiv1C")
 	const dBoxOne3 = document.createElement("div")
 	dBoxOne3.classList.add("dBoxOne3")
-	dBox.appendChild(fourthContainer)
-	fourthContainer.appendChild(dBoxOne3)
+	dBoxOne3.draggable = true;
+	const Three = document.createElement("div")
+	Three.dataset.dboxdiv = "0"
+	Three.classList.add("dBox1C")
+	dBoxOne3.appendChild(Three)
+	dBoxOne3.addEventListener("dragstart", dragStart)
+	fourthContainer.appendChild(fourthContainerDiv2)
+	fourthContainerDiv2.appendChild(dBoxOne3)
+	// forth ship length 1
+	const fourthContainerDiv3 = document.createElement("div")
+	fourthContainerDiv3.classList.add("relDiv1D")
 	const dBoxOne4 = document.createElement("div")
 	dBoxOne4.classList.add("dBoxOne4")
-	dBox.appendChild(fourthContainer)
-	fourthContainer.appendChild(dBoxOne4)
+	dBoxOne4.draggable = true;
+	const Four = document.createElement("div")
+	Four.dataset.dboxdiv = "0"
+	Four.classList.add("dBox1D")
+	dBoxOne4.appendChild(Four)
+	dBoxOne4.addEventListener("dragstart", dragStart)
+	fourthContainer.appendChild(fourthContainerDiv3)
+	fourthContainerDiv3.appendChild(dBoxOne4)
 }
 
 export default function dragDrop() {

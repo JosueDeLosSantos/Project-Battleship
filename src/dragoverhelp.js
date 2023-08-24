@@ -246,4 +246,17 @@ export default function dragOverHelp(e, dBox) {
 			}
 		}
 	}
+
+	if (
+		dBox.classList.contains("dBoxOne1") ||
+		dBox.classList.contains("dBoxOne2") ||
+		dBox.classList.contains("dBoxOne3") ||
+		dBox.classList.contains("dBoxOne4")
+	) {
+		if (dBox.dataset.chunk) {
+			if (danger(e, dBox, dBox.dataset.chunk) !== null) {
+				twin[rowNum].children[colNum].classList.add("drag-over")
+			}
+		}
+	}
 }
