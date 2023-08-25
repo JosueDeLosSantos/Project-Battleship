@@ -3,6 +3,9 @@ import dragOverHelp from "./dragoverhelp"
 import dragLeaveHelp from "./dragleavehelp"
 import * as dropManager from "./dropManager"
 import chunkChecker from "./chunkChecker"
+// import randomIcon from "./icons/change_circle2.svg"
+import customiseIcon from "./icons/swipe.svg"
+import customiseIcon2 from "./icons/swipe2.svg"
 
 function dropTable() {
 	const grids = document.querySelector(".grids")
@@ -89,7 +92,7 @@ function dragStart(e) {
 			if (
 				!e.target.classList.contains("dBox4") &&
 				!e.target.classList.contains("dBox3") &&
-				!e.target.classList.contains("dBox3B")  &&
+				!e.target.classList.contains("dBox3B") &&
 				!e.target.classList.contains("dBox2") &&
 				!e.target.classList.contains("dBox2B") &&
 				!e.target.classList.contains("dBox2C") &&
@@ -388,7 +391,7 @@ function draggableShips() {
 	fourthContainerDiv.classList.add("relDiv1")
 	const dBoxOne1 = document.createElement("div")
 	dBoxOne1.classList.add("dBoxOne1")
-	dBoxOne1.draggable = true;
+	dBoxOne1.draggable = true
 	const one = document.createElement("div")
 	one.dataset.dboxdiv = "0"
 	one.classList.add("dBox1")
@@ -402,7 +405,7 @@ function draggableShips() {
 	fourthContainerDiv1.classList.add("relDiv1B")
 	const dBoxOne2 = document.createElement("div")
 	dBoxOne2.classList.add("dBoxOne2")
-	dBoxOne2.draggable = true;
+	dBoxOne2.draggable = true
 	const two = document.createElement("div")
 	two.dataset.dboxdiv = "0"
 	two.classList.add("dBox1B")
@@ -415,7 +418,7 @@ function draggableShips() {
 	fourthContainerDiv2.classList.add("relDiv1C")
 	const dBoxOne3 = document.createElement("div")
 	dBoxOne3.classList.add("dBoxOne3")
-	dBoxOne3.draggable = true;
+	dBoxOne3.draggable = true
 	const Three = document.createElement("div")
 	Three.dataset.dboxdiv = "0"
 	Three.classList.add("dBox1C")
@@ -428,7 +431,7 @@ function draggableShips() {
 	fourthContainerDiv3.classList.add("relDiv1D")
 	const dBoxOne4 = document.createElement("div")
 	dBoxOne4.classList.add("dBoxOne4")
-	dBoxOne4.draggable = true;
+	dBoxOne4.draggable = true
 	const Four = document.createElement("div")
 	Four.dataset.dboxdiv = "0"
 	Four.classList.add("dBox1D")
@@ -436,6 +439,37 @@ function draggableShips() {
 	dBoxOne4.addEventListener("dragstart", dragStart)
 	fourthContainer.appendChild(fourthContainerDiv3)
 	fourthContainerDiv3.appendChild(dBoxOne4)
+}
+
+function isdBoxEmpty() {
+	let answer = null
+	const relDiv = document.querySelector(".relDiv")
+	const relDiv3 = document.querySelector(".relDiv3")
+	const relDiv3B = document.querySelector(".relDiv3B")
+	const relDiv2 = document.querySelector(".relDiv2")
+	const relDiv2B = document.querySelector(".relDiv2B")
+	const relDiv2C = document.querySelector(".relDiv2C")
+	const relDiv1 = document.querySelector(".relDiv1")
+	const relDiv1B = document.querySelector(".relDiv1B")
+	const relDiv1C = document.querySelector(".relDiv1C")
+	const relDiv1D = document.querySelector(".relDiv1D")
+	if (
+		relDiv.children.length === 0 &&
+		relDiv3.children.length === 0 &&
+		relDiv3B.children.length === 0 &&
+		relDiv2.children.length === 0 &&
+		relDiv2B.children.length === 0 &&
+		relDiv2C.children.length === 0 &&
+		relDiv1.children.length === 0 &&
+		relDiv1B.children.length === 0 &&
+		relDiv1C.children.length === 0 &&
+		relDiv1D.children.length === 0
+	) {
+		answer = true
+	} else {
+		answer = false
+	}
+	return answer
 }
 
 export default function dragDrop() {
@@ -449,35 +483,45 @@ export default function dragDrop() {
 	playButtonContainer.classList.add("hide")
 	draggableShips()
 	dropTable()
+
+	const oldGridOption1Icon = document.querySelector(".gridOption1Icon")
+	oldGridOption1Icon.addEventListener("click", goBack)
+
+	const gridOption2 = document.querySelector(".gridOption2")
+	const oldGridOption2Icon = document.querySelector(".gridOption2Icon")
+	gridOption2.removeChild(oldGridOption2Icon)
+	const gridOption2Icon = new Image()
+	gridOption2Icon.classList.add("newGridOption2Icon")
+	gridOption2Icon.src = customiseIcon2
+	gridOption2.appendChild(gridOption2Icon)
+
 	title1.innerText = "Your ships"
 	title2.innerText = "Your grid"
 }
 
-function isdBoxEmpty(){
-	let answer = null
-	const relDiv = document.querySelector(".relDiv")
-	const relDiv3 = document.querySelector(".relDiv3")
-	const relDiv3B = document.querySelector(".relDiv3B")
-	const relDiv2 = document.querySelector(".relDiv2")
-	const relDiv2B = document.querySelector(".relDiv2B")
-	const relDiv2C = document.querySelector(".relDiv2C")
-	const relDiv1 = document.querySelector(".relDiv1")
-	const relDiv1B = document.querySelector(".relDiv1B")
-	const relDiv1C = document.querySelector(".relDiv1C")
-	const relDiv1D = document.querySelector(".relDiv1D")
-	if((relDiv.children.length === 0) &&
-	(relDiv3.children.length === 0) &&
-	(relDiv3B.children.length === 0) &&
-	(relDiv2.children.length === 0) &&
-	(relDiv2B.children.length === 0) &&
-	(relDiv2C.children.length === 0) &&
-	(relDiv1.children.length === 0) &&
-	(relDiv1B.children.length === 0) &&
-	(relDiv1C.children.length === 0) &&
-	(relDiv1D.children.length === 0)) {
-		answer = true
-	} else {
-		answer = false
-	}
-	return answer
+function goBack() {
+	const dBox = document.querySelector(".dBox")
+	dBox.parentElement.removeChild(dBox)
+	const dropTableContainer = document.querySelector(".dropTableContainer")
+	dropTableContainer.parentElement.removeChild(dropTableContainer)
+	const playerGridContainer = document.querySelector(".playerGridContainer")
+	playerGridContainer.classList.remove("hide")
+	const opponentGridContainer = document.querySelector(".opponentGridContainer")
+	opponentGridContainer.classList.remove("hide")
+	const playButtonContainer = document.querySelector(".playButtonContainer")
+	playButtonContainer.classList.remove("hide")
+	const newGridOption2Icon = document.querySelector(".newGridOption2Icon")
+	newGridOption2Icon.parentElement.removeChild(newGridOption2Icon)
+	const title1 = document.querySelector(".title1")
+	const title2 = document.querySelector(".title2")
+	title1.innerText = "Your grid"
+	title2.innerText = "Opponent's grid"
+
+	const gridOption2 = document.querySelector(".gridOption2")
+	const gridOption2Icon = new Image()
+	gridOption2Icon.classList.add("gridOption2Icon")
+	gridOption2Icon.setAttribute("title", "customize positions")
+	gridOption2Icon.src = customiseIcon
+	gridOption2Icon.addEventListener("click", dragDrop)
+	gridOption2.appendChild(gridOption2Icon)
 }
