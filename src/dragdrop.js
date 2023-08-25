@@ -251,6 +251,10 @@ function drop(e) {
 			dBoxOne4.addEventListener("dragstart", dragStart)
 		}
 	}
+
+	if (isdBoxEmpty()) {
+		console.log("finished")
+	}
 }
 
 function bugFixer() {
@@ -447,4 +451,33 @@ export default function dragDrop() {
 	dropTable()
 	title1.innerText = "Your ships"
 	title2.innerText = "Your grid"
+}
+
+function isdBoxEmpty(){
+	let answer = null
+	const relDiv = document.querySelector(".relDiv")
+	const relDiv3 = document.querySelector(".relDiv3")
+	const relDiv3B = document.querySelector(".relDiv3B")
+	const relDiv2 = document.querySelector(".relDiv2")
+	const relDiv2B = document.querySelector(".relDiv2B")
+	const relDiv2C = document.querySelector(".relDiv2C")
+	const relDiv1 = document.querySelector(".relDiv1")
+	const relDiv1B = document.querySelector(".relDiv1B")
+	const relDiv1C = document.querySelector(".relDiv1C")
+	const relDiv1D = document.querySelector(".relDiv1D")
+	if((relDiv.children.length === 0) &&
+	(relDiv3.children.length === 0) &&
+	(relDiv3B.children.length === 0) &&
+	(relDiv2.children.length === 0) &&
+	(relDiv2B.children.length === 0) &&
+	(relDiv2C.children.length === 0) &&
+	(relDiv1.children.length === 0) &&
+	(relDiv1B.children.length === 0) &&
+	(relDiv1C.children.length === 0) &&
+	(relDiv1D.children.length === 0)) {
+		answer = true
+	} else {
+		answer = false
+	}
+	return answer
 }

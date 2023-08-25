@@ -365,18 +365,6 @@ main > div:nth-child(1) {
   display: flex;
 }
 
-/* .dBoxOne1Error, .dBoxOne2Error, .dBoxOne3Error, .dBoxOne4Error{
-  width: 29px;
-  height: 31.4px;
-  left: 0px;
-  top: 0px;
-  background-color: hsla(19, 91%, 87%, 0.555);
-  box-shadow: inset 0 0 10px hsla(22, 84%, 71%, 0.555);
-  position: absolute;
-  z-index: 2;
-  display: flex;
-} */
-
 .v4 {
   width: 29px;
   height: 127px;
@@ -398,22 +386,6 @@ main > div:nth-child(1) {
   flex-direction: column;
 }
 
-/* .v1 {
-  width: 29px;
-  height: 31px;
-  display: flex;
-  flex-direction: column;
-} */
-
-/* .dBoxOne2, .dBoxOne3, .dBoxOne4 {
-  height: 29px;
-  width: 29px;
-  background-color: hsl(189, 91%, 87%);
-  box-shadow: inset 0 0 10px hsl(189, 84%, 71%);
-  border: 1px solid;
-  border-color: rgb(146, 146, 253);
-} */
-
 [data-dboxdiv] {
   flex-grow: 1;
 }
@@ -431,17 +403,6 @@ main > div:nth-child(1) {
   box-shadow: none;
   border: none;
 }
-
-/* .example {
-  width: 119px;
-  height: 31px;
-  left: 0px;
-  top: 0px;
-  background-color: hsla(189, 91%, 87%, 0.555);
-  box-shadow: inset 0 0 10px hsla(189, 84%, 71%, 0.555);
-  position: absolute;
-  z-index: 2;
-} */
 
 .relDiv {
   width: 119px;
