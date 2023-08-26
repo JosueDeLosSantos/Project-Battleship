@@ -41,31 +41,28 @@ export function Coordinates(v, matrix) {
   if (v === 4) {
     result.push(Ship(4));
     result.push(big4(matrix));
-    return result;
   }
   if (v === 3) {
     result.push(Ship(3));
     result.push(big3(matrix));
-    return result;
   }
   if (v === 2) {
     result.push(Ship(2));
     result.push(big2(matrix));
-    return result;
   }
   if (v === 1) {
     result.push(Ship(1));
     result.push(big1(matrix));
-    return result;
   }
+  return result;
 }
 
 function updateBoard(arr, matrix) {
   arr.forEach((element) => {
     matrix.forEach((matrixEl) => {
       matrixEl.forEach((el) => {
-        if (el === element) {
-          const found = (findEl) => findEl === element;
+        if (JSON.stringify(el) === JSON.stringify(element)) {
+          const found = (findEl) => JSON.stringify(findEl) === JSON.stringify(element);
           const mainIndex = matrixEl.findIndex(found);
           matrixEl[mainIndex] = [];
         }
@@ -240,3 +237,58 @@ function clearSurroundings(shipObject, C2){
   return answer;
 };
 
+function dgCoordinates(v, arr) {
+  const result = [];
+  if (v === 4) {
+    result.push(Ship(4));
+    result.push(arr);
+  }
+  if (v === 3) {
+    result.push(Ship(3));
+    result.push(arr);
+  }
+  if (v === 2) {
+    result.push(Ship(2));
+    result.push(arr);
+  }
+  if (v === 1) {
+    result.push(Ship(1));
+    result.push(arr);
+  }
+  return result
+}
+
+
+
+export function dgGameboard(arr) {
+  const ships = [];
+  let board = [];
+  const missedShot = [];
+  const allShipsSunk = false;
+  for (let i = 0; i < 10; i += 1) {
+    board.push([]);
+    for (let j = 0; j < 10; j += 1) {
+      board[i].push([i, j]);
+    }
+  }
+  // Add first ship (the biggest one) and  update board
+  ships.push(dgCoordinates(4, arr[0]));
+  board = updateBoard(ships[0][1], board);
+
+  // Add two smaller ships and update board
+  for (let i = 1; i < 3; i += 1) {
+    ships.push(dgCoordinates(3, arr[i]));
+    board = updateBoard(ships[i][1], board);
+  }
+  // Add three even smaller ships and update board
+  for (let i = 3; i < 6; i += 1) {
+    ships.push(dgCoordinates(2, arr[i]));
+    board = updateBoard(ships[i][1], board);
+  }
+  // Add the four smallest ships and update board
+  for (let i = 6; i < 10; i += 1) {
+    ships.push(dgCoordinates(1, arr[i]));
+    board = updateBoard(ships[i][1], board);
+  }
+  return { ships, missedShot, board, allShipsSunk };
+}

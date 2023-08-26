@@ -3,6 +3,7 @@ import dragOverHelp from "./dragoverhelp"
 import dragLeaveHelp from "./dragleavehelp"
 import * as dropManager from "./dropManager"
 import chunkChecker from "./chunkChecker"
+import * as logic from "./logic"
 // import randomIcon from "./icons/change_circle2.svg"
 import customiseIcon from "./icons/swipe.svg"
 import customiseIcon2 from "./icons/swipe2.svg"
@@ -257,6 +258,8 @@ function drop(e) {
 
 	if (isdBoxEmpty()) {
 		const ships = shipParser()
+		console.log(ships)
+		console.log(logic.dgGameboard(ships))
 	}
 }
 
