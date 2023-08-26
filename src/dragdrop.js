@@ -256,7 +256,7 @@ function drop(e) {
 	}
 
 	if (isdBoxEmpty()) {
-		console.log("finished")
+		const ships = shipParser()
 	}
 }
 
@@ -524,4 +524,137 @@ function goBack() {
 	gridOption2Icon.src = customiseIcon
 	gridOption2Icon.addEventListener("click", dragDrop)
 	gridOption2.appendChild(gridOption2Icon)
+}
+
+// parses all ships on the drop table
+function shipParser() {
+	const shipList = []
+	const dTable = document.querySelector(".dTable")
+	for (let i = 0; i < 10; i += 1) {
+		for (let j = 0; j < 10; j += 1) {
+			if (dTable.children[0].children[0].children) {
+				const ship = dTable.children[i].children[j].children[0]
+				let selectedShip = null
+				if (ship !== undefined) {
+					if (ship.classList.contains("dBoxFour")) {
+						if (!ship.classList.contains("v4")) {
+							selectedShip = [
+								[i, j],
+								[i, j + 1],
+								[i, j + 2],
+								[i, j + 3],
+							]
+						} else {
+							selectedShip = [
+								[i, j],
+								[i + 1, j],
+								[i + 2, j],
+								[i + 3, j],
+							]
+						}
+						shipList.push(selectedShip)
+					}
+
+					if (ship.classList.contains("dBoxThree1")) {
+						if (!ship.classList.contains("v3")) {
+							selectedShip = [
+								[i, j],
+								[i, j + 1],
+								[i, j + 2],
+							]
+						} else {
+							selectedShip = [
+								[i, j],
+								[i + 1, j],
+								[i + 2, j],
+							]
+						}
+						shipList.push(selectedShip)
+					}
+
+					if (ship.classList.contains("dBoxThree2")) {
+						if (!ship.classList.contains("v3")) {
+							selectedShip = [
+								[i, j],
+								[i, j + 1],
+								[i, j + 2],
+							]
+						} else {
+							selectedShip = [
+								[i, j],
+								[i + 1, j],
+								[i + 2, j],
+							]
+						}
+						shipList.push(selectedShip)
+					}
+
+					if (ship.classList.contains("dBoxTwo1")) {
+						if (!ship.classList.contains("v2")) {
+							selectedShip = [
+								[i, j],
+								[i, j + 1],
+							]
+						} else {
+							selectedShip = [
+								[i, j],
+								[i + 1, j],
+							]
+						}
+						shipList.push(selectedShip)
+					}
+
+					if (ship.classList.contains("dBoxTwo2")) {
+						if (!ship.classList.contains("v2")) {
+							selectedShip = [
+								[i, j],
+								[i, j + 1],
+							]
+						} else {
+							selectedShip = [
+								[i, j],
+								[i + 1, j],
+							]
+						}
+						shipList.push(selectedShip)
+					}
+
+					if (ship.classList.contains("dBoxTwo3")) {
+						if (!ship.classList.contains("v2")) {
+							selectedShip = [
+								[i, j],
+								[i, j + 1],
+							]
+						} else {
+							selectedShip = [
+								[i, j],
+								[i + 1, j],
+							]
+						}
+						shipList.push(selectedShip)
+					}
+
+					if (ship.classList.contains("dBoxOne1")) {
+						selectedShip = [[i, j]]
+						shipList.push(selectedShip)
+					}
+					if (ship.classList.contains("dBoxOne2")) {
+						selectedShip = [[i, j]]
+						shipList.push(selectedShip)
+					}
+					if (ship.classList.contains("dBoxOne3")) {
+						selectedShip = [[i, j]]
+						shipList.push(selectedShip)
+					}
+					if (ship.classList.contains("dBoxOne4")) {
+						selectedShip = [[i, j]]
+						shipList.push(selectedShip)
+					}
+				}
+			}
+		}
+	}
+	// Sort the array in descending order
+	const result = shipList.sort((a, b) => b.length - a.length)
+	return result
 }
