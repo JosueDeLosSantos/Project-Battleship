@@ -75,9 +75,8 @@ const playerGrid = document.querySelector(".playerGrid")
 
 let playerBoard = null
 
-function playerBoardFunction() {
- const playerBoard1 = logic.Gameboard()
- playerBoard = playerBoard1
+export function playerBoardFunction(temp = logic.Gameboard()) {
+ playerBoard = temp
  if (playerGrid.children.length > 0) {
   const playerGridTR = document.querySelectorAll(`[data-row]`)
   playerGridTR.forEach((el) => {
@@ -91,7 +90,7 @@ function playerBoardFunction() {
   for (let j = 0; j < 10; j += 1) {
    const gridField = document.createElement("td")
    gridField.classList.add("gridFieldPlayer")
-   gridField.dataset.field = `${playerBoard1.board[i][j]}`
+   gridField.dataset.field = `${playerBoard.board[i][j]}`
    if (!gridField.dataset.field) {
     gridField.dataset.field = `${i}${j}`
    }
@@ -102,7 +101,7 @@ function playerBoardFunction() {
    gridRowSelector.appendChild(gridField)
   }
  }
- return playerBoard1
+ return playerBoard
 }
 playerBoardFunction()
 
