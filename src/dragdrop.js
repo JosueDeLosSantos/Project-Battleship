@@ -142,6 +142,10 @@ function dragStart(e) {
 
 function dragEnd() {
 	bugFixer()
+	const playerGrid = document.querySelector(".playerGrid")
+	if (playerGrid.classList.contains("waiting")) {
+		playerGrid.classList.remove("waiting")
+	}
 }
 
 function dragOver(e) {

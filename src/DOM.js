@@ -328,8 +328,15 @@ function playerGridFlow(pBoard) {
 }
 
 let counter = 1
+function finishLater(v){
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true)
+      }, v * 300);
+    })
+  }
 
-function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
+async function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
  counter += 1
  const currentLength = pBoard.missedShot.length
  let newLength = currentLength
@@ -337,9 +344,7 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
  // Check if game is over
  if (oBoard.allShipsSunk === true || pBoard.allShipsSunk === true) {
   playerGridFlow(pBoard)
-  console.log(oBoard)
-  console.log(pBoard)
-  console.log(gameEnds(pBoard, oBoard))
+  gameEnds(pBoard, oBoard)
   return
  }
 
@@ -357,9 +362,8 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
    playerGrid.children[ms1].children[ms2].classList.add("missed2")
   }, 600)
   // Hide the players grid and oppen the opponet's grid
-  setTimeout(() => {
-   playerGridWeak()
-  }, counter * 300)
+  await finishLater(counter)
+  playerGridWeak()
   counter = 1
  } else {
   for (let i = 0; i < pBoard.ships.length; i += 1) {
@@ -376,15 +380,14 @@ function pcTurn(pBoard = playerBoard, oBoard = opponentBoard) {
   }
   setTimeout(() => {
    pcTurn(pBoard, oBoard)
-  }, 500)
+  }, 400)
  }
 }
 
 function opponentGridFlow(e) {
  if (opponentBoard.allShipsSunk === true || playerBoard.allShipsSunk === true) {
-  console.log(opponentBoard)
-  console.log(playerBoard)
-  console.log(gameEnds(playerBoard, opponentBoard))
+  gameEnds(playerBoard, opponentBoard)
+  return
  }
 
  if (
@@ -448,9 +451,7 @@ function opponentGridFlow(e) {
    opponentBoard = logic.receiveAttack(attack, opponentBoard)
    opponentGridFlowRefresh(opponentBoard)
    if (opponentBoard.allShipsSunk === true || playerBoard.allShipsSunk === true) {
-    console.log(opponentBoard)
-    console.log(playerBoard)
-    console.log(gameEnds(playerBoard, opponentBoard))
+    gameEnds(playerBoard, opponentBoard)
    }
   }
  }
@@ -562,8 +563,6 @@ function gameEnds(pBoard, oBoard) {
  } else {
   showWinner(shipsSunk(pBoard), shipsSunk(oBoard), "PC")
  }
-
- return { player: `${shipsSunk(pBoard)}`, opponent: `${shipsSunk(oBoard)}` }
 }
 
 function adjacentMove1center(arr, anyBoard) {

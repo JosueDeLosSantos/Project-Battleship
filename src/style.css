@@ -242,7 +242,7 @@ main > div:nth-child(1) {
   font-weight: bold;
   align-self: center;
   margin-top: 30%;
-  background-image: linear-gradient(to bottom, #c50909, #ca7d08);
+  background-image: linear-gradient(to bottom, #ff0404, #ca7d08);
   color: white;
   border-bottom: 2px solid #865408;
   border-radius: 40%;
@@ -403,6 +403,7 @@ main > div:nth-child(1) {
   box-shadow: none;
   border: none;
 }
+
 
 .relDiv {
   width: 119px;
