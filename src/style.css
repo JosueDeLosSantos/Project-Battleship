@@ -71,6 +71,18 @@ main > div:nth-child(1) {
   border-collapse: collapse;
 }
 
+.pi1container, .pi1container2 {
+  display: flex;
+}
+
+.emptyBox, .emptyBox2 {
+  flex: 0.5;
+}
+
+.playerIndex1, .opponentIndex1{
+  flex: 9;
+}
+
 [data-field],
 [data-field2],
 [data-drag-table-field],
