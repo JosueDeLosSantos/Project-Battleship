@@ -1,4 +1,4 @@
-// eslint-disable-next-line consistent-return
+
 export default function danger(e, dBox, chunk) {
 	let rowNum = null
 	let colNum = null

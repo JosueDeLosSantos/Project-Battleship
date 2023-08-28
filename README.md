@@ -1,5 +1,7 @@
 # Project-Battleship
 
+This app resembles the following website: http://en.battleship-game.org/
+
 1- Begin your app by creating the Ship factory function.
 
     1. Your ‘ships’ will be objects that include their length, the number of times they’ve been hit and whether or not they’ve been sunk.
@@ -45,6 +47,6 @@
 5. Finish it up
 
     1. There are several options available for letting users place their ships. You can let them type coordinates for each ship, or investigate implementing drag and drop.
-    
+
     2. You can polish the intelligence of the computer player by having it try adjacent slots after getting a ‘hit’.
 
