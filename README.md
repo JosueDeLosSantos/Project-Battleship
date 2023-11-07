@@ -1,3 +1,3 @@
 # Project-Battleship
 
-See a live preview at: https://memory-card-gold.vercel.app/
+See a live preview at: https://josuedelossantos.github.io/Project-Battleship/
